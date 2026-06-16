@@ -1,0 +1,99 @@
+/* mobile nav menu */
+
+:root {
+    --mobile-nav-main: #1e032a;
+    --mobile-nav-second: #842c46;
+    --mobile-nav-third: #bb3b4f;
+    --mobile-nav-fourth: #f56b4b;
+    --mobile-nav-shadow: #11021a;
+}
+
+.mobile-page {
+    position: fixed;
+
+    top: 0;
+    left: 0;
+
+
+    background-image: radial-gradient(var(--mobile-nav-second), var(--mobile-nav-third));
+    z-index: 1;
+    mask-image: url('#maskMobile');
+    -webkit-mask-image: url('#maskMobile');
+    mask-repeat: no-repeat;
+    mask-size: 100% 100%;
+    mask-mode: alpha;
+    -webkit-mask-repeat: no-repeat;
+    -webkit-mask-size: 100% 100%;
+    -webkit-mask-mode: alpha;
+    will-change: opacity;
+    text-shadow: 0 0 2ex var(--mobile-nav-shadow), 0 0 2px var(--mobile-nav-shadow);
+
+}
+
+#hamburger-icon-mobile>span {
+    width: 100%;
+    height: 0.4rem;
+    border-radius: 0.2rem;
+    background-color: var(--mobile-nav-main);
+
+    box-shadow: 0.05rem 0.2rem var(--mobile-nav-second);
+}
+
+.mobile-page i {
+    color: var(--mobile-nav-main);
+}
+
+.mobile-page a {
+    color: var(--mobile-nav-main);
+}
+
+.mobile-page .name {
+    text-shadow: 1px 1px 1px var(--mobile-nav-second),
+        1px 2px 1px var(--mobile-nav-second),
+        1px 3px 1px var(--mobile-nav-second),
+        1px 4px 1px var(--mobile-nav-second),
+        1px 5px 1px var(--mobile-nav-second),
+        1px 6px 1px var(--mobile-nav-second),
+        1px 7px 1px var(--mobile-nav-second),
+        1px 8px 1px var(--mobile-nav-second),
+        1px 9px 1px var(--mobile-nav-second),
+        1px 10px 1px var(--mobile-nav-second),
+        1px 18px 6px var(--mobile-nav-shadow),
+        1px 22px 10px var(--mobile-nav-shadow),
+        1px 25px 35px var(--mobile-nav-shadow),
+        1px 30px 60px var(--mobile-nav-shadow);
+}
+
+
+.mobile-page a::after {
+    background-color: var(--mobile-nav-main);
+}
+
+.mobile-page a::before {
+    background-color: var(--mobile-nav-main);
+}
+
+
+.navbar-hamburger {
+
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    gap: 10rem;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.item {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: flex-start;
+    gap: 1rem;
+    font-size: 3rem;
+    font-weight: 700;
+    text-align: left;
+    margin: 1rem;
+}

@@ -1,0 +1,1326 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;1,100;1,200;1,300;1,400;1,500;1,600;1,700&family=Ultra&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&family=Kanit:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap"
+      rel="stylesheet"
+    />
+    <script
+      src="https://kit.fontawesome.com/8e475b60fe.js"
+      crossorigin="anonymous"
+    ></script>
+
+    <link rel="stylesheet" href="style.css" />
+    <link rel="stylesheet" href="pages.css" />
+    <link rel="stylesheet" href="about.css" />
+    <link rel="stylesheet" href="contact.css" />
+    <link rel="stylesheet" href="project.css" />
+    <link rel="stylesheet" href="mobile.css" />
+
+    <title>MELKE TESFAY - Portfolio</title>
+    <style>
+      /* Add new CSS for mask rects here or in style.css/pages.css */
+      svg defs mask rect {
+        /* Opacity is controlled by JS */
+        shape-rendering: crispEdges;
+        /* Or geometricPrecision if gaps reappear and this doesn't help */
+        /* fill: white; will be set by JS attribute */
+      }
+    </style>
+  </head>
+
+  <body>
+    <div class="noise"></div>
+    <div class="noise-overlay"></div>
+    <div class="main-page">
+      <div class="container">
+        <div class="score" style="display: none; border-radius: 1rem">
+          <h3
+            style="
+              margin: 0;
+              padding: 0.5rem;
+              color: var(--second);
+              line-height: 1rem;
+              font-size: 1.5rem;
+              font-weight: bold;
+            "
+          >
+            SCORE
+          </h3>
+          <p style="margin: 0; padding: 0; color: var(--second)"></p>
+        </div>
+        <header style="position: relative">
+          <nav>
+            <ul class="header-logo-name head-left nav-bar">
+              <li class="logo name">
+                <a class="a-logo" id="main-page">
+                  <span class="m">M</span>
+                  <span class="t">T</span>
+                </a>
+              </li>
+            </ul>
+            <div class="toggle">
+              <input type="checkbox" id="btn" />
+              <label for="btn">
+                <span class="thumb"></span>
+              </label>
+              <div class="light"></div>
+            </div>
+            <div
+              class="hamburger-icon"
+              id="hamburger-icon"
+              style="display: flex"
+            >
+              <span></span>
+              <span></span>
+              <span></span>
+            </div>
+
+            <ul class="head-right nav-bar">
+              <li><a id="about-page">ABOUT</a></li>
+              <li><a id="projects-page">PROJECTS</a></li>
+              <li><a id="contact-page">CONTACT</a></li>
+            </ul>
+          </nav>
+        </header>
+        <!-- <ul class="navbar-hamburger name" id="navbar-hamburger">
+        <div>
+          <li class="item item_about"><a id="about-page-mobile">ABOUT</a></li>
+          <li class="item item_projects"><a id="projects-page-mobile">PROJECTS</a></li>
+          <li class="item item_contact"><a id="contact-page-mobile">CONTACT</a></li>
+        </div>
+      </ul> -->
+        <aside>
+          <div class="inside-aside">
+            <div class="inside-aside-top">
+              <span class="aside-top-t"></span>
+              <span class="aside-top-l"></span>
+              <span class="aside-top-r"></span>
+              <span class="aside-top-b"></span>
+              <div class="image-bottom">
+                <div class="image-top"></div>
+                <div class="image-top"></div>
+                <div class="image-top"></div>
+                <div class="image-top"></div>
+                <div class="image-top"></div>
+                <div class="image-top"></div>
+                <div class="image-top"></div>
+                <div class="image-top"></div>
+                <div class="image-top"></div>
+                <div class="image-top"></div>
+                <div class="image-top"></div>
+                <div class="image-top"></div>
+                <div class="image-top"></div>
+                <div class="image-top"></div>
+                <div class="image-top"></div>
+                <div class="image-top"></div>
+                <div class="image-top"></div>
+                <div class="image-top"></div>
+                <div class="image-top"></div>
+                <div class="image-top"></div>
+                <div class="image-title-container name">
+                  <h1 class="image-title">BACKEND</h1>
+                </div>
+              </div>
+            </div>
+            <div class="inside-aside-bottom">
+              <span class="aside-bottom-t"></span
+              ><span class="aside-bottom-l"></span
+              ><span class="aside-bottom-r"></span
+              ><span class="aside-bottom-b"></span>
+              <h3 class="aside-bottom-about-me"></h3>
+            </div>
+          </div>
+        </aside>
+        <main>
+          <div class="main-top" id="top-layer">
+            <div id="top-layer-content">
+              <div class="name">
+                <div class="fullName">
+                  <h1 class="vorname">MELK<span class="e">E</span></h1>
+                  <h1 class="nachname">T<span class="e">E</span>SFAY</h1>
+                </div>
+                <div class="frontEnd">
+                  <div>
+                    <h2>
+                      <i class="fa-solid fa-right-long"></i> Kreative UI/UX
+                    </h2>
+                    <h2>
+                      <i class="fa-solid fa-right-long"></i> Interaktive
+                      Animationen
+                    </h2>
+                    <h2>
+                      <i class="fa-solid fa-right-long"></i> Zero-Dependency
+                    </h2>
+                  </div>
+                  <div class="name-tigrigna">
+                    <h1>መልከ</h1>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div id="down-layer">
+              <div id="down-layer-content">
+                <div class="jobTitle">
+                  <h1 class="hidden">FULL-STACK</h1>
+                  <h1 class="hidden">WEB-DEVELOPER</h1>
+                </div>
+                <div class="backEnd">
+                  <div>
+                    <h2>
+                      <i class="fa-solid fa-right-long"></i> Low-Dependency
+                    </h2>
+                    <h2><i class="fa-solid fa-right-long"></i> Saubere APIs</h2>
+                    <h2>
+                      <i class="fa-solid fa-right-long"></i> Secure DevOps
+                    </h2>
+                  </div>
+                  <div class="nachname-tigrigna">
+                    <h1>ተስፋይ</h1>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="main-bottom">
+            <div id="wrapper">
+              <div class="viewport">
+                <div class="cube">
+                  <div class="side">
+                    <a href="https://digitalemancipation.ch/">
+                      <div class="cube-image side-text">
+                        <h2 class="project-name">GAME</h2>
+                      </div>
+                    </a>
+                  </div>
+                  <div class="side">
+                    <a href="https://wanderleben.ch/RestaurantWebsite/">
+                      <div class="cube-image side-text">
+                        <h2 class="project-name">DESIGN</h2>
+                      </div>
+                    </a>
+                  </div>
+                  <div class="side">
+                    <a href="https://turn.wanderleben.ch/">
+                      <div class="cube-image side-text">
+                        <h2 class="project-name">DATA</h2>
+                      </div>
+                    </a>
+                  </div>
+                  <div class="side">
+                    <a href="https://digitalemancipation.ch/">
+                      <div class="cube-image side-text">
+                        <h2 class="project-name">SCHACH</h2>
+                      </div>
+                    </a>
+                  </div>
+                  <div class="side">
+                    <a href="https://digitalemancipation.ch/">
+                      <div class="cube-image side-text">
+                        <h2 class="project-name">ALGO</h2>
+                      </div>
+                    </a>
+                  </div>
+                  <div class="side">
+                    <a href="https://digitalemancipation.ch/">
+                      <div class="cube-image side-text">
+                        <h2 class="project-name">SHOP</h2>
+                      </div>
+                    </a>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="ausgewaehlte-projekte name">
+              <h2>AUSGEWÄHLTE</h2>
+              <h2>PROJEKTE</h2>
+              <i class="fa-solid fa-left-long"></i>
+            </div>
+          </div>
+        </main>
+        <section class="tools">
+          <div class="tools-left">
+            <h3>
+              Dieses Portfolio ist mein persönliches Experiment: gebaut mit
+              purem HTML, CSS und Vanilla JavaScript. Mein Ziel war es
+              herauszufinden, wie weit man ohne Frameworks oder Libraries kommt
+              – und zu zeigen, dass sich mit einem minimalistischen Ansatz
+              trotzdem moderne und interaktive Webseiten umsetzen lassen.
+            </h3>
+          </div>
+          <div class="tools-right">
+            <ul class="spiralText" style="visibility: hidden">
+              <li>HTML</li>
+              <li>CSS</li>
+              <li>JAVASCRIPT</li>
+              <li>PHP</li>
+              <li>LARAVEL</li>
+              <li>MYSQL</li>
+              <li>GIT</li>
+              <li>GITHUB</li>
+              <li>GITLAB</li>
+              <li>FIGMA</li>
+              <li>VUE</li>
+              <li>NODE</li>
+              <li>PYTHON</li>
+              <li>C++</li>
+              <li>NPM</li>
+              <li>DOCKER</li>
+              <li>NGINX</li>
+              <li>SCSS</li>
+              <li>TRELLO</li>
+              <li>PROXMOX</li>
+              <li>TAILWIND</li>
+              <li>PFSENSE</li>
+              <li>OPENSSL</li>
+              <li>SQL</li>
+              <li style="text-wrap: nowrap">REST APIs</li>
+              <li>JSON</li>
+              <li>LINUX</li>
+              <li>BASH</li>
+              <li>CI/CD</li>
+              <li>ANSIBLE</li>
+            </ul>
+          </div>
+        </section>
+        <footer>
+          <div class="info">
+            <div class="info-copy">
+              <p class="info-copy-footnote">
+                Made with &nbsp; &nbsp;<i class="fa-solid fa-heart"></i>&nbsp;
+                &nbsp; and &nbsp; &nbsp;
+                <span
+                  class="coffee-icon"
+                  aria-label="coffee with steam"
+                  role="img"
+                >
+                  <svg
+                    class="coffee-svg"
+                    width="29"
+                    height="29"
+                    viewBox="0 0 15 15"
+                    aria-hidden="true"
+                  >
+                    <!-- cup body -->
+                    <path
+                      d="M2 7h9v3.5a2.5 2.5 0 0 1-2.5 2.5H4.5A2.5 2.5 0 0 1 2 10.5V7z"
+                      fill="currentColor"
+                      stroke="currentColor"
+                      stroke-width="1.2"
+                      stroke-linejoin="round"
+                    />
+                    <!-- handle -->
+                    <path
+                      d="M11 8.2h1.1a1.7 1.7 0 1 1 0 3.4H11"
+                      fill="none"
+                      stroke="currentColor"
+                      stroke-width="1.2"
+                      stroke-linecap="round"
+                    />
+                    <!-- saucer -->
+                    <path
+                      d="M1.5 14.2H13.5"
+                      fill="none"
+                      stroke="currentColor"
+                      stroke-width="1.2"
+                      stroke-linecap="round"
+                    />
+
+                    <!-- steam (3 puffs) -->
+                    <g class="steam s1">
+                      <path
+                        d="M6 6.2c0-1 .9-1.3 .9-2.3S6 2.6 6 1.6"
+                        fill="none"
+                        stroke="currentColor"
+                        stroke-width="1"
+                        stroke-linecap="round"
+                      />
+                    </g>
+                    <g class="steam s2">
+                      <path
+                        d="M8 6.0c0-1 .9-1.3 .9-2.3S8 2.4 8 1.4"
+                        fill="none"
+                        stroke="currentColor"
+                        stroke-width="1"
+                        stroke-linecap="round"
+                      />
+                    </g>
+                    <g class="steam s3">
+                      <path
+                        d="M4 6.4c0-1 .9-1.3 .9-2.3S4 3.0 4 2.0"
+                        fill="none"
+                        stroke="currentColor"
+                        stroke-width="1"
+                        stroke-linecap="round"
+                      />
+                    </g>
+                  </svg>
+                </span>
+                &nbsp; &nbsp;in Zürich
+              </p>
+            </div>
+            <div class="info-copy-right">
+              <p class="info-copy-footnote">2024 © melke</p>
+            </div>
+            <div class="info-socials">
+              <a href="https://github.com"
+                ><i class="fa-brands fa-github"></i></a
+              ><a href="https://codepen.com"><i class="fab fa-codepen"></i></a
+              ><a href="https://myWebsite.com"
+                ><i class="fa-solid fa-globe"></i></a
+              ><a href="https://mail.com"
+                ><i class="fa-solid fa-envelope"></i
+              ></a>
+            </div>
+          </div>
+        </footer>
+      </div>
+    </div>
+
+    <div class="about-page">
+      <!-- <div class="noise"></div>
+    <div class="noise-overlay"></div> -->
+      <div class="container">
+        <header style="position: relative">
+          <nav>
+            <ul class="header-logo-name head-left nav-bar">
+              <li class="logo name">
+                <a class="a-logo" id="main-page-from-about">
+                  <span class="m">M</span> <span class="t">T</span>
+                </a>
+              </li>
+            </ul>
+            <div class="toggle" style="display: none">
+              <input type="checkbox" id="btn-about" />
+              <label for="btn-about"> <span class="thumb"></span> </label>
+              <div class="light"></div>
+            </div>
+            <div
+              class="hamburger-icon"
+              id="hamburger-icon-about"
+              style="display: flex"
+            >
+              <span></span> <span></span>
+              <span></span>
+            </div>
+            <ul class="head-right nav-bar">
+              <li><a id="about-page-from-about">ABOUT</a></li>
+              <li><a id="projects-page-from-about">PROJECTS</a></li>
+              <li><a id="contact-page-from-about">CONTACT</a></li>
+            </ul>
+          </nav>
+        </header>
+        <!-- <ul class="navbar-hamburger name" id="navbar-hamburger-about">
+        <div>
+          <li class="item item_about"><a id="about-page-mobile-from-about">ABOUT</a></li>
+          <li class="item item_projects"><a id="projects-page-mobile-from-about">PROJECTS</a></li>
+          <li class="item item_contact"><a id="contact-page-mobile-from-about">CONTACT</a></li>
+        </div>
+      </ul> -->
+        <div class="about-page-main">
+          <div class="about-page-main-top">
+            <div class="hover-text">
+              <h3 class="intro">
+                Hi, ich bin Melke – Full Stack Web-Entwickler aus Zürich.
+              </h3>
+              <h3>
+                Ich entwickle gern klare, leicht verständliche Webseiten mit
+                durchdachtem Code und modernem Design. Dabei setze ich auf
+                schlanke Lösungen ohne unnötige Abhängigkeiten – einfach,
+                performant und mit Liebe zum Detail. Ob Design, Frontend oder
+                Backend – ich setze Ideen in Realität um.
+              </h3>
+            </div>
+            <div class="about-page-main-top-image">
+              <img
+                class="zuerich zuerich-top"
+                id="zuerich-top-img"
+                src="zurich.png"
+                alt="Zürich"
+              />
+              <img
+                class="zuerich zuerich-bottom"
+                id="zuerich-bottom-img"
+                src="zurich.png"
+                alt="Zuerich"
+              />
+            </div>
+          </div>
+          <div class="about-page-main-bottom">
+            <div class="about-page-main-bottom-image">
+              <h1 class="name-tigrigna name">መ</h1>
+            </div>
+            <div class="hover-text">
+              <h3>
+                Ich bin erst relativ spät in die Welt des Programmierens
+                eingestiegen – vielleicht gerade deshalb fasziniert sie mich so
+                sehr. Aus einem einfachen Interesse ist schnell eine
+                Leidenschaft geworden, die inzwischen auch mein Hobby ist.
+              </h3>
+            </div>
+            <div class="hover-text">
+              <h3>
+                Wenn ich nicht an Web-Projekten oder meinem HomeLab tüftele,
+                lese ich gerne Philosophie oder bin in der Natur unterwegs – am
+                liebsten auf langen Wanderungen in den Alpen. Ein perfekter
+                Kontrast zur Bildschirm- und Kopfarbeit – er hilft mir, den Kopf
+                frei zu bekommen und neue Ideen zu entwickeln.
+              </h3>
+            </div>
+          </div>
+        </div>
+        <footer>
+          <div class="info">
+            <div class="info-copy">
+              <p class="info-copy-footnote">
+                Made with &nbsp; &nbsp;<i class="fa-solid fa-heart"></i>&nbsp;
+                &nbsp; and &nbsp; &nbsp;
+                <span
+                  class="coffee-icon"
+                  aria-label="coffee with steam"
+                  role="img"
+                >
+                  <svg
+                    class="coffee-svg"
+                    width="29"
+                    height="29"
+                    viewBox="0 0 15 15"
+                    aria-hidden="true"
+                  >
+                    <!-- cup body -->
+                    <path
+                      d="M2 7h9v3.5a2.5 2.5 0 0 1-2.5 2.5H4.5A2.5 2.5 0 0 1 2 10.5V7z"
+                      fill="currentColor"
+                      stroke="currentColor"
+                      stroke-width="1.2"
+                      stroke-linejoin="round"
+                    />
+                    <!-- handle -->
+                    <path
+                      d="M11 8.2h1.1a1.7 1.7 0 1 1 0 3.4H11"
+                      fill="none"
+                      stroke="currentColor"
+                      stroke-width="1.2"
+                      stroke-linecap="round"
+                    />
+                    <!-- saucer -->
+                    <path
+                      d="M1.5 14.2H13.5"
+                      fill="none"
+                      stroke="currentColor"
+                      stroke-width="1.2"
+                      stroke-linecap="round"
+                    />
+
+                    <!-- steam (3 puffs) -->
+                    <g class="steam s1">
+                      <path
+                        d="M6 6.2c0-1 .9-1.3 .9-2.3S6 2.6 6 1.6"
+                        fill="none"
+                        stroke="currentColor"
+                        stroke-width="1"
+                        stroke-linecap="round"
+                      />
+                    </g>
+                    <g class="steam s2">
+                      <path
+                        d="M8 6.0c0-1 .9-1.3 .9-2.3S8 2.4 8 1.4"
+                        fill="none"
+                        stroke="currentColor"
+                        stroke-width="1"
+                        stroke-linecap="round"
+                      />
+                    </g>
+                    <g class="steam s3">
+                      <path
+                        d="M4 6.4c0-1 .9-1.3 .9-2.3S4 3.0 4 2.0"
+                        fill="none"
+                        stroke="currentColor"
+                        stroke-width="1"
+                        stroke-linecap="round"
+                      />
+                    </g>
+                  </svg>
+                </span>
+                &nbsp; &nbsp;in Zürich
+              </p>
+            </div>
+            <div class="info-copy-right">
+              <p class="info-copy-footnote">2024 © melke</p>
+            </div>
+            <div class="info-socials">
+              <a href="https://github.com"
+                ><i class="fa-brands fa-github"></i></a
+              ><a href="https://codepen.com"><i class="fab fa-codepen"></i></a
+              ><a href="https://myWebsite.com"
+                ><i class="fa-solid fa-globe"></i></a
+              ><a href="https://mail.com"
+                ><i class="fa-solid fa-envelope"></i
+              ></a>
+            </div>
+          </div>
+        </footer>
+      </div>
+    </div>
+    <div class="projects-page">
+      <!-- <div class="noise"></div>
+    <div class="noise-overlay"></div> -->
+      <div class="container">
+        <header style="position: relative">
+          <nav>
+            <ul class="header-logo-name head-left nav-bar">
+              <li class="logo name">
+                <a class="a-logo" id="main-page-from-projects">
+                  <span class="m">M</span> <span class="t">T</span>
+                </a>
+              </li>
+            </ul>
+            <div class="toggle" style="display: none">
+              <input type="checkbox" id="btn-projects" />
+              <label for="btn-projects"> <span class="thumb"></span> </label>
+              <div class="light"></div>
+            </div>
+            <div
+              class="hamburger-icon"
+              id="hamburger-icon-projects"
+              style="display: flex"
+            >
+              <span></span> <span></span>
+              <span></span>
+            </div>
+            <ul class="head-right nav-bar">
+              <li><a id="about-page-from-projects">ABOUT</a></li>
+              <li><a id="projects-page-from-projects">PROJECTS</a></li>
+              <li><a id="contact-page-from-projects">CONTACT</a></li>
+            </ul>
+          </nav>
+        </header>
+        <!-- <ul class="navbar-hamburger name" id="navbar-hamburger-projects">
+        <div>
+          <li class="item item_about"><a id="about-page-mobile-from-projects">ABOUT</a></li>
+          <li class="item item_projects"><a id="projects-page-mobile-from-projects">PROJECTS</a></li>
+          <li class="item item_contact"><a id="contact-page-mobile-from-projects">CONTACT</a></li>
+        </div>
+      </ul> -->
+        <div class="projects-page-main">
+          <div class="projects-grid">
+            <article class="retro-card">
+              <div class="retro-head">
+                <span class="dot"></span><span class="dot"></span
+                ><span class="dot"></span>
+                <span class="label">APP 1</span>
+              </div>
+              <div class="retro-media"></div>
+              <h4 class="retro-title">TextRepellant</h4>
+              <p class="retro-desc">
+                Interaktive Typo-Experimente, komplett Vanilla JS.
+              </p>
+              <div class="retro-tags">
+                <span>HTML</span><span>CSS</span><span>JS</span>
+              </div>
+            </article>
+
+            <article class="retro-card">
+              <div class="retro-head">
+                <span class="dot"></span><span class="dot"></span
+                ><span class="dot"></span><span class="label">APP 2</span>
+              </div>
+              <div class="retro-media"></div>
+              <h4 class="retro-title">Cube Shader</h4>
+              <p class="retro-desc">Retro 3D-Cube – Mathe statt Frameworks.</p>
+              <div class="retro-tags">
+                <span>Canvas</span><span>Math</span><span>No deps</span>
+              </div>
+            </article>
+
+            <article class="retro-card">
+              <div class="retro-head">
+                <span class="dot"></span><span class="dot"></span
+                ><span class="dot"></span><span class="label">APP 3</span>
+              </div>
+              <div class="retro-media"></div>
+              <h4 class="retro-title">Wave Nav</h4>
+              <p class="retro-desc">SVG-Masken, saubere State-Logik.</p>
+              <div class="retro-tags">
+                <span>SVG</span><span>CSS</span><span>JS</span>
+              </div>
+            </article>
+
+            <article class="retro-card">
+              <div class="retro-head">
+                <span class="dot"></span><span class="dot"></span
+                ><span class="dot"></span><span class="label">APP 4</span>
+              </div>
+              <div class="retro-media"></div>
+              <h4 class="retro-title">Hide & Seek</h4>
+              <p class="retro-desc">Cursor-Spielereien ohne Libs.</p>
+              <div class="retro-tags"><span>DOM</span><span>Events</span></div>
+            </article>
+            <article class="retro-card">
+              <div class="retro-head">
+                <span class="dot"></span><span class="dot"></span
+                ><span class="dot"></span><span class="label">APP 5</span>
+              </div>
+              <div class="retro-media"></div>
+              <h4 class="retro-title">Image FX</h4>
+              <p class="retro-desc">CSS-Filter & Blends, performant.</p>
+              <div class="retro-tags">
+                <span>Filters</span><span>Blend</span>
+              </div>
+            </article>
+            <article class="retro-card">
+              <div class="retro-head">
+                <span class="dot"></span><span class="dot"></span
+                ><span class="dot"></span><span class="label">APP 6</span>
+              </div>
+              <div class="retro-media"></div>
+              <h4 class="retro-title">Typing FX</h4>
+              <p class="retro-desc">Tastatur-Effekt in Vanilla.</p>
+              <div class="retro-tags"><span>JS</span><span>UX</span></div>
+            </article>
+          </div>
+        </div>
+        <footer>
+          <div class="info">
+            <div class="info-copy">
+              <p class="info-copy-footnote">
+                Made with &nbsp; &nbsp;<i class="fa-solid fa-heart"></i>&nbsp;
+                &nbsp; and &nbsp; &nbsp;
+                <span
+                  class="coffee-icon"
+                  aria-label="coffee with steam"
+                  role="img"
+                >
+                  <svg
+                    class="coffee-svg"
+                    width="29"
+                    height="29"
+                    viewBox="0 0 15 15"
+                    aria-hidden="true"
+                  >
+                    <!-- cup body -->
+                    <path
+                      d="M2 7h9v3.5a2.5 2.5 0 0 1-2.5 2.5H4.5A2.5 2.5 0 0 1 2 10.5V7z"
+                      fill="currentColor"
+                      stroke="currentColor"
+                      stroke-width="1.2"
+                      stroke-linejoin="round"
+                    />
+                    <!-- handle -->
+                    <path
+                      d="M11 8.2h1.1a1.7 1.7 0 1 1 0 3.4H11"
+                      fill="none"
+                      stroke="currentColor"
+                      stroke-width="1.2"
+                      stroke-linecap="round"
+                    />
+                    <!-- saucer -->
+                    <path
+                      d="M1.5 14.2H13.5"
+                      fill="none"
+                      stroke="currentColor"
+                      stroke-width="1.2"
+                      stroke-linecap="round"
+                    />
+
+                    <!-- steam (3 puffs) -->
+                    <g class="steam s1">
+                      <path
+                        d="M6 6.2c0-1 .9-1.3 .9-2.3S6 2.6 6 1.6"
+                        fill="none"
+                        stroke="currentColor"
+                        stroke-width="1"
+                        stroke-linecap="round"
+                      />
+                    </g>
+                    <g class="steam s2">
+                      <path
+                        d="M8 6.0c0-1 .9-1.3 .9-2.3S8 2.4 8 1.4"
+                        fill="none"
+                        stroke="currentColor"
+                        stroke-width="1"
+                        stroke-linecap="round"
+                      />
+                    </g>
+                    <g class="steam s3">
+                      <path
+                        d="M4 6.4c0-1 .9-1.3 .9-2.3S4 3.0 4 2.0"
+                        fill="none"
+                        stroke="currentColor"
+                        stroke-width="1"
+                        stroke-linecap="round"
+                      />
+                    </g>
+                  </svg>
+                </span>
+                &nbsp; &nbsp;in Zürich
+              </p>
+            </div>
+            <div class="info-copy-right">
+              <p class="info-copy-footnote">2024 © melke</p>
+            </div>
+            <div class="info-socials">
+              <a href="https://github.com"
+                ><i class="fa-brands fa-github"></i></a
+              ><a href="https://codepen.com"><i class="fab fa-codepen"></i></a
+              ><a href="https://myWebsite.com"
+                ><i class="fa-solid fa-globe"></i></a
+              ><a href="https://mail.com"
+                ><i class="fa-solid fa-envelope"></i
+              ></a>
+            </div>
+          </div>
+        </footer>
+      </div>
+    </div>
+
+    <div class="contact-page">
+      <!-- <div class="noise"></div>
+    <div class="noise-overlay"></div> -->
+      <div class="container">
+        <header style="position: relative">
+          <nav>
+            <ul class="header-logo-name head-left nav-bar">
+              <li class="logo name">
+                <a class="a-logo" id="main-page-from-contact">
+                  <span class="m">M</span> <span class="t">T</span>
+                </a>
+              </li>
+            </ul>
+            <div class="toggle" style="display: none">
+              <input type="checkbox" id="btn-contact" />
+              <label for="btn-contact"> <span class="thumb"></span> </label>
+              <div class="light"></div>
+            </div>
+            <div
+              class="hamburger-icon"
+              id="hamburger-icon-contact"
+              style="display: flex"
+            >
+              <span></span> <span></span>
+              <span></span>
+            </div>
+            <ul class="head-right nav-bar">
+              <li><a id="about-page-from-contact">ABOUT</a></li>
+              <li><a id="projects-page-from-contact">PROJECTS</a></li>
+              <li><a id="contact-page-from-contact">CONTACT</a></li>
+            </ul>
+          </nav>
+        </header>
+        <!-- <ul class="navbar-hamburger name" id="navbar-hamburger-contact">
+        <div>
+          <li class="item item_about"><a id="about-page-mobile-from-contact">ABOUT</a></li>
+          <li class="item item_projects"><a id="projects-page-mobile-from-contact">PROJECTS</a></li>
+          <li class="item item_contact"><a id="contact-page-mobile-from-contact">CONTACT</a></li>
+        </div>
+      </ul> -->
+        <div class="contact-page-main name">
+          <h1>LET'S START BUILDING</h1>
+          <h1>YOUR FULL-STACK IS HERE</h1>
+          <h1>GET IN TOUCH</h1>
+          <h1>TODAY</h1>
+          <h1>
+            <a href=""><i class="fa-solid fa-down-long"></i></a>
+          </h1>
+          <h1>
+            <a href=""><i class="fa-solid fa-envelope"></i></a>
+          </h1>
+        </div>
+        <footer>
+          <div class="info">
+            <div class="info-copy">
+              <p class="info-copy-footnote">
+                Made with &nbsp; &nbsp;<i class="fa-solid fa-heart"></i>&nbsp;
+                &nbsp; and &nbsp; &nbsp;
+                <span
+                  class="coffee-icon"
+                  aria-label="coffee with steam"
+                  role="img"
+                >
+                  <svg
+                    class="coffee-svg"
+                    width="29"
+                    height="29"
+                    viewBox="0 0 15 15"
+                    aria-hidden="true"
+                  >
+                    <!-- cup body -->
+                    <path
+                      d="M2 7h9v3.5a2.5 2.5 0 0 1-2.5 2.5H4.5A2.5 2.5 0 0 1 2 10.5V7z"
+                      fill="currentColor"
+                      stroke="currentColor"
+                      stroke-width="1.2"
+                      stroke-linejoin="round"
+                    />
+                    <!-- handle -->
+                    <path
+                      d="M11 8.2h1.1a1.7 1.7 0 1 1 0 3.4H11"
+                      fill="none"
+                      stroke="currentColor"
+                      stroke-width="1.2"
+                      stroke-linecap="round"
+                    />
+                    <!-- saucer -->
+                    <path
+                      d="M1.5 14.2H13.5"
+                      fill="none"
+                      stroke="currentColor"
+                      stroke-width="1.2"
+                      stroke-linecap="round"
+                    />
+
+                    <!-- steam (3 puffs) -->
+                    <g class="steam s1">
+                      <path
+                        d="M6 6.2c0-1 .9-1.3 .9-2.3S6 2.6 6 1.6"
+                        fill="none"
+                        stroke="currentColor"
+                        stroke-width="1"
+                        stroke-linecap="round"
+                      />
+                    </g>
+                    <g class="steam s2">
+                      <path
+                        d="M8 6.0c0-1 .9-1.3 .9-2.3S8 2.4 8 1.4"
+                        fill="none"
+                        stroke="currentColor"
+                        stroke-width="1"
+                        stroke-linecap="round"
+                      />
+                    </g>
+                    <g class="steam s3">
+                      <path
+                        d="M4 6.4c0-1 .9-1.3 .9-2.3S4 3.0 4 2.0"
+                        fill="none"
+                        stroke="currentColor"
+                        stroke-width="1"
+                        stroke-linecap="round"
+                      />
+                    </g>
+                  </svg>
+                </span>
+                &nbsp; &nbsp;in Zürich
+              </p>
+            </div>
+            <div class="info-copy-right">
+              <p class="info-copy-footnote">2024 © melke</p>
+            </div>
+            <div class="info-socials">
+              <a href="https://github.com"
+                ><i class="fa-brands fa-github"></i></a
+              ><a href="https://codepen.com"><i class="fab fa-codepen"></i></a
+              ><a href="https://myWebsite.com"
+                ><i class="fa-solid fa-globe"></i></a
+              ><a href="https://mail.com"
+                ><i class="fa-solid fa-envelope"></i
+              ></a>
+            </div>
+          </div>
+        </footer>
+      </div>
+    </div>
+
+    <div class="mobile-page">
+      <div class="container">
+        <header>
+          <nav>
+            <ul class="header-logo-name head-left nav-bar">
+              <li class="logo name">
+                <a class="a-logo" id="main-page-from-mobile">
+                  <span class="m">M</span>
+                  <span class="t">T</span>
+                </a>
+              </li>
+            </ul>
+            <div
+              class="hamburger-icon"
+              id="hamburger-icon-mobile"
+              style="display: flex"
+            >
+              <span></span><span></span><span></span>
+            </div>
+          </nav>
+        </header>
+        <aside></aside>
+        <main>
+          <!-- Your mobile nav items (reuse your existing markup) -->
+          <ul class="navbar-hamburger name">
+            <div>
+              <li class="item item_about">
+                <i class="fa-solid fa-right-long"></i
+                ><a id="about-page-from-mobile">ABOUT</a>
+              </li>
+              <li class="item item_projects">
+                <i class="fa-solid fa-right-long"></i
+                ><a id="projects-page-from-mobile">PROJECTS</a>
+              </li>
+              <li class="item item_contact">
+                <i class="fa-solid fa-right-long"></i
+                ><a id="contact-page-from-mobile">CONTACT</a>
+              </li>
+            </div>
+          </ul>
+        </main>
+        <footer></footer>
+      </div>
+    </div>
+
+    <svg width="0" height="0" style="position: absolute; z-index: -1">
+      <defs>
+        <mask
+          id="maskMain"
+          maskUnits="objectBoundingBox"
+          maskContentUnits="objectBoundingBox"
+        ></mask>
+        <mask
+          id="maskAbout"
+          maskUnits="objectBoundingBox"
+          maskContentUnits="objectBoundingBox"
+        ></mask>
+        <mask
+          id="maskProjects"
+          maskUnits="objectBoundingBox"
+          maskContentUnits="objectBoundingBox"
+        ></mask>
+        <mask
+          id="maskContact"
+          maskUnits="objectBoundingBox"
+          maskContentUnits="objectBoundingBox"
+        ></mask>
+        <mask
+          id="maskMobile"
+          maskUnits="objectBoundingBox"
+          maskContentUnits="objectBoundingBox"
+        ></mask>
+        s
+      </defs>
+    </svg>
+
+    <!-- make all pages the same height -->
+    <script>
+      function makePageSameHeight() {
+        const pageHeight = document.querySelector(".main-page").offsetHeight;
+
+        document.querySelectorAll("body > div").forEach((page) => {
+          if (page.classList.contains("main-page")) return;
+          page.style.height = `${pageHeight}px`;
+        });
+      }
+
+      document.addEventListener("DOMContentLoaded", makePageSameHeight);
+      document.addEventListener("resize", makePageSameHeight);
+      // When the active page's hamburger is clicked, open the mobile-page
+      document.addEventListener("click", (e) => {
+        const icon = e.target.closest(".page-active .hamburger-icon");
+        if (!icon) return;
+        changePageWithWave("mobile");
+        setActivePage("mobile");
+      });
+
+      // If you click the hamburger again while on the mobile-page, go back to main
+      document.addEventListener("click", (e) => {
+        const icon = e.target.closest(
+          ".mobile-page.page-active .hamburger-icon",
+        );
+        if (!icon) return;
+        changePageWithWave("main");
+        setActivePage("main");
+      });
+    </script>
+    <!-- end make all pages the same height -->
+
+    <script>
+      // --- NEW FADING SQUARES WAVE ANIMATION CODE ---
+
+      console.log("New Wave Animation Script Initializing...");
+      const PAGE_MAP = {
+        main: document.querySelector(".main-page"),
+        about: document.querySelector(".about-page"),
+        projects: document.querySelector(".projects-page"),
+        contact: document.querySelector(".contact-page"),
+        mobile: document.querySelector(".mobile-page"),
+      };
+      const N_ROWS = 12; // Adjusted for potentially better performance
+      const N_COLS = 12;
+      const STAGGER_DELAY_MS = 50;
+      const ANIMATION_DURATION_MS = 500;
+      const DEFAULT_WAVE_ORIGIN = "top-left";
+
+      let activeAnimations = [];
+      let animationFrameId = null;
+
+      function generateMaskTiles(maskEl) {
+        // console.log(`Generating mask tiles for: ${maskEl.id}`);
+        const w = 1 / N_COLS,
+          h = 1 / N_ROWS;
+        for (let r = 0; r < N_ROWS; r++) {
+          for (let c = 0; c < N_COLS; c++) {
+            const rect = document.createElementNS(
+              "http://www.w3.org/2000/svg",
+              "rect",
+            );
+            rect.setAttribute("x", String(c * w));
+            rect.setAttribute("y", String(r * h));
+            rect.setAttribute("width", String(w));
+            rect.setAttribute("height", String(h));
+            rect.setAttribute("fill", "white"); // For alpha masks, white is opaque
+            rect.dataset.row = r;
+            rect.dataset.col = c;
+            rect.style.opacity = "1"; // Set initial JS style opacity
+            maskEl.appendChild(rect);
+          }
+        }
+      }
+
+      function animateTilesJS(rects, open, origin = DEFAULT_WAVE_ORIGIN) {
+        const startTime = performance.now();
+        // console.log(`Animate ${rects.length} tiles to ${open ? 'open' : 'close'}`);
+
+        rects.forEach((r) => {
+          const row = +r.dataset.row,
+            col = +r.dataset.col;
+          let delayFactor;
+          switch (origin) {
+            case "top-right":
+              delayFactor = row + (N_COLS - 1 - col);
+              break;
+            case "bottom-left":
+              delayFactor = N_ROWS - 1 - row + col;
+              break;
+            case "bottom-right":
+              delayFactor = N_ROWS - 1 - row + (N_COLS - 1 - col);
+              break;
+            default:
+              delayFactor = row + col;
+          }
+
+          const rectStartTime = startTime + delayFactor * STAGGER_DELAY_MS;
+          const initialOpacity = parseFloat(r.style.opacity || "1");
+          const targetOpacity = open ? 1 : 0;
+
+          activeAnimations = activeAnimations.filter((anim) => anim.rect !== r);
+
+          activeAnimations.push({
+            rect: r,
+            startOpacity: initialOpacity,
+            targetOpacity: targetOpacity,
+            startTime: rectStartTime,
+            duration: ANIMATION_DURATION_MS,
+          });
+        });
+
+        if (!animationFrameId) {
+          // console.log("Starting animation loop");
+          animationFrameId = requestAnimationFrame(animationLoop);
+        }
+      }
+
+      function animationLoop(currentTime) {
+        let stillAnimating = false;
+        activeAnimations.forEach((anim) => {
+          if (currentTime < anim.startTime) {
+            stillAnimating = true;
+            return;
+          }
+
+          const elapsedTime = currentTime - anim.startTime;
+          let progress = elapsedTime / anim.duration;
+
+          if (progress >= 1) {
+            progress = 1;
+            anim.rect.style.opacity = String(anim.targetOpacity);
+          } else {
+            const currentOpacity =
+              anim.startOpacity +
+              (anim.targetOpacity - anim.startOpacity) * progress;
+            anim.rect.style.opacity = String(currentOpacity);
+            stillAnimating = true;
+          }
+        });
+
+        activeAnimations = activeAnimations.filter((anim) => {
+          const progress = (currentTime - anim.startTime) / anim.duration;
+          return progress < 1;
+        });
+
+        if (stillAnimating) {
+          animationFrameId = requestAnimationFrame(animationLoop);
+        } else {
+          animationFrameId = null;
+          // console.log("Animation loop stopped");
+        }
+      }
+
+      function setActivePage(suffix) {
+        Object.entries(PAGE_MAP).forEach(([key, el]) => {
+          if (!el) return;
+          el.classList.toggle("page-active", key === suffix);
+        });
+      }
+      function changePageWithWave(targetPageSuffix) {
+        console.log(`Changing page to target suffix: ${targetPageSuffix}`);
+        document.querySelectorAll("svg defs mask").forEach((mask) => {
+          const maskIdSuffix = mask.id.replace("mask", "").toLowerCase();
+          const tiles = mask.querySelectorAll("rect");
+          const isOpen = maskIdSuffix === targetPageSuffix.toLowerCase();
+          // console.log(`Mask: ${mask.id}, Open: ${isOpen}`);
+          animateTilesJS(tiles, isOpen, DEFAULT_WAVE_ORIGIN);
+        });
+        setActivePage(targetPageSuffix);
+      }
+
+      // Helper: extract section from any link id
+      function getSectionFromId(id) {
+        // Matches "main", "about", "projects", or "contact" at the very start
+        const m = id && id.match(/^(main|about|projects|contact|mobile)/i);
+        return m ? m[1].toLowerCase() : null;
+      }
+
+      document.addEventListener("DOMContentLoaded", () => {
+        console.log(
+          "DOMContentLoaded: New wave animation script initializing.",
+        );
+        const maskElements = document.querySelectorAll("svg defs mask");
+        maskElements.forEach((maskEl) => {
+          generateMaskTiles(maskEl);
+          setActivePage("main");
+        });
+        console.log("DOMContentLoaded: Mask tiles generated.");
+
+        // Set initial state: only the main page's mask is fully opaque, others are transparent
+        maskElements.forEach((maskEl) => {
+          const maskIdSuffix = maskEl.id.replace("mask", "").toLowerCase();
+          const tiles = maskEl.querySelectorAll("rect");
+          if (maskIdSuffix === "main") {
+            // Assuming 'main' is the ID suffix for the main landing page mask
+            // console.log(`Ensuring initial state for ${maskEl.id} is opaque.`);
+            tiles.forEach((tile) => (tile.style.opacity = "1"));
+          } else {
+            // console.log(`Ensuring initial state for ${maskEl.id} is transparent.`);
+            tiles.forEach((tile) => (tile.style.opacity = "0"));
+          }
+        });
+        console.log("DOMContentLoaded: Initial mask states set.");
+
+        // Consolidate all relevant navigation links
+        const navLinks = document.querySelectorAll(
+          "header nav ul.head-right li a, " + // Desktop links
+            "header nav ul.header-logo-name li a.a-logo, " + // Logo links (might be multiple if headers are copied per page)
+            "ul.navbar-hamburger div li a", // Mobile links
+        );
+
+        console.log(`Found ${navLinks.length} navigation links.`);
+        const processedLinks = new Set(); // To avoid double-binding if IDs are duplicated across page divs
+
+        navLinks.forEach((link) => {
+          // if (!link.id || processedLinks.has(link.id + (link.closest('.main-page') ? '_main' : '_other'))) { // Simple way to distinguish same IDs in different headers
+          //   // console.warn("Link found without ID or already processed:", link);
+          //   return;
+          // }
+          // // Mark as processed. For more complex scenarios, a more robust unique identifier might be needed.
+          // processedLinks.add(link.id + (link.closest('.main-page') ? '_main' : '_other'));
+
+          link.addEventListener("click", (event) => {
+            event.preventDefault();
+            const targetSuffix = getSectionFromId(link.id);
+            if (!targetSuffix) return;
+
+            if (targetSuffix !== "mobile") {
+              // Normal navigation
+              changePageWithWave(targetSuffix);
+              setActivePage(targetSuffix);
+            } else {
+              // If a link points to "mobile" (close or back), go to main
+              changePageWithWave("main");
+              setActivePage("main");
+            }
+
+            // event.preventDefault();
+
+            // const targetSuffix = getSectionFromId(link.id);
+            // if (!targetSuffix) return; {
+
+            //   // 1) Normalize ALL menus/icons before switching
+            //   resetAllHamburgers();
+
+            //   // 2) Run the transition and set pointer-events
+            //   changePageWithWave(targetSuffix);
+            //   setActivePage(targetSuffix);
+            // }
+
+            // changePageWithWave(targetSuffix);  // triggers masks open/close
+            // setActivePage(targetSuffix);       // ensure pointer-events are correct
+
+            // // If it's a mobile menu link, close the menu for this container
+            // const container = link.closest('.container');
+            // const navbarHamburger = container && container.querySelector('.navbar-hamburger');
+            // if (navbarHamburger && navbarHamburger.classList.contains('show')) {
+            //   navbarHamburger.classList.remove('show');
+            //   document.body.style.overflowY = 'auto';
+            //   const btn = document.getElementById('btn');
+            //   if (btn) btn.disabled = false;
+            // }
+          });
+        });
+        console.log(
+          "DOMContentLoaded: New wave animation event listeners attached.",
+        );
+      });
+    </script>
+
+    <script></script>
+
+    <script>
+      // This is the inline script from your original index.html for about_me_text etc.
+      // Ensure it doesn't conflict with the new animation script.
+      let about_me_text = () => {
+        let htlm = `<span class="index">Als</span> Full Stack Entwickler liebe ich es, mit ein paar Zeilen Code Ideen Wirklichkeit werden zu lassen – manchmal elegant, manchmal verrückt, aber immer mit Neugier, Leidenschaft und dem Drang, etwas Neues auszuprobieren.`;
+        // Ensure the element exists before trying to set innerHTML
+        const aboutMeEl = document.querySelector(".aside-bottom-about-me");
+        if (aboutMeEl) aboutMeEl.innerHTML = htlm;
+      };
+      about_me_text();
+
+      // Ensure .spiralText li elements exist before processing
+      const spiralTextLis = document.querySelectorAll(".spiralText li");
+      if (spiralTextLis.length > 0) {
+        spiralTextLis.forEach((li, index) => {
+          li.style.setProperty("--delay", `${spiralTextLis.length}s`);
+          li.style.animationDelay = `${index}s`;
+        });
+      }
+
+      // Ensure .info-copy-right > p exists
+      const infoCopyRightEl = document.querySelector(".info-copy-right > p");
+      if (infoCopyRightEl) {
+        let info_copy_right_year = new Date().getFullYear();
+        infoCopyRightEl.innerHTML = `${info_copy_right_year} © melke`;
+      }
+    </script>
+
+    <script src="textrepellant.js"></script>
+    <!-- <script src="hamburger-menu.js"></script> -->
+    <!-- <script src="hamburger_menu_2.js"></script> -->
+
+    <script src="image-animation.js"></script>
+    <script src="game.js"></script>
+    <script src="corners-animation.js"></script>
+    <script src="typing-animation.js"></script>
+    <script src="hide-and-seek.js"></script>
+    <script src="cube.js"></script>
+  </body>
+</html>

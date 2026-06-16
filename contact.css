@@ -1,0 +1,137 @@
+:root {
+    --contact-page-main: #390a0b;
+    --contact-page-second: #93303e;
+    --contact-page-third: #d14547;
+    --contact-page-fourth: #ff7a4e;
+    /* am freundlichsten/hellsten */
+    --contact-page-shadow: #11021a;
+
+}
+
+
+.contact-page {
+    position: absolute;
+
+    color: var(--contact-page-main);
+    top: 0;
+    left: 0;
+    /* width: 100%; */
+
+    background-image: radial-gradient(var(--contact-page-second), var(--contact-page-third));
+    z-index: 1;
+    mask-image: url('#maskContact');
+    -webkit-mask-image: url('#maskContact');
+    mask-repeat: no-repeat;
+    mask-size: 100% 100%;
+    mask-mode: alpha;
+    -webkit-mask-repeat: no-repeat;
+    -webkit-mask-size: 100% 100%;
+    -webkit-mask-mode: alpha;
+    will-change: opacity;
+    text-shadow: 0 0 2ex var(--contact-page-shadow), 0 0 2px var(--contact-page-shadow);
+    /* Performance hint */
+}
+
+.contact-page .container {
+    max-width: 1200px;
+    min-height: 100%;
+    margin: 0 auto;
+    display: grid;
+    opacity: 0.7;
+    grid-auto-columns: 1fr;
+    grid-template-rows: auto 1fr auto;
+
+    grid-template-areas:
+        "contact-header contact-header contact-header contact-header contact-header"
+        "contact-page-main contact-page-main contact-page-main contact-page-main contact-page-main"
+
+
+        "footer footer footer footer footer";
+    grid-gap: 10px;
+
+
+    padding: 10px;
+
+}
+
+.contact-page header {
+    grid-area: contact-header;
+    font-family: "Kanit", sans-serif;
+}
+
+.contact-page-main {
+    grid-area: contact-page-main;
+    margin: 5rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+}
+
+.contact-page h1 {
+    font-size: 4rem;
+    margin: 2rem;
+}
+
+
+#hamburger-icon-contact>span {
+    width: 100%;
+    height: 0.4rem;
+    border-radius: 0.2rem;
+    background-color: var(--contact-page-main);
+
+    box-shadow: 0.05rem 0.2rem var(--contact-page-second);
+}
+
+.contact-page i {
+    color: var(--contact-page-main);
+}
+
+.contact-page a {
+    color: var(--contact-page-main);
+}
+
+.contact-page .name {
+    font-weight: 900;
+    text-shadow: 1px 1px 1px var(--contact-page-second),
+        1px 2px 1px var(--contact-page-second),
+        1px 3px 1px var(--contact-page-second),
+        1px 4px 1px var(--contact-page-second),
+        1px 5px 1px var(--contact-page-second),
+        1px 6px 1px var(--contact-page-second),
+        1px 7px 1px var(--contact-page-second),
+        1px 8px 1px var(--contact-page-second),
+        1px 9px 1px var(--contact-page-second),
+        1px 10px 1px var(--contact-page-second),
+        1px 18px 6px var(--contact-page-shadow),
+        1px 22px 10px var(--contact-page-shadow),
+        1px 25px 35px var(--contact-page-shadow),
+        1px 30px 60px var(--contact-page-shadow);
+}
+
+
+.contact-page a::after {
+    background-color: var(--contact-page-main);
+}
+
+.contact-page a::before {
+    background-color: var(--contact-page-main);
+}
+
+
+
+@media screen and (max-width: 900px) {
+    .contact-page .container {
+        padding: 0;
+    }
+
+    .contact-page-main h1 {
+        font-size: 3rem;
+        text-align: center;
+    }
+
+    .contact-page-main {
+        margin: 5rem 0 0 0;
+        /* align-items: left; */
+    }
+}
