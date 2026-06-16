@@ -1,0 +1,17 @@
+.DS_Store
+Thumbs.db
+
+# Local editor and OS noise
+*.swp
+*.swo
+*~
+.idea/
+.vscode/*.local.json
+
+# Local Codex/debug output
+.codex-log/
+
+# Generated performance/audit artifacts
+lighthouse-reports/
+performance-traces/
+screenshots/performance/
