@@ -92,9 +92,20 @@ body > div {
 }
 
 /* CRT noise */
+.noise,
+.noise-overlay,
+.container::before {
+  pointer-events: none !important;
+  -webkit-user-select: none;
+  user-select: none;
+  -webkit-user-drag: none;
+  touch-action: none;
+}
+
 .noise {
-  pointer-events: none;
   position: fixed;
+  inset: 0;
+  display: block;
   width: 100%;
   height: 100%;
   /* another noise example to try */
@@ -109,8 +120,9 @@ body > div {
 }
 
 .noise-overlay {
-  pointer-events: none;
   position: fixed;
+  inset: 0;
+  display: block;
   width: 100%;
   height: 100%;
   background:
@@ -163,16 +175,12 @@ body > div {
 }
 
 /* CRT Scanning line from top to bottom */
-/* .container::before {
+.container::before {
   content: "";
-  pointer-events: none;
   position: fixed;
   z-index: 10;
   display: block;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
+  inset: 0;
   width: 100%;
   height: 100%;
   background-image: linear-gradient(
@@ -185,9 +193,9 @@ body > div {
   );
   background-repeat: no-repeat;
   animation: scan 7.5s linear 0s infinite;
-} */
+}
 
-/* @keyframes scan {
+@keyframes scan {
   0% {
     background-position: 0 -100vh;
   }
@@ -196,7 +204,7 @@ body > div {
   100% {
     background-position: 0 100vh;
   }
-} */
+}
 
 /* container :end */
 

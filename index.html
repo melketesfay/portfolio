@@ -44,8 +44,8 @@
   </head>
 
   <body>
-    <!--  <div class="noise"></div>
-    <div class="noise-overlay"></div> -->
+    <div class="noise" aria-hidden="true"></div>
+    <div class="noise-overlay" aria-hidden="true"></div>
     <div class="main-page page-active">
       <div class="container">
         <div class="score" style="display: none; border-radius: 1rem">
@@ -1069,22 +1069,25 @@
         "(hover: none), (pointer: coarse)",
       ).matches;
       const WAVE_DEBUG_SLOW = false;
+      const WAVE_PRODUCTION_SPEED_MULTIPLIER = 3;
       const N_ROWS = WAVE_IS_MOBILE ? 7 : 12;
       const N_COLS = WAVE_IS_MOBILE ? 7 : 12;
-      const STAGGER_DELAY_MS = WAVE_DEBUG_SLOW
-        ? WAVE_IS_MOBILE
-          ? 180
-          : 240
-        : WAVE_IS_MOBILE
-          ? 28
-          : 50;
-      const ANIMATION_DURATION_MS = WAVE_DEBUG_SLOW
-        ? WAVE_IS_MOBILE
-          ? 1800
-          : 2200
-        : WAVE_IS_MOBILE
-          ? 360
-          : 500;
+      const STAGGER_DELAY_MS =
+        (WAVE_DEBUG_SLOW
+          ? WAVE_IS_MOBILE
+            ? 180
+            : 240
+          : WAVE_IS_MOBILE
+            ? 28
+            : 50) * WAVE_PRODUCTION_SPEED_MULTIPLIER;
+      const ANIMATION_DURATION_MS =
+        (WAVE_DEBUG_SLOW
+          ? WAVE_IS_MOBILE
+            ? 1800
+            : 2200
+          : WAVE_IS_MOBILE
+            ? 360
+            : 500) * WAVE_PRODUCTION_SPEED_MULTIPLIER;
       const DEFAULT_WAVE_ORIGIN = "top-left";
       const WAVE_PAGE_ORDER = [
         "main",
