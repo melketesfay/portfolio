@@ -1,115 +1,315 @@
-// --- Global DOM Elements ---
-const top_layer = document.getElementById("top-layer");
-const down_layer = document.getElementById("down-layer");
-const top_layer_content = document.getElementById("top-layer-content");
-const down_layer_content = document.getElementById("down-layer-content");
-const zuerich = document.querySelector(".about-page-main-top-image");
-const zuerich_top_img = document.getElementById("zuerich-top-img");
-const zuerich_bottom_img = document.getElementById("zuerich-bottom-img");
+(() => {
+  const topLayer = document.getElementById("top-layer");
+  const downLayer = document.getElementById("down-layer");
+  const mainPage = document.querySelector(".main-page");
+  const aboutPage = document.querySelector(".about-page");
+  const zuerich = document.querySelector(".about-page-main-top-image");
+  const zuerichTopImg = document.getElementById("zuerich-top-img");
+  const zuerichBottomImg = document.getElementById("zuerich-bottom-img");
 
-// We select all pages to show/hide. We exclude the main page.
-const down_layer_pages = Array.from(
-  document.querySelectorAll("body > div"),
-).slice(1);
+  if (!topLayer || !downLayer || !mainPage) return;
 
-// --- Global State Variables for All Scripts ---
-// This object stores the current mouse/touch position. Other scripts can read this.
-window.globalMousePosition = { x: 0, y: 0 };
+  const coarsePointer = window.matchMedia("(pointer: coarse)").matches;
+  const reducedMotion = window.matchMedia(
+    "(prefers-reduced-motion: reduce)",
+  ).matches;
+  const mobileLens = coarsePointer && !reducedMotion;
 
-// --- Main Animation Loop for this file ---
-function animateHideAndSeek() {
-  const isOverTopLayer = top_layer.matches(":hover");
-  if (isOverTopLayer) {
-    const down_layer_pos = down_layer.getBoundingClientRect();
-    const x = window.globalMousePosition.x - down_layer_pos.left;
-    const y = window.globalMousePosition.y - down_layer_pos.top;
+  const desktopRadius = reducedMotion ? "0px" : "80px";
+  let spotlightFrame = 0;
+  let spotlightRect = null;
+  let spotlightActive = false;
+  let pointerX = 0;
+  let pointerY = 0;
+  let resetWillChangeTimer = 0;
+  let touchCloseTimer = 0;
+  let touchPointerId = null;
+  let activeRadius = desktopRadius;
+  let activeLensSize = 0;
+  let lastLensLeft = null;
+  let lastLensTop = null;
 
-    down_layer.style.setProperty("--x", `${x}px`);
-    down_layer.style.setProperty("--y", `${y}px`);
-  }
-  requestAnimationFrame(animateHideAndSeek);
-}
+  downLayer.classList.toggle("is-mobile-lens", mobileLens);
 
-// --- Event Handlers ---
-
-// This function handles the logic for desktop devices (mouse).
-function handleDesktop() {
-  // We attach a single mousemove listener to the document.
-  // It only updates the global position object.
-  document.addEventListener("mousemove", (event) => {
-    window.globalMousePosition.x = event.clientX;
-    window.globalMousePosition.y = event.clientY;
-  });
-
-  top_layer.addEventListener("mouseenter", () => {
-    down_layer.style.setProperty("--r", "80px");
-  });
-
-  top_layer.addEventListener("mouseleave", () => {
-    down_layer.style.setProperty("--r", "0px");
-  });
-}
-
-// This function handles the logic for mobile devices (touch).
-function handleMobile() {
-  document.addEventListener("touchmove", (event) => {
-    event.preventDefault();
-    const touch = event.touches[0];
-    window.globalMousePosition.x = touch.clientX;
-    window.globalMousePosition.y = touch.clientY;
-  });
-
-  top_layer.addEventListener("touchstart", () => {
-    down_layer.style.setProperty("--r", "70px");
-  });
-
-  top_layer.addEventListener("touchend", () => {
-    down_layer.style.setProperty("--r", "0px");
-  });
-}
-
-function detectDevice() {
-  const toMatch = [
-    /Android/i,
-    /webOS/i,
-    /iPhone/i,
-    /iPad/i,
-    /iPod/i,
-    /BlackBerry/i,
-    /Windows Phone/i,
-  ];
-  return toMatch.some((toMatchItem) => navigator.userAgent.match(toMatchItem));
-}
-
-document.addEventListener("DOMContentLoaded", () => {
-  if (detectDevice()) {
-    handleMobile();
-  } else {
-    handleDesktop();
+  function isMainActive() {
+    return mainPage.classList.contains("page-active");
   }
 
-  // Start the main animation loop.
-  animateHideAndSeek();
-});
+  function isAboutActive() {
+    return aboutPage?.classList.contains("page-active");
+  }
 
-function updateZuerichClipPath(e) {
-  e.preventDefault();
-  const zuerich_pos = zuerich.getBoundingClientRect();
-  const x = e.clientX - zuerich_pos.left;
-  const y = e.clientY - zuerich_pos.top;
-  zuerich_top_img.style.setProperty("--x", `${x}px`);
-  zuerich_top_img.style.setProperty("--y", `${y}px`);
-  zuerich_bottom_img.style.setProperty("--x", `${x}px`);
-  zuerich_bottom_img.style.setProperty("--y", `${y}px`);
-}
+  function getLensSize() {
+    return Math.round(Math.min(Math.max(window.innerWidth * 0.38, 128), 156));
+  }
 
-document.addEventListener("click", (event) => {
-  if (document.querySelector(".about-page").classList.contains("page-active")) {
-    zuerich.addEventListener("mousemove", (event) => {
-      updateZuerichClipPath(event);
+  function clamp(value, min, max) {
+    return Math.min(Math.max(value, min), max);
+  }
+
+  function setSpotlightWillChange(active) {
+    clearTimeout(resetWillChangeTimer);
+    downLayer.style.willChange = active
+      ? mobileLens
+        ? "transform, opacity"
+        : "clip-path"
+      : "auto";
+  }
+
+  function setSpotlightPosition(event) {
+    if (!spotlightRect) {
+      spotlightRect = downLayer.getBoundingClientRect();
+    }
+
+    pointerX = event.clientX;
+    pointerY = event.clientY;
+    requestSpotlightDraw();
+  }
+
+  function closeSpotlight() {
+    clearTimeout(touchCloseTimer);
+    spotlightActive = false;
+    downLayer.classList.remove("is-open");
+    downLayer.style.setProperty("--r", "0px");
+    resetWillChangeTimer = window.setTimeout(() => {
+      setSpotlightWillChange(false);
+    }, 300);
+  }
+
+  function closeTouchSpotlight(delay = 800) {
+    spotlightActive = false;
+    touchPointerId = null;
+    clearTimeout(touchCloseTimer);
+    touchCloseTimer = window.setTimeout(closeSpotlight, delay);
+  }
+
+  function drawSpotlight() {
+    spotlightFrame = 0;
+    if (!spotlightActive || !isMainActive()) return;
+
+    if (!spotlightRect) {
+      spotlightRect = topLayer.getBoundingClientRect();
+    }
+
+    if (mobileLens) {
+      const maxLeft = Math.max(0, spotlightRect.width - activeLensSize);
+      const maxTop = Math.max(0, spotlightRect.height - activeLensSize);
+      const lensLeft = clamp(
+        Math.round(pointerX - spotlightRect.left - activeLensSize / 2),
+        0,
+        maxLeft,
+      );
+      const lensTop = clamp(
+        Math.round(pointerY - spotlightRect.top - activeLensSize / 2),
+        0,
+        maxTop,
+      );
+
+      if (
+        lastLensLeft !== null &&
+        Math.abs(lensLeft - lastLensLeft) < 2 &&
+        Math.abs(lensTop - lastLensTop) < 2
+      ) {
+        return;
+      }
+
+      lastLensLeft = lensLeft;
+      lastLensTop = lensTop;
+      downLayer.style.setProperty("--lens-left", `${lensLeft}px`);
+      downLayer.style.setProperty("--lens-top", `${lensTop}px`);
+      downLayer.style.setProperty("--lens-content-x", `${-lensLeft}px`);
+      downLayer.style.setProperty("--lens-content-y", `${-lensTop}px`);
+      downLayer.classList.add("is-open");
+      return;
+    }
+
+    downLayer.style.setProperty("--x", `${pointerX - spotlightRect.left}px`);
+    downLayer.style.setProperty("--y", `${pointerY - spotlightRect.top}px`);
+    downLayer.style.setProperty("--r", activeRadius);
+  }
+
+  function requestSpotlightDraw() {
+    if (!spotlightFrame) {
+      spotlightFrame = requestAnimationFrame(drawSpotlight);
+    }
+  }
+
+  function handleDesktopEnter(event) {
+    if (coarsePointer || !isMainActive()) return;
+
+    spotlightActive = true;
+    activeRadius = desktopRadius;
+    spotlightRect = downLayer.getBoundingClientRect();
+    setSpotlightWillChange(true);
+    setSpotlightPosition(event);
+  }
+
+  function handleDesktopMove(event) {
+    if (coarsePointer || !spotlightActive || !isMainActive()) return;
+
+    setSpotlightPosition(event);
+  }
+
+  function handleTouchReveal(event) {
+    if (!coarsePointer || !isMainActive() || event.pointerType === "mouse") {
+      return;
+    }
+
+    clearTimeout(touchCloseTimer);
+    touchPointerId = event.pointerId;
+    spotlightActive = true;
+    activeLensSize = getLensSize();
+    lastLensLeft = null;
+    lastLensTop = null;
+    spotlightRect = topLayer.getBoundingClientRect();
+    downLayer.style.setProperty("--lens-size", `${activeLensSize}px`);
+    downLayer.style.setProperty(
+      "--spotlight-host-width",
+      `${Math.round(spotlightRect.width)}px`,
+    );
+    downLayer.style.setProperty(
+      "--spotlight-host-height",
+      `${Math.round(spotlightRect.height)}px`,
+    );
+    setSpotlightWillChange(true);
+    downLayer.classList.remove("is-open");
+    setSpotlightPosition(event);
+
+    requestAnimationFrame(() => {
+      if (!mobileLens && spotlightActive && isMainActive()) {
+        downLayer.style.setProperty("--r", activeRadius);
+      }
     });
-    zuerich.addEventListener("touchmove", (event) => {
-      updateZuerichClipPath(event.touches[0]);
-    });
+
+    if (topLayer.setPointerCapture) {
+      topLayer.setPointerCapture(event.pointerId);
+    }
   }
-});
+
+  function handleTouchMove(event) {
+    if (
+      !coarsePointer ||
+      !spotlightActive ||
+      !isMainActive() ||
+      event.pointerId !== touchPointerId
+    ) {
+      return;
+    }
+
+    setSpotlightPosition(event);
+  }
+
+  function handleTouchEnd(event) {
+    if (
+      !coarsePointer ||
+      event.pointerType === "mouse" ||
+      event.pointerId !== touchPointerId
+    ) {
+      return;
+    }
+
+    if (
+      topLayer.releasePointerCapture &&
+      topLayer.hasPointerCapture?.(event.pointerId)
+    ) {
+      topLayer.releasePointerCapture(event.pointerId);
+    }
+
+    closeTouchSpotlight();
+  }
+
+  topLayer.addEventListener("pointerenter", handleDesktopEnter);
+  topLayer.addEventListener("pointermove", handleDesktopMove, {
+    passive: true,
+  });
+  topLayer.addEventListener("pointermove", handleTouchMove, {
+    passive: true,
+  });
+  topLayer.addEventListener("pointerleave", () => {
+    if (!coarsePointer) closeSpotlight();
+  });
+  topLayer.addEventListener("pointerdown", handleTouchReveal, {
+    passive: true,
+  });
+  topLayer.addEventListener("pointerup", handleTouchEnd, { passive: true });
+  topLayer.addEventListener("pointercancel", handleTouchEnd, {
+    passive: true,
+  });
+
+  window.addEventListener(
+    "resize",
+    () => {
+      spotlightRect = null;
+    },
+    { passive: true },
+  );
+
+  const pageObserver = new MutationObserver(() => {
+    if (!isMainActive()) {
+      closeSpotlight();
+    }
+  });
+  pageObserver.observe(mainPage, {
+    attributes: true,
+    attributeFilter: ["class"],
+  });
+
+  document.addEventListener("portfolio:pagechange", (event) => {
+    spotlightRect = null;
+    if (event.detail?.activePage !== "main") {
+      closeSpotlight();
+    }
+  });
+
+  if (!zuerich || !zuerichTopImg || !zuerichBottomImg) return;
+
+  let zurichFrame = 0;
+  let zurichRect = null;
+  let zurichX = 0;
+  let zurichY = 0;
+
+  function drawZurichReveal() {
+    zurichFrame = 0;
+    if (!isAboutActive()) return;
+
+    if (!zurichRect) {
+      zurichRect = zuerich.getBoundingClientRect();
+    }
+
+    const x = `${zurichX - zurichRect.left}px`;
+    const y = `${zurichY - zurichRect.top}px`;
+    zuerichTopImg.style.setProperty("--x", x);
+    zuerichTopImg.style.setProperty("--y", y);
+    zuerichBottomImg.style.setProperty("--x", x);
+    zuerichBottomImg.style.setProperty("--y", y);
+  }
+
+  function requestZurichDraw(event) {
+    if (!isAboutActive()) return;
+
+    zurichX = event.clientX;
+    zurichY = event.clientY;
+    if (!zurichFrame) {
+      zurichFrame = requestAnimationFrame(drawZurichReveal);
+    }
+  }
+
+  zuerich.addEventListener("pointerenter", (event) => {
+    zurichRect = zuerich.getBoundingClientRect();
+    requestZurichDraw(event);
+  });
+  zuerich.addEventListener("pointermove", requestZurichDraw, {
+    passive: true,
+  });
+  zuerich.addEventListener("pointerleave", () => {
+    zurichRect = null;
+  });
+
+  window.addEventListener(
+    "resize",
+    () => {
+      zurichRect = null;
+    },
+    { passive: true },
+  );
+})();

@@ -4,7 +4,7 @@
 
 Make the portfolio feel butter smooth on desktop and mobile while preserving the handmade interactive identity. This is not a redesign into a generic portfolio. The goal is to keep the custom browser-native features and change the implementation so the browser can render them reliably.
 
-Current first branch: `docs/performance-plan`
+Current implementation branch: `perf/mobile-animation-runtime`
 
 Recommended implementation branches after this documentation branch:
 
@@ -62,7 +62,7 @@ These are suspected hotspots from the current codebase and must be confirmed dur
 
 Record results here before changing animation behavior.
 
-- [ ] Start site with VS Code Live Server on port `5958`.
+- [x] Start site with VS Code Live Server on port `5958`.
 - [ ] Capture desktop screenshot of main page.
 - [ ] Capture mobile viewport screenshot of main page.
 - [ ] Test wave navigation: main -> about -> projects -> contact -> main.
@@ -88,15 +88,23 @@ Baseline notes table:
 | Contact typewriter | TBD | TBD | Interval text mutation and scroll | Low |
 | Game mode | TBD | TBD | Many animated spans | Optional |
 
+Initial code audit notes:
+
+- 2026-06-18: `hide-and-seek.js` had a permanent RAF loop, global touchmove, touch `preventDefault()`, and repeated Zurich listeners.
+- 2026-06-18: Live Server runs on the remote Mac mini through VS Code/phone port forwarding; shell-side localhost checks may not reflect the Windows laptop/ADB path.
+- 2026-06-18: Concurrent mobile costs remain significant: `image-animation.js` adds body `touchmove` listeners inside per-strip loops, `cube.js` runs a fixed interval and prevents touch default on cube moves, `textrepellant.js` does layout reads for many letters on document mousemove, and CSS has persistent GIF noise, scanline, masks, spiral animation, and heavy shadows.
+- 2026-06-18: Fast mobile scrolling still shows random white/unrendered areas and flicker, and the user reports it can get worse after clicking the main toggle repeatedly.
+- 2026-06-18: The flicker becomes significantly worse after opening the hamburger/mobile nav and triggering the wave animation.
+
 ## Phase 1: Runtime Gating
 
 Goal: stop animation code from running when it cannot be seen or used.
 
 Tasks:
 
-- [ ] Create a single source of truth for active page state.
-- [ ] Ensure page-specific scripts check whether their page is active before doing work.
-- [ ] Pause pointer/touch effects when the related element is not active.
+- [x] Create a single source of truth for active page state.
+- [ ] Ensure all page-specific scripts check whether their page is active before doing work.
+- [ ] Pause all pointer/touch effects when the related element is not active.
 - [ ] Avoid document-level listeners where element-level listeners are enough.
 - [ ] Use `IntersectionObserver` or active-page events for effects that should pause offscreen.
 - [ ] Keep decorative animations only if they are transform/opacity based and cheap.
@@ -129,22 +137,60 @@ Acceptance:
 - Mobile does not flicker or block scroll.
 - No permanent RAF loop remains for this feature.
 
+Progress:
+
+- 2026-06-18: Added `window.portfolioPageState` and `portfolio:pagechange` in `index.html`.
+- 2026-06-18: Replaced `hide-and-seek.js` permanent RAF with interaction-driven RAF.
+- 2026-06-18: Removed global touchmove and touch `preventDefault()` from the spotlight path.
+- 2026-06-18: Mobile spotlight now uses tap/press reveal instead of continuous touch tracking.
+- 2026-06-18: Zurich image reveal now uses stable pointer listeners and RAF batching instead of adding listeners after clicks.
+- 2026-06-18: Android mobile still showed `clip-path` flicker/square artifacts, so mobile spotlight was switched to a transformed circular lens with overflow hidden.
+- 2026-06-18: Mobile transformed lens improved alignment but still showed inconsistent rendering under movement, likely because Android is repainting clipped live DOM while other page animations/listeners are active.
+
 ## Phase 3: Profile Strip Reveal
 
 Goal: keep the digital shutter/rain reveal, but remove listener duplication and per-strip touch overhead.
 
 Tasks:
 
-- [ ] Replace per-strip touch listeners with one delegated pointer/touch handler on `.image-bottom`.
-- [ ] Keep strip setup idempotent so calling setup again does not add duplicate listeners.
-- [ ] Keep toggle behavior: switch which image is background and which is revealed.
-- [ ] Prefer class changes or CSS variables over repeated long `style.cssText` writes.
+- [x] Replace per-strip touch listeners with one delegated pointer/touch handler on `.image-bottom`.
+- [x] Keep strip setup idempotent so calling setup again does not add duplicate listeners.
+- [x] Keep toggle behavior: switch which image is background and which is revealed.
+- [x] Prefer class changes or CSS variables over repeated long `style.cssText` writes.
 
 Acceptance:
 
 - Hover/touch still reveals alternate portrait strips.
 - Toggle still changes visual mode.
 - Repeated toggle changes do not multiply listeners.
+
+Progress:
+
+- 2026-06-18: Rewrote `image-animation.js` as one idempotent module with delegated pointer events on `.image-bottom`.
+- 2026-06-18: Removed body-level `touchmove` listeners and per-strip listener duplication.
+- 2026-06-18: Kept the two-image strip reveal concept and toggle mode.
+- 2026-06-18: Restored swipe-paint behavior across multiple strips, added `touch-action: none` on the image surface, and restored original single-value background sizing to avoid vertical image distortion.
+- 2026-06-18: Restored per-strip timing feel: previous stripes begin their fade-back timer as the pointer enters the next stripe instead of waiting for touch end.
+- 2026-06-18: User confirmed the profile strip reveal is the first full success: it preserves the intended feel and is smoother than the original.
+
+## Phase 3.5: Toggle And Game Runtime
+
+Goal: prevent repeated toggle clicks from multiplying global work or triggering expensive mobile-only rendering problems.
+
+Tasks:
+
+- [x] Make game mode start/stop idempotent.
+- [x] Remove `mousemove` and `keydown` listeners when game mode stops.
+- [x] Keep game mode desktop/fine-pointer only.
+- [x] Disable whole-page `.darkMode` filter on coarse pointer/mobile.
+- [x] Remove `corners-animation.js` dependency on the old global `toggle` variable.
+- [ ] Retest fast mobile scroll before and after repeated toggle clicks.
+
+Progress:
+
+- 2026-06-18: Reworked `game.js` into one scoped module with explicit `startGame()` and `stopGame()` cleanup.
+- 2026-06-18: Game mode now uses the current aside text element after DOM replacement, so toggling off/on does not rely on stale references.
+- 2026-06-18: Main toggle still controls profile image mode, but the expensive text game and body filter are avoided on mobile/coarse pointer.
 
 ## Phase 4: Wave Navigation
 
@@ -153,10 +199,10 @@ Goal: keep the rectangular tile wave where the current page disappears in a wave
 Tasks:
 
 - [ ] Keep visual behavior: page transition must read as a wave, not a plain fade.
-- [ ] Reduce tile count on mobile if needed.
+- [x] Reduce tile count on mobile if needed.
 - [ ] Move inline wave logic from `index.html` into a module in a later implementation branch.
-- [ ] Keep target page available underneath before the outgoing page finishes fading.
-- [ ] Prevent overlapping transitions from building up animation state.
+- [x] Keep target page available underneath before the outgoing page finishes fading.
+- [x] Prevent overlapping transitions from building up animation state.
 - [ ] Respect reduced motion with a quick fade or immediate page switch.
 
 Acceptance:
@@ -164,6 +210,19 @@ Acceptance:
 - Navigation still feels like a digital wave transition.
 - Mobile no longer shows severe flickering during page changes.
 - Rapid repeated nav clicks do not corrupt page state.
+
+Progress:
+
+- 2026-06-18: Wave transition now masks only the outgoing page; the target page is visible underneath unmasked.
+- 2026-06-18: Page masks are removed outside transitions, inactive pages are hidden, and persistent `will-change` pressure is disabled on page shells.
+- 2026-06-18: Mobile wave grid is reduced from 12x12 to 7x7 tiles with shorter stagger/duration.
+- 2026-06-18: Hamburger click handling is consolidated into one inline handler, so the mobile nav no longer fires competing open/close page changes.
+- 2026-06-18: Added a dark root background so any remaining compositor checkerboarding is not a white flash.
+- 2026-06-18: Corrected the wave model after testing: every transition now keeps exactly two visible page layers, with the outgoing page locked above the incoming page so it can disappear in a tile wave and reveal the target.
+- 2026-06-18: Added a hidden measurement state so `makePageSameHeight()` does not collapse page heights when `.main-page` is currently not displayed.
+- 2026-06-18: Added a transition-only outgoing-page tint so the rectangular wave remains visible between similarly colored pages without changing the permanent page designs.
+- 2026-06-18: Observed that repeating the target nav click during a wave could cancel the animation and show the target instantly; added a guard so repeated target clicks are ignored while the wave is active.
+- 2026-06-18: Direction variation may make the wave more prominent between similarly colored pages; consider route-based or alternating wave origins after the current smoothness pass.
 
 ## Phase 5: Text Effects And Spiral Text
 

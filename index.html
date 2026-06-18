@@ -44,9 +44,9 @@
   </head>
 
   <body>
-    <div class="noise"></div>
-    <div class="noise-overlay"></div>
-    <div class="main-page">
+    <!--  <div class="noise"></div>
+    <div class="noise-overlay"></div> -->
+    <div class="main-page page-active">
       <div class="container">
         <div class="score" style="display: none; border-radius: 1rem">
           <h3
@@ -829,10 +829,10 @@
         </div>
       </ul> -->
         <div class="contact-page-main name">
-          <h1>LET'S START BUILDING</h1>
-          <h1>YOUR FULL-STACK IS HERE</h1>
+          <!--  <h1>LET'S START BUILDING</h1>
+          <h1>YOUR FULL-STACK IS HERE</h1> -->
           <h1>GET IN TOUCH</h1>
-          <h1>TODAY</h1>
+          <!--    <h1>TODAY</h1> -->
           <h1>
             <a href=""><i class="fa-solid fa-down-long"></i></a>
           </h1>
@@ -1006,14 +1006,33 @@
           maskUnits="objectBoundingBox"
           maskContentUnits="objectBoundingBox"
         ></mask>
-        s
       </defs>
     </svg>
 
     <!-- make all pages the same height -->
     <script>
+      let lastMeasuredPageHeight = 0;
+
       function makePageSameHeight() {
-        const pageHeight = document.querySelector(".main-page").offsetHeight;
+        const mainPage = document.querySelector(".main-page");
+        if (!mainPage) return;
+
+        const shouldMeasureHidden =
+          !mainPage.classList.contains("page-active") &&
+          !mainPage.classList.contains("page-transition-page");
+
+        if (shouldMeasureHidden) {
+          mainPage.classList.add("page-measure");
+        }
+
+        const pageHeight = mainPage.offsetHeight || lastMeasuredPageHeight;
+
+        if (shouldMeasureHidden) {
+          mainPage.classList.remove("page-measure");
+        }
+
+        if (!pageHeight) return;
+        lastMeasuredPageHeight = pageHeight;
 
         document.querySelectorAll("body > div").forEach((page) => {
           if (page.classList.contains("main-page")) return;
@@ -1022,23 +1041,15 @@
       }
 
       document.addEventListener("DOMContentLoaded", makePageSameHeight);
-      document.addEventListener("resize", makePageSameHeight);
-      // When the active page's hamburger is clicked, open the mobile-page
+      window.addEventListener("resize", makePageSameHeight);
+
       document.addEventListener("click", (e) => {
         const icon = e.target.closest(".page-active .hamburger-icon");
         if (!icon) return;
-        changePageWithWave("mobile");
-        setActivePage("mobile");
-      });
 
-      // If you click the hamburger again while on the mobile-page, go back to main
-      document.addEventListener("click", (e) => {
-        const icon = e.target.closest(
-          ".mobile-page.page-active .hamburger-icon",
-        );
-        if (!icon) return;
-        changePageWithWave("main");
-        setActivePage("main");
+        e.preventDefault();
+        const isMobileMenuPage = Boolean(icon.closest(".mobile-page"));
+        changePageWithWave(isMobileMenuPage ? "main" : "mobile");
       });
     </script>
     <!-- end make all pages the same height -->
@@ -1054,14 +1065,76 @@
         contact: document.querySelector(".contact-page"),
         mobile: document.querySelector(".mobile-page"),
       };
-      const N_ROWS = 12; // Adjusted for potentially better performance
-      const N_COLS = 12;
-      const STAGGER_DELAY_MS = 50;
-      const ANIMATION_DURATION_MS = 500;
+      const WAVE_IS_MOBILE = window.matchMedia(
+        "(hover: none), (pointer: coarse)",
+      ).matches;
+      const WAVE_DEBUG_SLOW = true;
+      const N_ROWS = WAVE_IS_MOBILE ? 7 : 12;
+      const N_COLS = WAVE_IS_MOBILE ? 7 : 12;
+      const STAGGER_DELAY_MS = WAVE_DEBUG_SLOW
+        ? WAVE_IS_MOBILE
+          ? 180
+          : 240
+        : WAVE_IS_MOBILE
+          ? 28
+          : 50;
+      const ANIMATION_DURATION_MS = WAVE_DEBUG_SLOW
+        ? WAVE_IS_MOBILE
+          ? 1800
+          : 2200
+        : WAVE_IS_MOBILE
+          ? 360
+          : 500;
       const DEFAULT_WAVE_ORIGIN = "top-left";
 
       let activeAnimations = [];
       let animationFrameId = null;
+      let onAnimationsComplete = null;
+      let isWaveTransitioning = false;
+      let waveTargetPageSuffix = null;
+
+      function getMaskForSuffix(suffix) {
+        const normalized = suffix.charAt(0).toUpperCase() + suffix.slice(1);
+        return document.getElementById(`mask${normalized}`);
+      }
+
+      function setMaskImmediate(suffix, opacity) {
+        const mask = getMaskForSuffix(suffix);
+        if (!mask) return;
+
+        mask.querySelectorAll("rect").forEach((tile) => {
+          tile.style.opacity = String(opacity);
+        });
+      }
+
+      function resetAllMasks() {
+        Object.keys(PAGE_MAP).forEach((suffix) => {
+          setMaskImmediate(suffix, 1);
+        });
+      }
+
+      function resetTransitionClasses() {
+        Object.values(PAGE_MAP).forEach((page) => {
+          if (!page) return;
+          page.classList.remove(
+            "page-transition-page",
+            "page-transition-in",
+            "page-transition-out",
+            "page-mask-active",
+          );
+        });
+      }
+
+      function clearActiveAnimations() {
+        activeAnimations = [];
+        onAnimationsComplete = null;
+        isWaveTransitioning = false;
+        waveTargetPageSuffix = null;
+        if (animationFrameId) {
+          cancelAnimationFrame(animationFrameId);
+          animationFrameId = null;
+        }
+      }
 
       function generateMaskTiles(maskEl) {
         // console.log(`Generating mask tiles for: ${maskEl.id}`);
@@ -1086,9 +1159,20 @@
         }
       }
 
-      function animateTilesJS(rects, open, origin = DEFAULT_WAVE_ORIGIN) {
+      function animateTilesJS(
+        rects,
+        open,
+        origin = DEFAULT_WAVE_ORIGIN,
+        onComplete,
+      ) {
+        if (!rects.length) {
+          if (onComplete) onComplete();
+          return;
+        }
+
         const startTime = performance.now();
         // console.log(`Animate ${rects.length} tiles to ${open ? 'open' : 'close'}`);
+        onAnimationsComplete = onComplete || null;
 
         rects.forEach((r) => {
           const row = +r.dataset.row,
@@ -1161,26 +1245,82 @@
           animationFrameId = requestAnimationFrame(animationLoop);
         } else {
           animationFrameId = null;
+          const complete = onAnimationsComplete;
+          onAnimationsComplete = null;
+          if (complete) complete();
           // console.log("Animation loop stopped");
         }
       }
 
+      window.portfolioPageState = window.portfolioPageState || {
+        activePage: "main",
+      };
+
       function setActivePage(suffix) {
+        const previousPage = window.portfolioPageState.activePage;
         Object.entries(PAGE_MAP).forEach(([key, el]) => {
           if (!el) return;
           el.classList.toggle("page-active", key === suffix);
         });
+
+        if (previousPage !== suffix) {
+          window.portfolioPageState.activePage = suffix;
+          document.dispatchEvent(
+            new CustomEvent("portfolio:pagechange", {
+              detail: { previousPage, activePage: suffix },
+            }),
+          );
+        }
       }
       function changePageWithWave(targetPageSuffix) {
         console.log(`Changing page to target suffix: ${targetPageSuffix}`);
-        document.querySelectorAll("svg defs mask").forEach((mask) => {
-          const maskIdSuffix = mask.id.replace("mask", "").toLowerCase();
-          const tiles = mask.querySelectorAll("rect");
-          const isOpen = maskIdSuffix === targetPageSuffix.toLowerCase();
-          // console.log(`Mask: ${mask.id}, Open: ${isOpen}`);
-          animateTilesJS(tiles, isOpen, DEFAULT_WAVE_ORIGIN);
-        });
+        if (isWaveTransitioning && targetPageSuffix === waveTargetPageSuffix) {
+          return;
+        }
+
+        const currentPageSuffix = window.portfolioPageState.activePage;
+        const currentPage = PAGE_MAP[currentPageSuffix];
+        const targetPage = PAGE_MAP[targetPageSuffix];
+
+        if (!targetPage) return;
+        if (!currentPage || currentPageSuffix === targetPageSuffix) {
+          clearActiveAnimations();
+          resetTransitionClasses();
+          setActivePage(targetPageSuffix);
+          return;
+        }
+
+        clearActiveAnimations();
+        resetTransitionClasses();
+        resetAllMasks();
+
+        currentPage.classList.add(
+          "page-transition-page",
+          "page-transition-out",
+          "page-mask-active",
+        );
+        targetPage.classList.add("page-transition-page", "page-transition-in");
+        isWaveTransitioning = true;
+        waveTargetPageSuffix = targetPageSuffix;
         setActivePage(targetPageSuffix);
+
+        const outgoingTiles =
+          getMaskForSuffix(currentPageSuffix)?.querySelectorAll("rect");
+
+        animateTilesJS(outgoingTiles || [], false, DEFAULT_WAVE_ORIGIN, () => {
+          currentPage.classList.remove(
+            "page-transition-page",
+            "page-transition-out",
+            "page-mask-active",
+          );
+          targetPage.classList.remove(
+            "page-transition-page",
+            "page-transition-in",
+          );
+          setMaskImmediate(currentPageSuffix, 1);
+          isWaveTransitioning = false;
+          waveTargetPageSuffix = null;
+        });
       }
 
       // Helper: extract section from any link id
@@ -1197,23 +1337,13 @@
         const maskElements = document.querySelectorAll("svg defs mask");
         maskElements.forEach((maskEl) => {
           generateMaskTiles(maskEl);
-          setActivePage("main");
         });
+        resetTransitionClasses();
+        setActivePage("main");
         console.log("DOMContentLoaded: Mask tiles generated.");
 
-        // Set initial state: only the main page's mask is fully opaque, others are transparent
-        maskElements.forEach((maskEl) => {
-          const maskIdSuffix = maskEl.id.replace("mask", "").toLowerCase();
-          const tiles = maskEl.querySelectorAll("rect");
-          if (maskIdSuffix === "main") {
-            // Assuming 'main' is the ID suffix for the main landing page mask
-            // console.log(`Ensuring initial state for ${maskEl.id} is opaque.`);
-            tiles.forEach((tile) => (tile.style.opacity = "1"));
-          } else {
-            // console.log(`Ensuring initial state for ${maskEl.id} is transparent.`);
-            tiles.forEach((tile) => (tile.style.opacity = "0"));
-          }
-        });
+        // Keep masks fully open until a page becomes the outgoing wave layer.
+        resetAllMasks();
         console.log("DOMContentLoaded: Initial mask states set.");
 
         // Consolidate all relevant navigation links
@@ -1242,11 +1372,9 @@
             if (targetSuffix !== "mobile") {
               // Normal navigation
               changePageWithWave(targetSuffix);
-              setActivePage(targetSuffix);
             } else {
               // If a link points to "mobile" (close or back), go to main
               changePageWithWave("main");
-              setActivePage("main");
             }
 
             // event.preventDefault();

@@ -31,6 +31,10 @@
   /* filter: brightness(1.1) saturate(1); */
 }
 
+html {
+  background-color: var(--main);
+}
+
 @media screen and (min-width: 1600px) {
   body {
     transform: scale(1.4);
@@ -74,6 +78,12 @@ body {
 
 .darkMode {
   filter: grayscale(1) brightness(1.5);
+}
+
+@media (hover: none), (pointer: coarse) {
+  .darkMode {
+    filter: none;
+  }
 }
 
 body > div {
@@ -153,7 +163,7 @@ body > div {
 }
 
 /* CRT Scanning line from top to bottom */
-.container::before {
+/* .container::before {
   content: "";
   pointer-events: none;
   position: fixed;
@@ -175,9 +185,9 @@ body > div {
   );
   background-repeat: no-repeat;
   animation: scan 7.5s linear 0s infinite;
-}
+} */
 
-@keyframes scan {
+/* @keyframes scan {
   0% {
     background-position: 0 -100vh;
   }
@@ -186,7 +196,7 @@ body > div {
   100% {
     background-position: 0 100vh;
   }
-}
+} */
 
 /* container :end */
 
@@ -575,6 +585,9 @@ label[for="btn"] {
   width: 300px;
   height: 250px;
   position: relative;
+  -webkit-user-select: none;
+  user-select: none;
+  touch-action: none;
 
   background: var(--bg);
   background-position: 0% 0%;
@@ -716,7 +729,9 @@ main {
 
 #top-layer {
   position: relative;
-
+  -webkit-user-select: none;
+  user-select: none;
+  touch-action: pan-y;
   z-index: 1;
 }
 
@@ -743,7 +758,63 @@ main {
   z-index: 100;
   /* border: 5px solid blue; */
   border-radius: 7px;
-  will-change: clip-path;
+  will-change: auto;
+  pointer-events: none;
+}
+
+#down-layer.is-mobile-lens {
+  clip-path: none;
+  display: block;
+  width: var(--lens-size, 160px);
+  height: var(--lens-size, 160px);
+  min-height: 0;
+  border-radius: 50%;
+  overflow: hidden;
+  opacity: 0;
+  transform: translate3d(var(--lens-left, 0px), var(--lens-top, 0px), 0);
+  transition: opacity 140ms ease;
+  will-change: transform, opacity;
+  contain: layout paint;
+  backface-visibility: hidden;
+  outline: 2px solid color-mix(in srgb, var(--main) 42%, transparent);
+}
+
+#down-layer.is-mobile-lens.is-open {
+  opacity: 1;
+  transform: translate3d(var(--lens-left, 0px), var(--lens-top, 0px), 0);
+}
+
+#down-layer.is-mobile-lens #down-layer-content {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: var(--spotlight-host-width, 100%);
+  min-width: var(--spotlight-host-width, 100%);
+  height: var(--spotlight-host-height, 200px);
+  min-height: var(--spotlight-host-height, 200px);
+  transform: translate3d(
+    var(--lens-content-x, 0px),
+    var(--lens-content-y, 0px),
+    0
+  );
+  transform-origin: top left;
+  will-change: transform;
+  backface-visibility: hidden;
+}
+
+#down-layer.is-mobile-lens #down-layer-content,
+#down-layer.is-mobile-lens .name,
+#down-layer.is-mobile-lens .hidden,
+#down-layer.is-mobile-lens .backEnd {
+  text-shadow:
+    1px 1px 0 var(--fourth),
+    0 5px 12px var(--text-shadow);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  #down-layer {
+    transition: none;
+  }
 }
 
 .name {

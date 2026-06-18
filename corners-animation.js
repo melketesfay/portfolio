@@ -52,7 +52,7 @@ aside_bottom.addEventListener("mouseleave", (event) => {
 });
 
 gameBtn.addEventListener("change", (event) => {
-  if (toggle.checked) {
+  if (gameBtn.checked) {
     console.log("gameBtn checked");
 
     aside_bottom_r.style.cssText = aside_bottom_l.style.cssText = `

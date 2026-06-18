@@ -4,17 +4,86 @@
 .contact-page,
 .projects-page,
 .mobile-page {
+    display: none;
+    visibility: hidden;
+    opacity: 0;
     pointer-events: none;
+    mask-image: none !important;
+    -webkit-mask-image: none !important;
+    will-change: auto !important;
 }
 
 .page-active {
+    display: block !important;
+    visibility: visible !important;
+    opacity: 1 !important;
     pointer-events: auto;
-    z-index: 3;
+    z-index: 3 !important;
+}
+
+.page-transition-page {
+    display: block !important;
+    visibility: visible !important;
+    opacity: 1 !important;
+}
+
+.page-measure {
+    display: block !important;
+    visibility: hidden !important;
+    opacity: 0 !important;
+    pointer-events: none !important;
+}
+
+.page-transition-in {
+    z-index: 2 !important;
+    pointer-events: none;
+}
+
+.page-transition-out {
+    z-index: 4 !important;
+    pointer-events: none;
+    will-change: mask-image, -webkit-mask-image !important;
+}
+
+.page-transition-out::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: 5000;
+    pointer-events: none;
+    background:
+        linear-gradient(135deg, rgba(28, 2, 40, 0.22), rgba(240, 89, 65, 0.12)),
+        rgba(0, 0, 0, 0.1);
+}
+
+.main-page.page-mask-active {
+    mask-image: url('#maskMain') !important;
+    -webkit-mask-image: url('#maskMain') !important;
+}
+
+.about-page.page-mask-active {
+    mask-image: url('#maskAbout') !important;
+    -webkit-mask-image: url('#maskAbout') !important;
+}
+
+.projects-page.page-mask-active {
+    mask-image: url('#maskProjects') !important;
+    -webkit-mask-image: url('#maskProjects') !important;
+}
+
+.contact-page.page-mask-active {
+    mask-image: url('#maskContact') !important;
+    -webkit-mask-image: url('#maskContact') !important;
+}
+
+.mobile-page.page-mask-active {
+    mask-image: url('#maskMobile') !important;
+    -webkit-mask-image: url('#maskMobile') !important;
 }
 
 .page-active header {
     position: relative;
-    z-index: 2000;
+    z-index: 2000 !important;
 }
 
 
@@ -22,7 +91,7 @@
 /* optional: make sure the icon itself remains clickable */
 .page-active .hamburger-icon {
     position: relative;
-    z-index: 2001;
+    z-index: 2001 !important;
 }
 
 
@@ -134,5 +203,5 @@
 
 .page-active {
     pointer-events: auto;
-    z-index: 3;
+    z-index: 3 !important;
 }
