@@ -807,7 +807,11 @@ main {
 }
 
 #down-layer.is-mobile-lens .jobTitle {
-  transform: translateY(2rem);
+  transform: translateY(1.75rem);
+}
+
+#down-layer.is-mobile-lens .backEnd > div:first-child {
+  transform: translate3d(-39.85px, 4px, 0);
 }
 
 #down-layer.is-mobile-lens #down-layer-content,
