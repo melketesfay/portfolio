@@ -1068,7 +1068,7 @@
       const WAVE_IS_MOBILE = window.matchMedia(
         "(hover: none), (pointer: coarse)",
       ).matches;
-      const WAVE_DEBUG_SLOW = true;
+      const WAVE_DEBUG_SLOW = false;
       const N_ROWS = WAVE_IS_MOBILE ? 7 : 12;
       const N_COLS = WAVE_IS_MOBILE ? 7 : 12;
       const STAGGER_DELAY_MS = WAVE_DEBUG_SLOW
@@ -1086,6 +1086,13 @@
           ? 360
           : 500;
       const DEFAULT_WAVE_ORIGIN = "top-left";
+      const WAVE_PAGE_ORDER = [
+        "main",
+        "about",
+        "projects",
+        "contact",
+        "mobile",
+      ];
 
       let activeAnimations = [];
       let animationFrameId = null;
@@ -1111,6 +1118,27 @@
         Object.keys(PAGE_MAP).forEach((suffix) => {
           setMaskImmediate(suffix, 1);
         });
+      }
+
+      function getWaveOrigin(fromSuffix, targetSuffix) {
+        const fromIndex = WAVE_PAGE_ORDER.indexOf(fromSuffix);
+        const targetIndex = WAVE_PAGE_ORDER.indexOf(targetSuffix);
+
+        if (fromIndex === -1 || targetIndex === -1) {
+          return DEFAULT_WAVE_ORIGIN;
+        }
+
+        if (targetSuffix === "mobile") return "top-right";
+        if (fromSuffix === "mobile") return "bottom-left";
+
+        const distance = Math.abs(targetIndex - fromIndex);
+        const movingForward = targetIndex > fromIndex;
+
+        if (distance > 1) {
+          return movingForward ? "bottom-right" : "top-left";
+        }
+
+        return movingForward ? "top-right" : "bottom-left";
       }
 
       function resetTransitionClasses() {
@@ -1272,6 +1300,15 @@
           );
         }
       }
+
+      function dispatchPageRevealed(activePage, previousPage) {
+        document.dispatchEvent(
+          new CustomEvent("portfolio:pagerevealed", {
+            detail: { previousPage, activePage },
+          }),
+        );
+      }
+
       function changePageWithWave(targetPageSuffix) {
         console.log(`Changing page to target suffix: ${targetPageSuffix}`);
         if (isWaveTransitioning && targetPageSuffix === waveTargetPageSuffix) {
@@ -1281,12 +1318,14 @@
         const currentPageSuffix = window.portfolioPageState.activePage;
         const currentPage = PAGE_MAP[currentPageSuffix];
         const targetPage = PAGE_MAP[targetPageSuffix];
+        const waveOrigin = getWaveOrigin(currentPageSuffix, targetPageSuffix);
 
         if (!targetPage) return;
         if (!currentPage || currentPageSuffix === targetPageSuffix) {
           clearActiveAnimations();
           resetTransitionClasses();
           setActivePage(targetPageSuffix);
+          dispatchPageRevealed(targetPageSuffix, currentPageSuffix);
           return;
         }
 
@@ -1307,7 +1346,7 @@
         const outgoingTiles =
           getMaskForSuffix(currentPageSuffix)?.querySelectorAll("rect");
 
-        animateTilesJS(outgoingTiles || [], false, DEFAULT_WAVE_ORIGIN, () => {
+        animateTilesJS(outgoingTiles || [], false, waveOrigin, () => {
           currentPage.classList.remove(
             "page-transition-page",
             "page-transition-out",
@@ -1320,6 +1359,7 @@
           setMaskImmediate(currentPageSuffix, 1);
           isWaveTransitioning = false;
           waveTargetPageSuffix = null;
+          dispatchPageRevealed(targetPageSuffix, currentPageSuffix);
         });
       }
 
@@ -1424,11 +1464,72 @@
       about_me_text();
 
       // Ensure .spiralText li elements exist before processing
+      const spiralText = document.querySelector(".spiralText");
       const spiralTextLis = document.querySelectorAll(".spiralText li");
       if (spiralTextLis.length > 0) {
         spiralTextLis.forEach((li, index) => {
           li.style.setProperty("--delay", `${spiralTextLis.length}s`);
-          li.style.animationDelay = `${index}s`;
+          li.style.animationDelay = `-${index}s`;
+        });
+      }
+
+      if (spiralText) {
+        let spiralInViewport = false;
+        const SPIRAL_PREWARM_DISTANCE = 720;
+
+        function isMainPageActive() {
+          return window.portfolioPageState?.activePage === "main";
+        }
+
+        function isSpiralNearViewport() {
+          const rect = spiralText.getBoundingClientRect();
+          const viewportHeight =
+            window.innerHeight || document.documentElement.clientHeight;
+
+          return (
+            rect.top < viewportHeight + SPIRAL_PREWARM_DISTANCE &&
+            rect.bottom > -SPIRAL_PREWARM_DISTANCE
+          );
+        }
+
+        function updateSpiralAnimation() {
+          spiralText.classList.toggle(
+            "spiral-active",
+            (spiralInViewport || isSpiralNearViewport()) && isMainPageActive(),
+          );
+        }
+
+        if ("IntersectionObserver" in window) {
+          const spiralObserver = new IntersectionObserver(
+            (entries) => {
+              spiralInViewport = entries.some((entry) => entry.isIntersecting);
+              updateSpiralAnimation();
+            },
+            {
+              threshold: 0,
+              rootMargin: `${SPIRAL_PREWARM_DISTANCE}px 0px ${SPIRAL_PREWARM_DISTANCE}px 0px`,
+            },
+          );
+
+          spiralObserver.observe(spiralText);
+        } else {
+          spiralInViewport = true;
+          updateSpiralAnimation();
+        }
+
+        requestAnimationFrame(updateSpiralAnimation);
+
+        document.addEventListener("portfolio:pagechange", (event) => {
+          if (event.detail?.previousPage === "main") {
+            spiralText.classList.remove("spiral-active");
+          }
+        });
+
+        document.addEventListener("portfolio:pagerevealed", (event) => {
+          if (event.detail?.activePage === "main") {
+            spiralInViewport = isSpiralNearViewport();
+            updateSpiralAnimation();
+          }
         });
       }
 

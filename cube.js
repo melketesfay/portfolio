@@ -104,7 +104,6 @@ function Viewport(data) {
   var self = this;
 
   this.element = data.element;
-  this.fps = data.fps;
   this.sensivity = data.sensivity;
   this.sensivityFade = data.sensivityFade;
   this.touchSensivity = data.touchSensivity;
@@ -129,35 +128,74 @@ function Viewport(data) {
 
   this.currentSide = 0;
   this.calculatedSide = 0;
+  this.frameId = null;
+  this.mainActive = window.portfolioPageState?.activePage === "main";
+  this.inViewport = true;
+
+  this.setMainActive = function (active) {
+    self.mainActive = active;
+    if (!active) {
+      self.down = false;
+      self.stopLoop();
+      return;
+    }
+    self.requestLoop();
+  };
+
+  this.setViewportVisible = function (visible) {
+    self.inViewport = visible;
+    if (!visible) {
+      self.down = false;
+      self.stopLoop();
+      return;
+    }
+    self.requestLoop();
+  };
+
+  this.canRun = function () {
+    return self.mainActive && self.inViewport;
+  };
 
   bindEvent(target, "mousedown", function () {
+    if (!self.canRun()) return;
     self.down = true;
+    self.requestLoop();
   });
 
   bindEvent(target, "mouseup", function () {
     self.down = false;
+    self.requestLoop();
   });
 
   bindEvent(target, "keyup", function () {
     self.down = false;
+    self.requestLoop();
   });
 
   bindEvent(target, "mousemove", function (e) {
+    if (!self.canRun()) return;
     self.mouseX = e.pageX;
     self.mouseY = e.pageY;
+    if (self.down) {
+      self.requestLoop();
+    }
   });
 
   bindEvent(target, "touchstart", function (e) {
+    if (!self.canRun()) return;
     self.down = true;
     e.touches ? (e = e.touches[0]) : null;
     self.mouseX = e.pageX / self.touchSensivity;
     self.mouseY = e.pageY / self.touchSensivity;
     self.lastX = self.mouseX;
     self.lastY = self.mouseY;
+    self.requestLoop();
   });
 
   bindEvent(target, "touchmove", function (e) {
-    if (e.preventDefault) {
+    if (!self.canRun()) return;
+
+    if (self.down && e.preventDefault) {
       e.preventDefault();
     }
 
@@ -166,16 +204,62 @@ function Viewport(data) {
 
       self.mouseX = e.pageX / self.touchSensivity;
       self.mouseY = e.pageY / self.touchSensivity;
+      self.requestLoop();
     }
   });
 
   bindEvent(target, "touchend", function (e) {
     self.down = false;
+    self.requestLoop();
   });
 
-  setInterval(this.animate.bind(this), this.fps);
+  document.addEventListener("portfolio:pagechange", function (event) {
+    if (event.detail?.activePage !== "main") {
+      self.setMainActive(false);
+    }
+  });
+
+  document.addEventListener("portfolio:pagerevealed", function (event) {
+    self.setMainActive(event.detail?.activePage === "main");
+  });
+
+  if ("IntersectionObserver" in window) {
+    const cubeObserver = new IntersectionObserver(
+      function (entries) {
+        entries.forEach(function (entry) {
+          self.setViewportVisible(entry.isIntersecting);
+        });
+      },
+      {
+        threshold: 0.12,
+      },
+    );
+
+    cubeObserver.observe(target);
+  }
+
+  this.requestLoop();
 }
 events.implement(Viewport);
+Viewport.prototype.requestLoop = function () {
+  if (this.frameId || !this.canRun()) return;
+
+  this.frameId = requestAnimationFrame(this.tick.bind(this));
+};
+Viewport.prototype.stopLoop = function () {
+  if (!this.frameId) return;
+
+  cancelAnimationFrame(this.frameId);
+  this.frameId = null;
+};
+Viewport.prototype.tick = function () {
+  this.frameId = null;
+  const shouldContinue = this.animate();
+
+  if (shouldContinue) {
+    this.requestLoop();
+  }
+};
 Viewport.prototype.animate = function () {
   this.distanceX = this.mouseX - this.lastX;
   this.distanceY = this.mouseY - this.lastY;
@@ -281,10 +365,15 @@ Viewport.prototype.animate = function () {
 
     this.emit("rotate");
   }
+
+  return (
+    this.down ||
+    Math.abs(this.torqueX) > 1.0 ||
+    Math.abs(this.torqueY) > 1.0
+  );
 };
 var viewport = new Viewport({
   element: document.getElementsByClassName("cube")[0],
-  fps: 20,
   sensivity: 0.1,
   sensivityFade: 0.93,
   speed: 2,

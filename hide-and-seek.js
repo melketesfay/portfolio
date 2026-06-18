@@ -43,17 +43,9 @@
     return Math.round(Math.min(Math.max(window.innerWidth * 0.38, 128), 156));
   }
 
-  function clamp(value, min, max) {
-    return Math.min(Math.max(value, min), max);
-  }
-
   function setSpotlightWillChange(active) {
     clearTimeout(resetWillChangeTimer);
-    downLayer.style.willChange = active
-      ? mobileLens
-        ? "transform, opacity"
-        : "clip-path"
-      : "auto";
+    downLayer.style.willChange = active ? "clip-path" : "auto";
   }
 
   function setSpotlightPosition(event) {
@@ -76,6 +68,14 @@
     }, 300);
   }
 
+  function isPointInsideSpotlightHost(x, y) {
+    if (!spotlightRect) return false;
+
+    return (
+      x >= 0 && x <= spotlightRect.width && y >= 0 && y <= spotlightRect.height
+    );
+  }
+
   function closeTouchSpotlight(delay = 800) {
     spotlightActive = false;
     touchPointerId = null;
@@ -92,33 +92,30 @@
     }
 
     if (mobileLens) {
-      const maxLeft = Math.max(0, spotlightRect.width - activeLensSize);
-      const maxTop = Math.max(0, spotlightRect.height - activeLensSize);
-      const lensLeft = clamp(
-        Math.round(pointerX - spotlightRect.left - activeLensSize / 2),
-        0,
-        maxLeft,
-      );
-      const lensTop = clamp(
-        Math.round(pointerY - spotlightRect.top - activeLensSize / 2),
-        0,
-        maxTop,
-      );
+      const touchOffsetY = Math.round(activeLensSize * 0.55);
+      const centerX = pointerX - spotlightRect.left;
+      const centerY = pointerY - spotlightRect.top - touchOffsetY;
+      if (!isPointInsideSpotlightHost(centerX, centerY)) {
+        closeTouchSpotlight(120);
+        return;
+      }
+
+      const lensX = Math.round(centerX);
+      const lensY = Math.round(centerY);
 
       if (
         lastLensLeft !== null &&
-        Math.abs(lensLeft - lastLensLeft) < 2 &&
-        Math.abs(lensTop - lastLensTop) < 2
+        Math.abs(lensX - lastLensLeft) < 2 &&
+        Math.abs(lensY - lastLensTop) < 2
       ) {
         return;
       }
 
-      lastLensLeft = lensLeft;
-      lastLensTop = lensTop;
-      downLayer.style.setProperty("--lens-left", `${lensLeft}px`);
-      downLayer.style.setProperty("--lens-top", `${lensTop}px`);
-      downLayer.style.setProperty("--lens-content-x", `${-lensLeft}px`);
-      downLayer.style.setProperty("--lens-content-y", `${-lensTop}px`);
+      lastLensLeft = lensX;
+      lastLensTop = lensY;
+      downLayer.style.setProperty("--x", `${lensX}px`);
+      downLayer.style.setProperty("--y", `${lensY}px`);
+      downLayer.style.setProperty("--r", `${Math.round(activeLensSize / 2)}px`);
       downLayer.classList.add("is-open");
       return;
     }
@@ -162,15 +159,6 @@
     lastLensLeft = null;
     lastLensTop = null;
     spotlightRect = topLayer.getBoundingClientRect();
-    downLayer.style.setProperty("--lens-size", `${activeLensSize}px`);
-    downLayer.style.setProperty(
-      "--spotlight-host-width",
-      `${Math.round(spotlightRect.width)}px`,
-    );
-    downLayer.style.setProperty(
-      "--spotlight-host-height",
-      `${Math.round(spotlightRect.height)}px`,
-    );
     setSpotlightWillChange(true);
     downLayer.classList.remove("is-open");
     setSpotlightPosition(event);

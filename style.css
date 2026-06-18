@@ -763,43 +763,51 @@ main {
 }
 
 #down-layer.is-mobile-lens {
-  clip-path: none;
-  display: block;
-  width: var(--lens-size, 160px);
-  height: var(--lens-size, 160px);
-  min-height: 0;
-  border-radius: 50%;
-  overflow: hidden;
-  opacity: 0;
-  transform: translate3d(var(--lens-left, 0px), var(--lens-top, 0px), 0);
-  transition: opacity 140ms ease;
-  will-change: transform, opacity;
-  contain: layout paint;
+  --down-layer-mobile-bleed: 1.5rem;
+
+  display: flex;
+  width: 100%;
+  height: 100%;
+  min-height: 100%;
+  background-color: transparent;
+  border-radius: 7px;
+  overflow: visible;
+  isolation: isolate;
+  transition: none;
+  will-change: clip-path;
+  contain: layout;
   backface-visibility: hidden;
-  outline: 2px solid color-mix(in srgb, var(--main) 42%, transparent);
+}
+
+#down-layer.is-mobile-lens::before {
+  content: "";
+  position: absolute;
+  inset: 0 0 calc(var(--down-layer-mobile-bleed) * -1) 0;
+  z-index: -1;
+  border-radius: inherit;
+  background-color: var(--fourth);
+  pointer-events: none;
 }
 
 #down-layer.is-mobile-lens.is-open {
-  opacity: 1;
-  transform: translate3d(var(--lens-left, 0px), var(--lens-top, 0px), 0);
+  transform: translateZ(0);
 }
 
 #down-layer.is-mobile-lens #down-layer-content {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: var(--spotlight-host-width, 100%);
-  min-width: var(--spotlight-host-width, 100%);
-  height: var(--spotlight-host-height, 200px);
-  min-height: var(--spotlight-host-height, 200px);
-  transform: translate3d(
-    var(--lens-content-x, 0px),
-    var(--lens-content-y, 0px),
-    0
-  );
-  transform-origin: top left;
-  will-change: transform;
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  min-width: 0;
+  height: auto;
+  min-height: 0;
+  transform: none;
+  transform-origin: center;
+  will-change: auto;
   backface-visibility: hidden;
+}
+
+#down-layer.is-mobile-lens .jobTitle {
+  transform: translateY(2rem);
 }
 
 #down-layer.is-mobile-lens #down-layer-content,

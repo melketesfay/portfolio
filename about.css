@@ -239,7 +239,48 @@
 
 .repellant {
     display: inline-block;
+    transform: translate3d(0, 0, 0);
     transition: transform 0.3s ease-out;
+}
+
+.about-text-enter .repellant {
+    animation: about-letter-wave 920ms ease-in-out both;
+    animation-delay: calc(var(--i) * 6ms);
+    transition: none;
+    will-change: transform;
+}
+
+@keyframes about-letter-wave {
+    0% {
+        transform: translate3d(0, 0, 0);
+    }
+
+    20% {
+        transform: translate3d(0, -0.7em, 0);
+    }
+
+    40% {
+        transform: translate3d(0, 0.45em, 0);
+    }
+
+    60% {
+        transform: translate3d(0, -0.28em, 0);
+    }
+
+    80% {
+        transform: translate3d(0, 0.12em, 0);
+    }
+
+    100% {
+        transform: translate3d(0, 0, 0);
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .about-text-enter .repellant {
+        animation: none;
+        will-change: auto;
+    }
 }
 
 .span-text {

@@ -45,17 +45,6 @@
     will-change: mask-image, -webkit-mask-image !important;
 }
 
-.page-transition-out::after {
-    content: "";
-    position: absolute;
-    inset: 0;
-    z-index: 5000;
-    pointer-events: none;
-    background:
-        linear-gradient(135deg, rgba(28, 2, 40, 0.22), rgba(240, 89, 65, 0.12)),
-        rgba(0, 0, 0, 0.1);
-}
-
 .main-page.page-mask-active {
     mask-image: url('#maskMain') !important;
     -webkit-mask-image: url('#maskMain') !important;
@@ -185,6 +174,10 @@
     font-family: "Kanit", sans-serif;
     font-weight: 950;
     font-size: 6rem;
+    animation: none;
+}
+
+.spiralText.spiral-active li {
     animation: var(--delay) spiral-staircase linear infinite;
 }
 

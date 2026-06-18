@@ -95,6 +95,7 @@ Initial code audit notes:
 - 2026-06-18: Concurrent mobile costs remain significant: `image-animation.js` adds body `touchmove` listeners inside per-strip loops, `cube.js` runs a fixed interval and prevents touch default on cube moves, `textrepellant.js` does layout reads for many letters on document mousemove, and CSS has persistent GIF noise, scanline, masks, spiral animation, and heavy shadows.
 - 2026-06-18: Fast mobile scrolling still shows random white/unrendered areas and flicker, and the user reports it can get worse after clicking the main toggle repeatedly.
 - 2026-06-18: The flicker becomes significantly worse after opening the hamburger/mobile nav and triggering the wave animation.
+- 2026-06-18: Current smoothness observations are with CRT/noise/scanline layers disabled; reintroduce those effects carefully later or keep a cheaper version.
 
 ## Phase 1: Runtime Gating
 
@@ -104,14 +105,19 @@ Tasks:
 
 - [x] Create a single source of truth for active page state.
 - [ ] Ensure all page-specific scripts check whether their page is active before doing work.
-- [ ] Pause all pointer/touch effects when the related element is not active.
+- [x] Pause all pointer/touch effects when the related element is not active.
 - [ ] Avoid document-level listeners where element-level listeners are enough.
-- [ ] Use `IntersectionObserver` or active-page events for effects that should pause offscreen.
+- [x] Use `IntersectionObserver` or active-page events for effects that should pause offscreen.
 - [ ] Keep decorative animations only if they are transform/opacity based and cheap.
 
 Implementation rule:
 
 - A hidden page may keep CSS state, but it should not keep measuring DOM nodes, processing pointer movement, or writing animation styles.
+
+Progress:
+
+- 2026-06-18: `hide-and-seek.js`, `textrepellant.js`, `cube.js`, and spiral text now use active-page events and/or `IntersectionObserver` to stop page-specific work while hidden/offscreen.
+- 2026-06-18: Final runtime scan after cube/spiral gating: no cube interval remains; spiral animation is class-gated; remaining always-present items are page-level event listeners, disabled/unused legacy scripts not loaded by `index.html`, coffee steam CSS, and the contact typewriter interval after start.
 
 ## Phase 2: Hero Spotlight
 
@@ -220,9 +226,9 @@ Progress:
 - 2026-06-18: Added a dark root background so any remaining compositor checkerboarding is not a white flash.
 - 2026-06-18: Corrected the wave model after testing: every transition now keeps exactly two visible page layers, with the outgoing page locked above the incoming page so it can disappear in a tile wave and reveal the target.
 - 2026-06-18: Added a hidden measurement state so `makePageSameHeight()` does not collapse page heights when `.main-page` is currently not displayed.
-- 2026-06-18: Added a transition-only outgoing-page tint so the rectangular wave remains visible between similarly colored pages without changing the permanent page designs.
+- 2026-06-18: Tried a transition-only outgoing-page tint for wave readability, then removed it; keep route-based wave direction and revisit page color/contrast later instead.
 - 2026-06-18: Observed that repeating the target nav click during a wave could cancel the animation and show the target instantly; added a guard so repeated target clicks are ignored while the wave is active.
-- 2026-06-18: Direction variation may make the wave more prominent between similarly colored pages; consider route-based or alternating wave origins after the current smoothness pass.
+- 2026-06-18: Added route-based wave origins so adjacent, jump, and mobile transitions can start from different corners without adding new DOM or paint layers.
 
 ## Phase 5: Text Effects And Spiral Text
 
@@ -231,15 +237,15 @@ Goal: preserve text personality without constant layout cost.
 Text repel tasks:
 
 - [ ] Keep rich repel on desktop.
-- [ ] Disable or simplify on coarse pointer/mobile.
-- [ ] Measure character positions only when layout changes, not every pointer move.
-- [ ] Use transform-only writes for character movement.
+- [x] Disable or simplify on coarse pointer/mobile.
+- [x] Measure character positions only when layout changes, not every pointer move.
+- [x] Use transform-only writes for character movement.
 
 Spiral text tasks:
 
 - [ ] Keep double-helix upward movement.
-- [ ] Confirm animation is transform-only.
-- [ ] Reduce text count, shadow intensity, or animation complexity on mobile if needed.
+- [x] Confirm animation is transform-only.
+- [x] Reduce text count, shadow intensity, or animation complexity on mobile if needed.
 - [ ] Respect reduced motion.
 
 Acceptance:
@@ -248,21 +254,36 @@ Acceptance:
 - Mobile remains readable and smooth.
 - Spiral text still gives an upward rotating helix impression.
 
+Progress:
+
+- 2026-06-18: Added `portfolio:pagerevealed` so page effects can start after the wave reveal actually finishes.
+- 2026-06-18: Reworked `textrepellant.js` so mobile/coarse pointer never attaches repel pointer listeners.
+- 2026-06-18: Added one-shot transform-only about text waves that run per text block when the block enters the viewport.
+- 2026-06-18: Desktop about text repel now attaches only while the about page is active and after active text-block waves finish; it removes listeners when leaving the page.
+- 2026-06-18: Spiral text animation now runs only when the main page is active and the spiral section is in the viewport.
+- 2026-06-18: Spiral text now uses negative stagger delays so the helix is already populated when the section enters the viewport instead of starting from an empty state.
+- 2026-06-18: Spiral text now prewarms before the section reaches the viewport so fast scrolling is less likely to show an empty dark spiral area.
+
 ## Phase 6: Cube
 
 Goal: keep the draggable 3D project object but stop unnecessary idle work.
 
 Tasks:
 
-- [ ] Replace fixed interval loop with RAF while dragging/inertia is active.
-- [ ] Stop updates when torque/inertia falls below threshold.
-- [ ] Do not process cube events when main page is hidden.
-- [ ] Keep active-side highlighting.
+- [x] Replace fixed interval loop with RAF while dragging/inertia is active.
+- [x] Stop updates when torque/inertia falls below threshold.
+- [x] Do not process cube events when main page is hidden.
+- [x] Keep active-side highlighting.
 
 Acceptance:
 
 - Cube drag still feels physical.
 - Cube does not consume continuous work when idle.
+
+Progress:
+
+- 2026-06-18: Removed the fixed cube `setInterval` and replaced it with a self-stopping RAF loop.
+- 2026-06-18: Cube loop now starts on drag/inertia and pauses when the cube is idle, offscreen, or the main page is hidden.
 
 ## Phase 7: Final QA
 
