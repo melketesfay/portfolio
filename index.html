@@ -135,6 +135,12 @@
                 <div class="image-title-container name">
                   <h1 class="image-title">BACKEND</h1>
                 </div>
+                <span
+                  class="interaction-hint profile-photo-hint"
+                  aria-hidden="true"
+                >
+                  <i class="fa-solid fa-hand-pointer"></i>
+                </span>
               </div>
             </div>
             <div class="inside-aside-bottom">
@@ -195,6 +201,9 @@
                 </div>
               </div>
             </div>
+            <span class="interaction-hint hero-reveal-hint" aria-hidden="true">
+              <i class="fa-solid fa-hand-pointer"></i>
+            </span>
           </div>
           <div class="main-bottom">
             <div id="wrapper">
@@ -244,6 +253,9 @@
                   </div>
                 </div>
               </div>
+              <span class="interaction-hint cube-drag-hint" aria-hidden="true">
+                <i class="fa-solid fa-arrows-rotate"></i>
+              </span>
             </div>
             <div class="ausgewaehlte-projekte name">
               <h2>AUSGEWÄHLTE</h2>
@@ -1542,6 +1554,39 @@
         let info_copy_right_year = new Date().getFullYear();
         infoCopyRightEl.innerHTML = `${info_copy_right_year} © melke`;
       }
+    </script>
+
+    <script>
+      (() => {
+        function hideHintAfterInteraction(hintSelector, targetSelector, events) {
+          const hint = document.querySelector(hintSelector);
+          const target = document.querySelector(targetSelector);
+          if (!hint || !target) return;
+
+          const hideHint = () => {
+            hint.classList.add("interaction-hint-hidden");
+            events.forEach((eventName) => {
+              target.removeEventListener(eventName, hideHint);
+            });
+          };
+
+          events.forEach((eventName) => {
+            target.addEventListener(eventName, hideHint, {
+              passive: true,
+            });
+          });
+        }
+
+        hideHintAfterInteraction(".hero-reveal-hint", "#top-layer", [
+          "pointerenter",
+          "pointerdown",
+        ]);
+        hideHintAfterInteraction(".cube-drag-hint", ".cube", ["pointerdown"]);
+        hideHintAfterInteraction(".profile-photo-hint", ".image-bottom", [
+          "pointerenter",
+          "pointerdown",
+        ]);
+      })();
     </script>
 
     <script src="textrepellant.js"></script>

@@ -386,7 +386,7 @@ aside {
   margin-top: 4rem;
 }
 
-.inside-aside-top span {
+.inside-aside-top > span {
   border-radius: 0.25rem;
   box-shadow:
     0 0 20px var(--fourth),
@@ -398,6 +398,44 @@ aside {
   box-shadow:
     0 0 20px var(--fourth),
     0 0 5px var(--fourth);
+}
+
+.corner-game-flash > span {
+  animation: corner-game-flash 760ms ease-out both;
+}
+
+@keyframes corner-game-flash {
+  0% {
+    opacity: 0.35;
+    filter: brightness(1);
+    box-shadow:
+      0 0 10px var(--fourth),
+      0 0 3px var(--fourth);
+  }
+
+  34% {
+    opacity: 1;
+    filter: brightness(1.35);
+    box-shadow:
+      0 0 34px var(--fourth),
+      0 0 14px var(--second);
+  }
+
+  68% {
+    opacity: 0.7;
+    filter: brightness(1.05);
+    box-shadow:
+      0 0 22px var(--fourth),
+      0 0 8px var(--fourth);
+  }
+
+  100% {
+    opacity: 1;
+    filter: brightness(1);
+    box-shadow:
+      0 0 20px var(--fourth),
+      0 0 5px var(--fourth);
+  }
 }
 
 .inside-aside-top {
@@ -831,9 +869,108 @@ main {
     0 5px 12px var(--text-shadow);
 }
 
+.interaction-hint {
+  --hint-rotate: 0deg;
+  --hint-move-x: 0.5rem;
+  --hint-move-y: -0.25rem;
+
+  position: absolute;
+  z-index: 160;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--fourth);
+  opacity: 0;
+  pointer-events: none;
+  text-shadow:
+    1px 1px 0 var(--second),
+    0 0 12px var(--text-shadow);
+  transform: translate3d(0, 0, 0) rotate(var(--hint-rotate)) scale(0.82);
+  animation: interaction-hint-pulse 4.8s ease-in-out 900ms infinite both;
+  will-change: transform, opacity;
+}
+
+.interaction-hint-hidden {
+  display: none;
+}
+
+.hero-reveal-hint {
+  --hint-rotate: -18deg;
+  --hint-move-x: -0.65rem;
+  --hint-move-y: 0.35rem;
+
+  right: clamp(1rem, 10vw, 5rem);
+  top: 46%;
+  font-size: clamp(1.6rem, 5vw, 2.35rem);
+}
+
+#wrapper {
+  position: relative;
+}
+
+.cube-drag-hint {
+  --hint-rotate: 12deg;
+  --hint-move-x: 0.45rem;
+  --hint-move-y: -0.25rem;
+  /* Art-directed to sit on the cube's initial front corner. */
+  top: 7.5rem;
+  left: calc(50% + -0.5rem);
+  font-size: clamp(1.5rem, 4vw, 2.25rem);
+}
+
+.profile-photo-hint {
+  --hint-rotate: -14deg;
+  --hint-move-x: 0.55rem;
+  --hint-move-y: -0.25rem;
+
+  right: 1rem;
+  top: 1rem;
+  color: var(--main);
+  font-size: 1.85rem;
+  text-shadow:
+    1px 1px 0 var(--fourth),
+    0 0 10px var(--text-shadow);
+}
+
+@keyframes interaction-hint-pulse {
+  0% {
+    opacity: 0.42;
+    transform: translate3d(0, 0, 0) rotate(var(--hint-rotate)) scale(0.82);
+  }
+
+  18% {
+    opacity: 0.88;
+  }
+
+  42% {
+    opacity: 0.88;
+    transform: translate3d(var(--hint-move-x), var(--hint-move-y), 0)
+      rotate(var(--hint-rotate)) scale(1);
+  }
+
+  72% {
+    opacity: 0.52;
+    transform: translate3d(var(--hint-move-x), var(--hint-move-y), 0)
+      rotate(var(--hint-rotate)) scale(0.9);
+  }
+
+  100% {
+    opacity: 0.42;
+    transform: translate3d(0, 0, 0) rotate(var(--hint-rotate)) scale(0.82);
+  }
+}
+
 @media (prefers-reduced-motion: reduce) {
   #down-layer {
     transition: none;
+  }
+
+  .interaction-hint {
+    display: none;
+  }
+
+  .corner-game-flash > span {
+    animation: none;
   }
 }
 
@@ -1227,6 +1364,7 @@ footer {
   margin-left: 3rem;
   margin-right: 3rem;
   padding: 0 2rem;
+  font-family: "Kanit", sans-serif;
 }
 
 .info {
