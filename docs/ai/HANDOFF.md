@@ -5,7 +5,7 @@
 - Git root: `portfolio/`
 - Remote: `git@github.com:melketesfay/portfolio.git`
 - Trunk branch: `main`
-- Current planning branch: `docs/performance-plan`
+- Current implementation branch: `perf/mobile-animation-runtime`
 - Workflow: GitHub flow, short-lived branches, Conventional Commits
 
 ## Project Intent
@@ -43,15 +43,28 @@ See `docs/ai/DECISIONS.md` for the canonical decision log.
 - [x] Trunk is `main`.
 - [x] Baseline commit exists: `chore: initial baseline commit before performance optimization`.
 - [x] First planning branch selected: `docs/performance-plan`.
-- [ ] Durable context files merged to `main`.
-- [ ] Baseline visual/performance audit completed.
-- [ ] Runtime gating implemented.
-- [ ] Hero spotlight optimized.
-- [ ] Profile reveal optimized.
-- [ ] Wave navigation optimized.
-- [ ] Text effects optimized.
-- [ ] Cube idle loop optimized.
+- [x] Durable context files merged to `main`.
+- [ ] Baseline visual/performance audit fully completed.
+- [x] Runtime gating mostly implemented for main interactive hotspots.
+- [x] Hero spotlight optimized enough for current mobile/laptop testing.
+- [x] Profile reveal optimized and accepted by the user.
+- [x] Wave navigation optimized enough for current mobile/laptop testing.
+- [x] Text effects partly optimized.
+- [x] Cube idle loop optimized.
 - [ ] Final desktop/mobile QA completed.
+
+## Current Session State: 2026-06-19
+
+- Current branch/work is still focused on `perf/mobile-animation-runtime`, but the working tree contains both performance fixes and content/layout polish.
+- Main page is tentatively accepted by the user for current laptop/mobile testing.
+- Remaining main page QA: revisit on large desktop screens before deployment.
+- Desktop game mode text now uses an overlay layer so letters can detach without shifting the paragraph layout.
+- Mobile toggle now runs a lightweight helium-letter burst only when toggled on; toggling off or clicking the logo restores normal text.
+- Hamburger icon now morphs to an X when the mobile nav page is open.
+- Hamburger mobile nav links use an elastic drop animation.
+- About page content rewrite started, but the current layout is explicitly **not accepted** by the user. Do not treat the current About arrangement as done.
+- The user wants the About tone to be personal and grounded, not self-promotional or pretentious.
+- The About text should mention the user's real direction: Full Stack/Web, interest in Backend/Infra/Security, part-time Cyber Security study at HSLU, and personal interests such as philosophy and hiking.
 
 ## Known Hotspots To Inspect First
 
@@ -62,30 +75,24 @@ See `docs/ai/DECISIONS.md` for the canonical decision log.
 - `cube.js`: fixed interval loop.
 - `game.js`: many animated character spans in optional mode.
 - `style.css`, `about.css`, `pages.css`: heavy shadows, masks, filters, scanlines, and continuous decorative animations.
+- `about.css`: current About layout is unstable/unsatisfactory after adding the fourth personal text block. It needs a deliberate layout pass, not more small `nth-child` patches.
 
 ## Next Recommended Task
 
-After merging `docs/performance-plan`, create:
-
-```bash
-git switch main
-git pull
-git switch -c perf/mobile-animation-runtime
-```
-
-Then:
+Next session:
 
 1. Read `AGENTS.md`, `docs/ai/HANDOFF.md`, `docs/ai/NEXT_ACTIONS.md`, and `docs/ai/DECISIONS.md`.
-2. Complete the baseline audit checklist.
-3. Implement active-page/runtime gating and hero spotlight optimization first.
-4. Verify desktop and mobile-sized viewport behavior.
-5. Update `docs/ai/NEXT_ACTIONS.md` with findings and checklist progress.
-6. Update `docs/ai/DECISIONS.md` if a scope or tradeoff decision changes.
+2. Check `git status` and confirm which changes from 2026-06-19 are committed/pushed.
+3. Start with the About page. The current text direction is closer, but the layout is not good.
+4. Rework About layout deliberately, preferably with clear grid areas or a simpler section structure.
+5. Keep the Zurich reveal and Tigrinya visual identity unless the user explicitly asks to remove them.
+6. After About is acceptable, move to Projects and Contact content/polish.
+7. Update `docs/ai/NEXT_ACTIONS.md` and `docs/ai/DECISIONS.md` if scope or tradeoffs change.
 
 ## Prompt For The Next Codex Session
 
 ```text
-Read AGENTS.md, docs/ai/HANDOFF.md, docs/ai/NEXT_ACTIONS.md, and docs/ai/DECISIONS.md. We are optimizing the custom vanilla portfolio for smooth desktop/mobile animation while preserving the visual identity. Start from the current git branch and status. For this task, complete the next unchecked phase in docs/ai/NEXT_ACTIONS.md. Keep changes focused, avoid new dependencies, verify in browser when possible, and update the tracking checklist before finalizing.
+Read AGENTS.md, docs/ai/HANDOFF.md, docs/ai/NEXT_ACTIONS.md, and docs/ai/DECISIONS.md. Continue the custom vanilla portfolio work from the current branch/status. Main page is tentatively accepted on laptop/mobile, but About page content/layout is not finished. Preserve the handmade visual identity, avoid generic self-promotional copy, avoid new dependencies, and start by fixing the About page layout/content with focused changes and browser/user verification.
 ```
 
 ## Review Checklist For Pull Requests

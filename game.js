@@ -4,6 +4,7 @@
   const points = document.querySelector(".score > p");
   const asideBottom = document.querySelector(".inside-aside-bottom");
   const finePointer = window.matchMedia("(hover: hover) and (pointer: fine)");
+  const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
 
   if (!toggle || !score || !points || !asideBottom) return;
 
@@ -12,6 +13,7 @@
 
   let gameActive = false;
   let counter = 0;
+  let gameTextLayer = null;
 
   function getAsideTextElement() {
     return asideBottom.querySelector(".aside-bottom-about-me");
@@ -26,90 +28,142 @@
     return distance <= 20;
   }
 
-  function textsplitter(targets) {
-    targets.forEach((target) => {
-      const para = document.createElement("h3");
-      para.style.whiteSpace = "pre-line";
+  function getTextNodes(root) {
+    const walker = document.createTreeWalker(root, NodeFilter.SHOW_TEXT);
+    const nodes = [];
 
-      target.textContent.split("").forEach((letter) => {
+    while (walker.nextNode()) {
+      nodes.push(walker.currentNode);
+    }
+
+    return nodes;
+  }
+
+  function clearGameTextLayer() {
+    if (gameTextLayer) {
+      gameTextLayer.remove();
+      gameTextLayer = null;
+    }
+
+    const currentText = getAsideTextElement();
+    if (currentText) {
+      currentText.classList.remove("game-text-active");
+    }
+  }
+
+  function buildGameTextLayer(target) {
+    clearGameTextLayer();
+
+    const parent = target.parentElement;
+    if (!parent) return;
+
+    const parentRect = parent.getBoundingClientRect();
+    const layer = document.createElement("span");
+    layer.className = "game-text-layer";
+
+    getTextNodes(target).forEach((node) => {
+      for (let index = 0; index < node.nodeValue.length; index++) {
+        const letter = node.nodeValue[index];
+        if (letter.trim() === "") continue;
+
+        const range = document.createRange();
+        range.setStart(node, index);
+        range.setEnd(node, index + 1);
+        const rect = range.getBoundingClientRect();
+        range.detach();
+
+        if (!rect.width && !rect.height) continue;
+
         const wrapper = document.createElement("span");
-
-        if (letter.trim() === "") {
-          wrapper.innerHTML = letter.replace(/\s/, "&nbsp;");
-        }
-
         wrapper.classList.add("target");
-        wrapper.style.position = "relative";
-        wrapper.style.zIndex = "1";
-        wrapper.appendChild(document.createTextNode(letter));
-        para.appendChild(wrapper);
-      });
-
-      target.parentNode.replaceChild(para, target);
-      para.classList.add("aside-bottom-about-me");
+        if (node.parentElement?.closest(".index")) {
+          wrapper.classList.add("index");
+        }
+        wrapper.textContent = letter;
+        wrapper.style.left = `${rect.left - parentRect.left}px`;
+        wrapper.style.top = `${rect.top - parentRect.top}px`;
+        wrapper.style.width = `${rect.width}px`;
+        wrapper.style.height = `${rect.height}px`;
+        layer.appendChild(wrapper);
+      }
     });
+
+    parent.appendChild(layer);
+    target.classList.add("game-text-active");
+    gameTextLayer = layer;
   }
 
   function randomColor(event) {
     if (!gameActive) return;
 
     const color = Math.floor(Math.random() * 16777215).toString(16);
-    document.querySelectorAll(".target").forEach((target, index) => {
-      const pos = target.getBoundingClientRect();
+    document
+      .querySelectorAll(".game-text-layer .target")
+      .forEach((target, index) => {
+        if (
+          target.classList.contains("free") ||
+          target.classList.contains("caught")
+        ) {
+          return;
+        }
 
-      if (!isNearCursor(event, pos)) return;
+        const pos = target.getBoundingClientRect();
 
-      target.classList.add("free");
-      target.style.cssText += `
-        position:relative;
-        transform: translateY(-1000px);
-        z-index:${index + 100};
-        font-weight:700;
-        min-height:fit-content;
-        min-width:fit-content;
-        margin:auto;
-        color:#${color};
-        display:inline-block;
-        text-align:center;
-        font-size:1.7rem;
-        transition-property:transform,background-color,width,height,font-size,white-space;
-        transition-duration:65s,1s,1s,1s,0.5s;
-      `;
-    });
+        if (!isNearCursor(event, pos)) return;
+
+        target.classList.add("free");
+        target.style.zIndex = `${index + 100}`;
+        target.style.setProperty(
+          "--game-letter-color",
+          `#${color.padStart(6, "0")}`,
+        );
+        target.style.setProperty(
+          "--game-float-x",
+          `${Math.round((Math.random() - 0.5) * 80)}px`,
+        );
+        target.style.setProperty(
+          "--game-rotate",
+          `${Math.round((Math.random() - 0.5) * 28)}deg`,
+        );
+      });
   }
 
   function handleKeydown(event) {
     if (!gameActive) return;
 
-    document.querySelectorAll(".free").forEach((target, index) => {
-      if (
-        target.innerHTML.trim().toString() !== event.key ||
-        target.style.backgroundColor === "red" ||
-        target.getBoundingClientRect().top <= 0
-      ) {
-        return;
-      }
+    document
+      .querySelectorAll(".game-text-layer .free")
+      .forEach((target, index) => {
+        if (
+          target.innerHTML.trim().toString() !== event.key ||
+          target.style.backgroundColor === "red" ||
+          target.getBoundingClientRect().top <= 0
+        ) {
+          return;
+        }
 
-      counter++;
-      points.innerHTML = counter;
-      target.classList.remove("target", "free");
-      target.style.cssText += `
-        position:absolute;
-        z-index:${index + 100};
-        padding-top:5%;
-        width:50px;
-        height:50px;
-        background-image:url('explosion.gif');
-        background-size:cover;
-        background-repeat:no-repeat;
-        background-position:center;
-        color:black;
-      `;
+        const layer = target.closest(".game-text-layer");
+        const layerRect = layer.getBoundingClientRect();
+        const targetRect = target.getBoundingClientRect();
+        const currentCenterX = targetRect.left + targetRect.width / 2;
+        const currentCenterY = targetRect.top + targetRect.height / 2;
 
-      window.setTimeout(() => {
-        target.style.opacity = 0;
-      }, 700);
-    });
+        counter++;
+        points.innerHTML = counter;
+        target.classList.remove("free");
+        target.classList.add("caught");
+        target.style.zIndex = `${index + 100}`;
+        target.style.left = `${
+          currentCenterX - layerRect.left - target.offsetWidth / 2
+        }px`;
+        target.style.top = `${
+          currentCenterY - layerRect.top - target.offsetHeight / 2
+        }px`;
+
+        window.setTimeout(() => {
+          target.classList.add("caught-fade");
+        }, 700);
+      });
   }
 
   function showScore() {
@@ -135,6 +189,69 @@
     `;
   }
 
+  function clearMobileHeliumBurst() {
+    const currentText = getAsideTextElement();
+    if (!currentText || gameActive) return;
+
+    currentText.classList.remove("mobile-helium-text");
+    currentText.innerHTML = originalText;
+  }
+
+  function runMobileHeliumBurst() {
+    if (finePointer.matches || reducedMotion.matches || gameActive) return;
+
+    const currentText = getAsideTextElement();
+    if (!currentText) return;
+
+    clearMobileHeliumBurst();
+    const text = currentText.textContent;
+    currentText.innerHTML = "";
+    currentText.classList.add("mobile-helium-text");
+
+    const letters = Array.from(text).map((letter, index) => {
+      const wrapper = document.createElement("span");
+      const isWhitespace = letter.trim() === "";
+
+      wrapper.className = "mobile-helium-letter";
+      wrapper.style.setProperty("--helium-index", index);
+      wrapper.style.setProperty(
+        "--helium-x",
+        `${Math.round((Math.random() - 0.5) * 72)}px`,
+      );
+      wrapper.style.setProperty(
+        "--helium-y",
+        `${Math.round(120 + Math.random() * 190)}px`,
+      );
+      wrapper.style.setProperty(
+        "--helium-rotate",
+        `${Math.round((Math.random() - 0.5) * 34)}deg`,
+      );
+      wrapper.style.animationDelay = `${Math.min(index * 12, 620)}ms`;
+      wrapper.textContent = isWhitespace ? "\u00a0" : letter;
+
+      currentText.appendChild(wrapper);
+      return wrapper;
+    });
+
+    letters
+      .filter((letter) => letter.textContent.trim() && Math.random() > 0.34)
+      .forEach((letter) => {
+        letter.addEventListener(
+          "animationend",
+          () => {
+            const style = window.getComputedStyle(letter);
+
+            letter.style.opacity = style.opacity;
+            letter.style.transform = style.transform;
+            letter.classList.remove("mobile-helium-letter-active");
+            letter.classList.add("mobile-helium-letter-frozen");
+          },
+          { once: true },
+        );
+        letter.classList.add("mobile-helium-letter-active");
+      });
+  }
+
   function startGame() {
     if (gameActive || !finePointer.matches) return;
 
@@ -144,7 +261,7 @@
     gameActive = true;
     counter = 0;
     document.body.classList.add("darkMode");
-    textsplitter([currentText]);
+    buildGameTextLayer(currentText);
     showScore();
     document.addEventListener("mousemove", randomColor);
     document.addEventListener("keydown", handleKeydown);
@@ -159,6 +276,7 @@
     gameActive = false;
     counter = 0;
     document.body.classList.remove("darkMode");
+    clearGameTextLayer();
     const currentText = getAsideTextElement();
     if (currentText) {
       currentText.innerHTML = originalText;
@@ -181,9 +299,23 @@
   toggle.addEventListener("change", () => {
     if (toggle.checked) {
       startGame();
+      runMobileHeliumBurst();
     } else {
       stopGame();
+      clearMobileHeliumBurst();
     }
+
+    if (typeof makePageSameHeight === "function") {
+      makePageSameHeight();
+    }
+  });
+
+  document.addEventListener("click", (event) => {
+    if (!event.target.closest(".a-logo")) return;
+
+    toggle.checked = false;
+    stopGame();
+    clearMobileHeliumBurst();
 
     if (typeof makePageSameHeight === "function") {
       makePageSameHeight();

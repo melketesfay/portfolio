@@ -93,3 +93,61 @@ Reason:
 Implication:
 
 - Prefer browser-native APIs, focused modules, CSS transforms, and careful runtime gating.
+
+## 2026-06-19: About Page Tone Must Stay Grounded
+
+Decision:
+
+- The About page should sound personal, honest, and specific.
+- Avoid self-promotional or pretentious phrasing.
+- Do not imply that the user is better because they started programming later.
+- Do not describe Frontend as the user's only long-term focus.
+
+Reason:
+
+- The user wants the portfolio to show individuality without sounding inflated.
+- The actual long-term goal is to build deep expertise in Cyber Security while keeping strong Web/Full Stack skills.
+
+Implication:
+
+- About copy may mention Full Stack/Web, Backend, Infrastructure, Security, and the part-time Cyber Security study at HSLU.
+- It may mention philosophy, hiking in the Alps, and the long personal effort behind the portfolio.
+- Keep the handmade/non-generic portfolio message, but do not frame it as anti-AI posturing.
+
+## 2026-06-19: Main Page Is Tentatively Accepted, About Page Is Not
+
+Decision:
+
+- Treat the current Main page as a good checkpoint for laptop/mobile testing.
+- Do not treat the current About page layout as accepted.
+
+Reason:
+
+- The user explicitly said the Main page feels done for now except later big-screen QA.
+- The current About layout became worse after adding the fourth personal text block.
+
+Implication:
+
+- Next session should start with About layout/content.
+- Do not keep patching the About layout with fragile `nth-child`/wrap tweaks. Prefer a deliberate layout structure.
+- Large-screen QA for the Main page remains required before deployment.
+
+## 2026-06-19: Game Toggle Behavior
+
+Decision:
+
+- Desktop game mode may detach letters from the aside text, but it must not shift the paragraph layout.
+- Mobile toggle should not run the desktop game.
+- Mobile toggle may run a lightweight helium-letter burst when switched on.
+- Switching the toggle off or clicking the logo/home should restore the normal mobile text.
+
+Reason:
+
+- The desktop game is part of the custom playful identity.
+- On mobile the full game does not make sense, but the toggle should still have a small meaningful effect.
+
+Implication:
+
+- Keep desktop game interactions overlay/transform-based.
+- Keep mobile toggle animation one-shot and non-running after completion.
+- Do not reintroduce layout-affecting font/position changes in the real paragraph flow.

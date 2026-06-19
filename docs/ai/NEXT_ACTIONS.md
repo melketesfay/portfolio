@@ -96,6 +96,8 @@ Initial code audit notes:
 - 2026-06-18: Fast mobile scrolling still shows random white/unrendered areas and flicker, and the user reports it can get worse after clicking the main toggle repeatedly.
 - 2026-06-18: The flicker becomes significantly worse after opening the hamburger/mobile nav and triggering the wave animation.
 - 2026-06-18: Current smoothness observations are with CRT/noise/scanline layers disabled; reintroduce those effects carefully later or keep a cheaper version.
+- 2026-06-19: User re-enabled CRT/noise/scanline effects and did not see major performance issues in current testing, but large-screen and weaker-device QA remain open.
+- 2026-06-19: Main page is tentatively accepted by the user on current laptop/mobile testing. Revisit on large screens before deployment.
 
 ## Phase 1: Runtime Gating
 
@@ -197,6 +199,10 @@ Progress:
 - 2026-06-18: Reworked `game.js` into one scoped module with explicit `startGame()` and `stopGame()` cleanup.
 - 2026-06-18: Game mode now uses the current aside text element after DOM replacement, so toggling off/on does not rely on stale references.
 - 2026-06-18: Main toggle still controls profile image mode, but the expensive text game and body filter are avoided on mobile/coarse pointer.
+- 2026-06-19: Desktop game text no longer rewrites the real paragraph flow. It uses an overlay layer measured from the original rendered text so letters can detach without shifting layout.
+- 2026-06-19: Desktop game explosions now occur at the flying letter's current position instead of jumping back to the original text position first.
+- 2026-06-19: Mobile toggle uses a lightweight helium-letter burst only when toggled on. The final letter positions freeze after animation and do not keep running.
+- 2026-06-19: Toggle off and logo/home click restore the normal mobile text instead of running a second helium animation.
 
 ## Phase 4: Wave Navigation
 
@@ -229,6 +235,9 @@ Progress:
 - 2026-06-18: Tried a transition-only outgoing-page tint for wave readability, then removed it; keep route-based wave direction and revisit page color/contrast later instead.
 - 2026-06-18: Observed that repeating the target nav click during a wave could cancel the animation and show the target instantly; added a guard so repeated target clicks are ignored while the wave is active.
 - 2026-06-18: Added route-based wave origins so adjacent, jump, and mobile transitions can start from different corners without adding new DOM or paint layers.
+- 2026-06-19: Hamburger icon now morphs into an X on the mobile nav page.
+- 2026-06-19: Mobile nav links now enter with an elastic drop animation.
+- 2026-06-19: Page height sync was changed from fixed `height` to `min-height` for non-main pages so wave base height can stay stable without clipping shorter/longer content. Re-test this before finalizing.
 
 ## Phase 5: Text Effects And Spiral Text
 
@@ -307,6 +316,44 @@ Mobile checks:
 - [ ] Hero reveal fallback is usable.
 - [ ] Page scroll is not blocked by animation listeners.
 - [ ] Text does not overlap in a broken way.
+
+## Phase 7.5: Content And Page Completion
+
+Goal: finish the non-main pages without turning the portfolio into generic self-promotion.
+
+Tone rules:
+
+- Keep copy personal, specific, and grounded.
+- Avoid claims that sound pretentious or inflated.
+- Do not frame the user as "better" because of being self-taught/late-starting.
+- Mention real direction: Full Stack/Web, Backend/Infra/Security, and part-time Cyber Security study at HSLU.
+- It is acceptable to mention that this portfolio took months of personal thinking before AI support; the point is to show handmade intent, not to attack AI.
+
+About page tasks:
+
+- [ ] Rework the current About layout. The current grid attempt after adding the fourth text block is not accepted by the user.
+- [ ] Preserve the large opening sentence if possible: "Ich baue Interfaces, die man spürt."
+- [ ] Keep or rework the Zurich image reveal deliberately; remove only if the user asks.
+- [ ] Keep or rework the large Tigrinya visual deliberately; remove only if the user asks.
+- [ ] Include a personal/free-time block: philosophy and hiking in the Alps.
+- [ ] Include Cyber Security/HSLU without making the page sound like a CV.
+- [ ] Verify footer visibility after the layout change.
+- [ ] Verify mobile layout after desktop looks acceptable.
+
+Projects page tasks:
+
+- [ ] Decide which projects are deploy-ready enough to show.
+- [ ] Replace placeholder links/content.
+- [ ] Keep project descriptions concrete and modest.
+
+Contact page tasks:
+
+- [ ] Review tone and call-to-action.
+- [ ] Verify social/contact links.
+
+Progress:
+
+- 2026-06-19: About copy was started and improved in direction, but layout is currently worse after the fourth personal text block. Next session should fix the layout before adding more content.
 
 Reduced motion checks:
 

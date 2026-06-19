@@ -163,14 +163,14 @@
                 <div class="frontEnd">
                   <div>
                     <h2>
-                      <i class="fa-solid fa-right-long"></i> Kreative UI/UX
+                      <i class="fa-solid fa-right-long"></i> Custom UI/UX
                     </h2>
                     <h2>
                       <i class="fa-solid fa-right-long"></i> Interaktive
-                      Animationen
+                      Interfaces
                     </h2>
                     <h2>
-                      <i class="fa-solid fa-right-long"></i> Zero-Dependency
+                      <i class="fa-solid fa-right-long"></i> Vanilla Frontend
                     </h2>
                   </div>
                   <div class="name-tigrigna">
@@ -188,11 +188,13 @@
                 <div class="backEnd">
                   <div>
                     <h2>
-                      <i class="fa-solid fa-right-long"></i> Low-Dependency
+                      <i class="fa-solid fa-right-long"></i> API Design
                     </h2>
-                    <h2><i class="fa-solid fa-right-long"></i> Saubere APIs</h2>
                     <h2>
-                      <i class="fa-solid fa-right-long"></i> Secure DevOps
+                      <i class="fa-solid fa-right-long"></i> Auth & Security
+                    </h2>
+                    <h2>
+                      <i class="fa-solid fa-right-long"></i> Self-Hosted Infra
                     </h2>
                   </div>
                   <div class="nachname-tigrigna">
@@ -267,11 +269,11 @@
         <section class="tools">
           <div class="tools-left">
             <h3>
-              Dieses Portfolio ist mein persönliches Experiment: gebaut mit
-              purem HTML, CSS und Vanilla JavaScript. Mein Ziel war es
-              herauszufinden, wie weit man ohne Frameworks oder Libraries kommt
-              – und zu zeigen, dass sich mit einem minimalistischen Ansatz
-              trotzdem moderne und interaktive Webseiten umsetzen lassen.
+              Dieses Portfolio ist bewusst handgebaut: pure HTML, CSS und
+              Vanilla JavaScript, ohne Framework-Abhängigkeit. Es verbindet
+              interaktive Frontend-Details mit meinem Interesse an sauberen
+              Systemen, Security und selbst betriebener Infrastruktur – vom UI
+              bis zum Deployment.
             </h3>
           </div>
           <div class="tools-right">
@@ -446,15 +448,14 @@
         <div class="about-page-main">
           <div class="about-page-main-top">
             <div class="hover-text">
-              <h3 class="intro">
-                Hi, ich bin Melke – Full Stack Web-Entwickler aus Zürich.
+              <h3 class="intro about-statement">
+                Ich baue Interfaces, die man spürt.
               </h3>
-              <h3>
-                Ich entwickle gern klare, leicht verständliche Webseiten mit
-                durchdachtem Code und modernem Design. Dabei setze ich auf
-                schlanke Lösungen ohne unnötige Abhängigkeiten – einfach,
-                performant und mit Liebe zum Detail. Ob Design, Frontend oder
-                Backend – ich setze Ideen in Realität um.
+              <h3 class="about-lead">
+                Ich bin Melke, Full Stack Web-Entwickler aus Zürich. An
+                Frontends liebe ich das Sichtbare und Interaktive, aber genauso
+                interessiert mich, was darunter passiert: Backend, Infrastruktur
+                und Security.
               </h3>
             </div>
             <div class="about-page-main-top-image">
@@ -477,20 +478,27 @@
               <h1 class="name-tigrigna name">መ</h1>
             </div>
             <div class="hover-text">
-              <h3>
-                Ich bin erst relativ spät in die Welt des Programmierens
-                eingestiegen – vielleicht gerade deshalb fasziniert sie mich so
-                sehr. Aus einem einfachen Interesse ist schnell eine
-                Leidenschaft geworden, die inzwischen auch mein Hobby ist.
+              <h3 class="about-detail">
+                Dieses Portfolio ist mein Spielplatz für handgebautes Web:
+                HTML, CSS und Vanilla JavaScript, ohne Framework als Abkürzung.
+                Ich wollte ausprobieren, wie weit ich mit eigenen Ideen komme.
               </h3>
             </div>
             <div class="hover-text">
-              <h3>
-                Wenn ich nicht an Web-Projekten oder meinem HomeLab tüftele,
-                lese ich gerne Philosophie oder bin in der Natur unterwegs – am
-                liebsten auf langen Wanderungen in den Alpen. Ein perfekter
-                Kontrast zur Bildschirm- und Kopfarbeit – er hilft mir, den Kopf
-                frei zu bekommen und neue Ideen zu entwickeln.
+              <h3 class="about-detail">
+                Langfristig möchte ich tiefe Expertise in Cyber Security
+                aufbauen. Deshalb studiere ich neben der Arbeit Cyber Security
+                an der HSLU und beschäftige mich privat mit Self-hosted
+                Infrastruktur, Networking, Auth, Monitoring und CI/CD.
+              </h3>
+            </div>
+            <div class="hover-text">
+              <h3 class="about-personal">
+                In meiner Freizeit lese ich gerne Philosophie oder bin in den
+                Alpen unterwegs. Und ja: an diesem Portfolio habe ich mir schon
+                lange vor KI-Unterstützung monatelang den Kopf zerbrochen. Es
+                ist keine generische Vorlage, sondern ein sehr persönliches
+                Experiment.
               </h3>
             </div>
           </div>
@@ -1048,12 +1056,21 @@
 
         document.querySelectorAll("body > div").forEach((page) => {
           if (page.classList.contains("main-page")) return;
-          page.style.height = `${pageHeight}px`;
+          page.style.minHeight = `${pageHeight}px`;
+          page.style.height = "auto";
         });
       }
 
       document.addEventListener("DOMContentLoaded", makePageSameHeight);
       window.addEventListener("resize", makePageSameHeight);
+
+      function syncHamburgerIcons(
+        activePage = window.portfolioPageState?.activePage,
+      ) {
+        document.querySelectorAll(".hamburger-icon").forEach((icon) => {
+          icon.classList.toggle("is-open", activePage === "mobile");
+        });
+      }
 
       document.addEventListener("click", (e) => {
         const icon = e.target.closest(".page-active .hamburger-icon");
@@ -1062,6 +1079,14 @@
         e.preventDefault();
         const isMobileMenuPage = Boolean(icon.closest(".mobile-page"));
         changePageWithWave(isMobileMenuPage ? "main" : "mobile");
+      });
+
+      document.addEventListener("portfolio:pagechange", (event) => {
+        syncHamburgerIcons(event.detail?.activePage);
+      });
+
+      document.addEventListener("DOMContentLoaded", () => {
+        syncHamburgerIcons("main");
       });
     </script>
     <!-- end make all pages the same height -->

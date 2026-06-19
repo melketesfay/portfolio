@@ -39,15 +39,11 @@
     display: grid;
     opacity: 0.7;
     grid-auto-columns: 1fr;
-    grid-template-rows: auto 1fr 1fr 1fr 1fr auto;
+    grid-template-rows: auto 1fr auto;
 
     grid-template-areas:
         "about-header about-header about-header about-header about-header"
         "about-page-main about-page-main about-page-main about-page-main about-page-main"
-        "about-page-main about-page-main about-page-main about-page-main about-page-main"
-        "about-page-main about-page-main about-page-main about-page-main about-page-main"
-        "about-page-main about-page-main about-page-main about-page-main about-page-main"
-
         "footer footer footer footer footer";
     grid-gap: 10px;
 
@@ -102,12 +98,11 @@
 }
 
 .about-page-main {
-    display: flex;
-    gap: 5rem;
-    flex-direction: column;
+    display: grid;
+    gap: clamp(2.4rem, 4vw, 4rem);
     grid-area: about-page-main;
-    margin-top: 5rem;
-    padding: 0 5rem;
+    margin-top: clamp(2rem, 4vw, 3.5rem);
+    padding: 0 clamp(1.5rem, 5vw, 5rem);
 
 }
 
@@ -123,36 +118,46 @@
 }
 
 
-.about-page-main>div {
+.about-page-main-top {
+    display: grid;
+    grid-template-columns: minmax(17rem, 0.9fr) minmax(18rem, 1fr);
+    gap: clamp(2rem, 6vw, 5rem);
+    align-items: start;
+}
 
-    display: flex;
-    flex-wrap: wrap;
-    gap: 1rem;
-    justify-content: center;
+.about-page-main-bottom {
+    display: grid;
+    grid-template-columns: minmax(12rem, 0.68fr) minmax(22rem, 1fr);
+    grid-template-areas:
+        "glyph portfolio"
+        "security personal";
+    gap: clamp(1.8rem, 4vw, 3.5rem) clamp(2rem, 6vw, 5rem);
     align-items: center;
 }
 
-.about-page-main-top>div {
-    flex: 1;
-
-}
-
-.about-page-main-top:last-child {
-    padding: 5rem;
-}
-
-.about-page-main-bottom div:nth-child(1) {
-    flex: 1 1 48%;
+.about-page-main-bottom-image {
+    grid-area: glyph;
+    justify-self: start;
 }
 
 .about-page-main-bottom div:nth-child(2) {
-    padding-left: 3.5rem;
-    flex: 1 1 48%;
+    grid-area: portfolio;
+}
+
+.about-page-main-bottom div:nth-child(3) {
+    grid-area: security;
+}
+
+.about-page-main-bottom div:nth-child(4) {
+    grid-area: personal;
 }
 
 .about-page-main-bottom div:last-child {
-    flex: 1 1 100%;
-    margin-top: 5rem;
+    margin-top: 0;
+}
+
+.about-page footer {
+    margin-top: 2rem;
 }
 
 .zuerich {
@@ -168,6 +173,7 @@
     align-self: flex-start;
 
     position: relative;
+    max-width: min(42vw, 440px);
     max-height: min-content;
 }
 
@@ -178,10 +184,11 @@
 }
 
 .about-page-main-bottom-image h1 {
-    font-size: 35rem;
+    font-size: clamp(15rem, 28vw, 24rem);
     color: var(--about-page-main);
     margin: 0;
     padding: 0;
+    line-height: 0.78;
 }
 
 .zuerich-bottom {
@@ -214,9 +221,9 @@
     flex-direction: column;
     display: flex;
     justify-content: center;
-    align-items: center;
-    /* text-align: center; */
-    gap: 1rem;
+    align-items: flex-start;
+    text-align: left;
+    gap: 1.4rem;
 }
 
 .intro {
@@ -230,8 +237,36 @@
 
 }
 
+.about-page-main .about-statement {
+    max-width: 10ch;
+    font-size: 4.4rem;
+    line-height: 0.96;
+    font-weight: 900;
+}
+
+.about-page-main .about-lead {
+    max-width: 28ch;
+    font-size: 1.9rem;
+    line-height: 1.18;
+    font-weight: 700;
+}
+
+.about-page-main .about-detail {
+    max-width: 36ch;
+    font-size: 1.85rem;
+    line-height: 1.22;
+    font-weight: 700;
+}
+
+.about-page-main .about-personal {
+    max-width: 48ch;
+    font-size: 1.5rem;
+    line-height: 1.28;
+    font-weight: 700;
+}
+
 .hover-text:first-child {
-    margin-right: 5rem;
+    margin-right: 0;
 }
 
 
@@ -310,41 +345,55 @@
     }
 
     .about-page-main {
-        padding: 0;
-        gap: 10rem;
+        padding: 0 1rem;
+        gap: 4rem;
     }
 
     .about-page-main-bottom-image h1 {
-        font-size: 25rem;
+        font-size: 18rem;
 
     }
 
-    .hover-text:nth-child(-n+2) {
+    .hover-text {
         margin: 0;
-        gap: 0.5rem;
+        gap: 1rem;
     }
 
-    .about-page-main-bottom .hover-text:nth-child(-n+2) {
-        padding: 0;
-        margin-top: 7rem;
-        flex: 1 1 100%;
-
+    .about-page-main .about-statement {
+        font-size: 3.3rem;
     }
 
-    .about-page-main-bottom .hover-text:last-child {
-        margin-top: 2rem;
+    .about-page-main .about-lead,
+    .about-page-main .about-detail,
+    .about-page-main .about-personal {
+        max-width: 100%;
+        font-size: 1.55rem;
+        line-height: 1.24;
+    }
+
+    .about-page footer {
+        margin-top: 1.5rem;
     }
 
     .about-page-main-bottom,
     .about-page-main-top {
-        flex-direction: column;
+        grid-template-columns: 1fr;
+        padding: 0;
+    }
 
-        padding: 0 1rem;
+    .about-page-main-bottom {
+        grid-template-areas:
+            "glyph"
+            "portfolio"
+            "security"
+            "personal";
+    }
+
+    .about-page-main-top-image {
+        max-width: 100%;
     }
 
     .about-page-main>div {
-        gap: 5rem;
-        ;
-        flex-wrap: nowrap;
+        gap: 2.5rem;
     }
 }
