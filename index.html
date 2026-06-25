@@ -637,82 +637,159 @@
         </div>
       </ul> -->
         <div class="projects-page-main">
-          <div class="projects-grid">
-            <article class="retro-card">
-              <div class="retro-head">
-                <span class="dot"></span><span class="dot"></span
-                ><span class="dot"></span>
-                <span class="label">APP 1</span>
+          <section class="projects-intro" aria-labelledby="projects-title">
+            <p class="projects-kicker">Project Systems</p>
+            <h2 id="projects-title" class="projects-title">
+              Projekte, die zeigen, wie ich Systeme baue.
+            </h2>
+            <p class="projects-lead">
+              Der Schwerpunkt liegt nicht auf einzelnen Screenshots, sondern auf
+              echten Abläufen: entwickeln, absichern, deployen, betreiben und
+              verbessern.
+            </p>
+          </section>
+
+          <section class="project-feature" aria-labelledby="featured-project-title">
+            <div class="project-feature-copy">
+              <div class="project-eyebrow">
+                <span>Featured System</span><span>In Betrieb / Ausbau</span>
               </div>
-              <div class="retro-media"></div>
-              <h4 class="retro-title">TextRepellant</h4>
-              <p class="retro-desc">
-                Interaktive Typo-Experimente, komplett Vanilla JS.
+              <h3 id="featured-project-title">
+                Self-hosted Services auf Zero-Trust-Basis
+              </h3>
+              <p>
+                Meine eigene kleine Infrastruktur mit Proxmox und pfSense:
+                segmentierte Netze, Reverse Proxy, lokale CA für interne Apps,
+                TrueNAS SCALE, GitLab CI/CD, Authelia, Vaultwarden, Jellyfin,
+                eigene Websites und zentrales Monitoring mit Wazuh.
               </p>
-              <div class="retro-tags">
-                <span>HTML</span><span>CSS</span><span>JS</span>
+              <ul class="project-feature-points">
+                <li>Netzwerksegmentierung statt flachem Heimnetz</li>
+                <li>Self-hosted Services mit Auth, TLS und Reverse Proxy</li>
+                <li>Monitoring, CI/CD und Betriebsdenken von Anfang an</li>
+              </ul>
+            </div>
+            <div class="project-system-map" aria-hidden="true">
+              <div class="system-node system-node-edge">pfSense</div>
+              <div class="system-node system-node-core">Proxmox</div>
+              <div class="system-node system-node-auth">Authelia</div>
+              <div class="system-node system-node-ci">GitLab CI</div>
+              <div class="system-node system-node-data">TrueNAS</div>
+              <div class="system-node system-node-watch">Wazuh</div>
+            </div>
+          </section>
+
+          <section class="project-register" aria-label="Weitere Projekte">
+            <article class="project-record">
+              <span class="record-index">01</span>
+              <div>
+                <p class="record-status">KI / Produktivität</p>
+                <h4>ARKI</h4>
+              </div>
+              <p>
+                KI-Assistent für Brocki Arche Zürich: recherchiert automatisch
+                Artikel, schreibt ausführliche Inserate und bereitet sie direkt
+                fürs Einstellen vor.
+              </p>
+              <div class="record-tags">
+                <span>AI</span><span>Recherche</span><span>Automation</span>
               </div>
             </article>
 
-            <article class="retro-card">
-              <div class="retro-head">
-                <span class="dot"></span><span class="dot"></span
-                ><span class="dot"></span><span class="label">APP 2</span>
+            <article class="project-record">
+              <span class="record-index">02</span>
+              <div>
+                <p class="record-status">Infrastructure as Code</p>
+                <h4>Terraform & GCP</h4>
               </div>
-              <div class="retro-media"></div>
-              <h4 class="retro-title">Cube Shader</h4>
-              <p class="retro-desc">Retro 3D-Cube – Mathe statt Frameworks.</p>
-              <div class="retro-tags">
-                <span>Canvas</span><span>Math</span><span>No deps</span>
-              </div>
-            </article>
-
-            <article class="retro-card">
-              <div class="retro-head">
-                <span class="dot"></span><span class="dot"></span
-                ><span class="dot"></span><span class="label">APP 3</span>
-              </div>
-              <div class="retro-media"></div>
-              <h4 class="retro-title">Wave Nav</h4>
-              <p class="retro-desc">SVG-Masken, saubere State-Logik.</p>
-              <div class="retro-tags">
-                <span>SVG</span><span>CSS</span><span>JS</span>
+              <p>
+                IaC-Projekt mit Terraform und Google Cloud Platform, um Cloud-
+                Ressourcen nachvollziehbar, versioniert und reproduzierbar zu
+                provisionieren.
+              </p>
+              <div class="record-tags">
+                <span>Terraform</span><span>GCP</span><span>IaC</span>
               </div>
             </article>
 
-            <article class="retro-card">
-              <div class="retro-head">
-                <span class="dot"></span><span class="dot"></span
-                ><span class="dot"></span><span class="label">APP 4</span>
+            <article class="project-record">
+              <span class="record-index">03</span>
+              <div>
+                <p class="record-status">Kundenarbeit</p>
+                <h4>Websites für private Kunden</h4>
               </div>
-              <div class="retro-media"></div>
-              <h4 class="retro-title">Hide & Seek</h4>
-              <p class="retro-desc">Cursor-Spielereien ohne Libs.</p>
-              <div class="retro-tags"><span>DOM</span><span>Events</span></div>
-            </article>
-            <article class="retro-card">
-              <div class="retro-head">
-                <span class="dot"></span><span class="dot"></span
-                ><span class="dot"></span><span class="label">APP 5</span>
-              </div>
-              <div class="retro-media"></div>
-              <h4 class="retro-title">Image FX</h4>
-              <p class="retro-desc">CSS-Filter & Blends, performant.</p>
-              <div class="retro-tags">
-                <span>Filters</span><span>Blend</span>
+              <p>
+                Mehrere kleinere Websites von Design und Textwirkung über
+                Marketing-Überlegungen bis Deployment und technische Betreuung.
+              </p>
+              <div class="record-tags">
+                <span>Design</span><span>Marketing</span><span>Deploy</span>
               </div>
             </article>
-            <article class="retro-card">
-              <div class="retro-head">
-                <span class="dot"></span><span class="dot"></span
-                ><span class="dot"></span><span class="label">APP 6</span>
+
+            <article class="project-record">
+              <span class="record-index">04</span>
+              <div>
+                <p class="record-status">Media Service</p>
+                <h4>Internet Radio</h4>
               </div>
-              <div class="retro-media"></div>
-              <h4 class="retro-title">Typing FX</h4>
-              <p class="retro-desc">Tastatur-Effekt in Vanilla.</p>
-              <div class="retro-tags"><span>JS</span><span>UX</span></div>
+              <p>
+                24/7-Radio mit Musikplänen nach Wochentag. Als nächste Idee:
+                Musikwünsche sammeln und daraus automatisch Playlists bauen.
+              </p>
+              <div class="record-tags">
+                <span>Streaming</span><span>Scheduling</span><span>Self-hosted</span>
+              </div>
             </article>
-          </div>
+
+            <article class="project-record">
+              <span class="record-index">05</span>
+              <div>
+                <p class="record-status">Full Stack</p>
+                <h4>Mini Webshop</h4>
+              </div>
+              <p>
+                Kleiner Shop mit Produktseiten, Warenkorb, Checkout-Idee,
+                persistierten Bestellungen und Admin-Bereich als realistischer
+                Business-Flow.
+              </p>
+              <div class="record-tags">
+                <span>Backend</span><span>Orders</span><span>Admin</span>
+              </div>
+            </article>
+
+            <article class="project-record">
+              <span class="record-index">06</span>
+              <div>
+                <p class="record-status">Frontend Craft</p>
+                <h4>Portfolio Website</h4>
+              </div>
+              <p>
+                Diese Seite selbst: Vanilla HTML, CSS und JavaScript mit
+                Wave-Navigation, Touch-Reveals, 3D-Cube, CRT-Details und
+                mobilem Performance-Polish.
+              </p>
+              <div class="record-tags">
+                <span>Vanilla JS</span><span>Interaction</span><span>Performance</span>
+              </div>
+            </article>
+
+            <article class="project-record">
+              <span class="record-index">07</span>
+              <div>
+                <p class="record-status">Security Learning</p>
+                <h4>Eigener Auth mit MFA</h4>
+              </div>
+              <p>
+                Eigenes Auth-Projekt mit Multi-Faktor-Flow und Authenticator-App
+                auf dem Handy, um Login-Security nicht nur zu nutzen, sondern
+                technisch zu verstehen.
+              </p>
+              <div class="record-tags">
+                <span>Auth</span><span>MFA</span><span>Security</span>
+              </div>
+            </article>
+          </section>
         </div>
         <footer>
           <div class="info">
@@ -1119,15 +1196,12 @@
       </defs>
     </svg>
 
-    <!-- make all pages the same height -->
+    <!-- keep every layered page at its own natural height -->
     <script>
-      let lastMeasuredPageHeight = 0;
-
-      function makePageSameHeight() {
+      function syncPageHeights() {
         const pages = Array.from(document.querySelectorAll("body > div"));
-        if (!pages.length) return;
-
-        const restoreState = [];
+        const viewportHeight =
+          window.innerHeight || document.documentElement.clientHeight;
 
         pages.forEach((page) => {
           page.style.height = "auto";
@@ -1139,29 +1213,27 @@
 
           if (shouldMeasureHidden) {
             page.classList.add("page-measure");
-            restoreState.push(page);
           }
-        });
 
-        const pageHeight = Math.max(
-          window.innerHeight || document.documentElement.clientHeight,
-          lastMeasuredPageHeight,
-          ...pages.map((page) => page.offsetHeight),
-        );
+          const pageHeight = Math.max(
+            viewportHeight,
+            page.scrollHeight,
+            page.offsetHeight,
+          );
 
-        restoreState.forEach((page) => page.classList.remove("page-measure"));
+          if (shouldMeasureHidden) {
+            page.classList.remove("page-measure");
+          }
 
-        if (!pageHeight) return;
-        lastMeasuredPageHeight = pageHeight;
-
-        pages.forEach((page) => {
           page.style.minHeight = `${pageHeight}px`;
           page.style.height = "auto";
         });
       }
 
-      document.addEventListener("DOMContentLoaded", makePageSameHeight);
-      window.addEventListener("resize", makePageSameHeight);
+      document.addEventListener("DOMContentLoaded", syncPageHeights);
+      document.addEventListener("portfolio:pagerevealed", syncPageHeights);
+      window.addEventListener("load", syncPageHeights);
+      window.addEventListener("resize", syncPageHeights);
 
       function syncHamburgerIcons(
         activePage = window.portfolioPageState?.activePage,
