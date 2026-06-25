@@ -4,7 +4,7 @@
 
 This repository is a handmade vanilla HTML/CSS/JavaScript portfolio for Melke Tesfay. The site is meant to prove frontend craft through custom browser-native interactions, not through a framework or template.
 
-Preserve the visual identity: retro CRT atmosphere, wave page transitions, spotlight reveal, profile strip reveal, draggable 3D cube, double-helix spiral text, text repulsion, typewriter contact page, and optional game mode.
+Preserve the visual identity: retro CRT atmosphere, wave page transitions, spotlight reveal, profile strip reveal, draggable 3D cube, double-helix spiral text, text repulsion, designed contact relay/channel page, and optional game mode.
 
 ## Workflow
 
@@ -18,7 +18,7 @@ Preserve the visual identity: retro CRT atmosphere, wave page transitions, spotl
 ## Development Commands
 
 - The project is static HTML/CSS/JS.
-- Use VS Code Live Server on port `5958` from `.vscode/settings.json`.
+- Use VS Code Live Server for local testing. The current remote workflow uses port `5500`; older notes may mention port `5958`.
 - Do not add frameworks, build tools, package managers, or production dependencies unless the user explicitly approves.
 - Prefer browser-native APIs and small local modules.
 
@@ -47,7 +47,7 @@ Before finalizing animation or layout changes:
 
 - Smoke test the site in a desktop browser through Live Server.
 - Verify mobile-sized viewport behavior.
-- Check main navigation wave, hero spotlight, profile reveal, cube, spiral text, projects page, contact typewriter, and mobile nav.
+- Check main navigation wave, hero spotlight, profile reveal, cube, spiral text, projects page, contact relay/channel layout, and mobile nav.
 - Note any performance or visual tradeoffs in `docs/ai/NEXT_ACTIONS.md` or `docs/ai/DECISIONS.md`.
 
 ## Source Control Safety

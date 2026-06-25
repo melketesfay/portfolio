@@ -151,3 +151,40 @@ Implication:
 - Keep desktop game interactions overlay/transform-based.
 - Keep mobile toggle animation one-shot and non-running after completion.
 - Do not reintroduce layout-affecting font/position changes in the real paragraph flow.
+
+## 2026-06-25: Page Color Identities Are Intentional
+
+Decision:
+
+- Pages may use distinct color palettes so the wave transition is more visible and each section has its own story.
+- Palettes should still feel like one CRT/glow system, not random unrelated themes.
+
+Reason:
+
+- Similar page colors made the rectangular wave transition read like a plain fade.
+- Distinct page color identities help the site feel more designed and make navigation transitions easier to perceive.
+
+Implication:
+
+- Main, About, Projects, Contact, and Mobile Page can have separate CSS variables.
+- Keep shared typography, glow logic, footer/nav structure, and CRT atmosphere consistent.
+- Refine Contact palette next; current Contact colors are not accepted yet.
+
+## 2026-06-25: Contact Typewriter Removed
+
+Decision:
+
+- Remove the Contact page typewriter behavior from the runtime.
+- Replace it with a more designed Contact Relay/channel interface.
+- Do not use LinkedIn as a contact channel unless the user later creates and explicitly wants one.
+
+Reason:
+
+- The typewriter effect felt too trivial compared to the rest of the handmade site.
+- The user does not have and likely does not want LinkedIn.
+
+Implication:
+
+- `typing-animation.js` may remain in the repo for now, but `index.html` should not load it.
+- Preferred contact channels are email, GitHub, CodePen, personal website, or another authentic channel.
+- Before deployment, replace placeholder contact URLs with final real links.

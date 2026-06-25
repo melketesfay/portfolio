@@ -26,7 +26,7 @@ Recommended implementation branches after this documentation branch:
 - Spiral text: technology words move upward while rotating around the vertical axis, creating a double-helix illusion.
 - About page text: letters/words repel from the cursor.
 - Zurich image reveal: a circular mask reveals color over a grayscale Zurich image.
-- Contact page: large text types out with a typewriter feel.
+- Contact page: Contact Relay/channel interface. The old typewriter was removed because it felt too trivial.
 - Game mode: toggle can activate a playful text/keyboard interaction with score and explosion feedback.
 
 ## Success Criteria
@@ -62,7 +62,7 @@ These are suspected hotspots from the current codebase and must be confirmed dur
 
 Record results here before changing animation behavior.
 
-- [x] Start site with VS Code Live Server on port `5958`.
+- [x] Start site with VS Code Live Server. Current remote workflow uses port `5500`; older sessions used `5958`.
 - [ ] Capture desktop screenshot of main page.
 - [ ] Capture mobile viewport screenshot of main page.
 - [ ] Test wave navigation: main -> about -> projects -> contact -> main.
@@ -72,7 +72,7 @@ Record results here before changing animation behavior.
 - [ ] Test cube drag/inertia.
 - [ ] Test spiral text movement.
 - [ ] Test about text repel and Zurich reveal.
-- [ ] Test contact typewriter.
+- [ ] Test Contact Relay/channel layout and contact links.
 - [ ] Test game mode toggle.
 
 Baseline notes table:
@@ -85,7 +85,7 @@ Baseline notes table:
 | Cube | TBD | TBD | Fixed interval loop | Medium |
 | Spiral text | TBD | TBD | Large continuous transform/text animation | Medium |
 | Text repel | TBD | TBD | Many layout reads on pointer move | Medium |
-| Contact typewriter | TBD | TBD | Interval text mutation and scroll | Low |
+| Contact page | Typewriter removed; Contact Relay layout in progress | TBD | Palette and final links still need polish | Medium |
 | Game mode | TBD | TBD | Many animated spans | Optional |
 
 Initial code audit notes:
@@ -119,7 +119,7 @@ Implementation rule:
 Progress:
 
 - 2026-06-18: `hide-and-seek.js`, `textrepellant.js`, `cube.js`, and spiral text now use active-page events and/or `IntersectionObserver` to stop page-specific work while hidden/offscreen.
-- 2026-06-18: Final runtime scan after cube/spiral gating: no cube interval remains; spiral animation is class-gated; remaining always-present items are page-level event listeners, disabled/unused legacy scripts not loaded by `index.html`, coffee steam CSS, and the contact typewriter interval after start.
+- 2026-06-18: Final runtime scan after cube/spiral gating: no cube interval remains; spiral animation is class-gated; remaining always-present items are page-level event listeners, disabled/unused legacy scripts not loaded by `index.html`, coffee steam CSS, and the former contact typewriter interval after start. 2026-06-25 update: the typewriter script is no longer loaded by `index.html`.
 
 ## Phase 2: Hero Spotlight
 
@@ -306,7 +306,7 @@ Desktop checks:
 - [ ] Cube works.
 - [ ] Spiral text works.
 - [ ] Projects cards hover/focus correctly.
-- [ ] Contact typewriter works.
+- [ ] Contact Relay/channel layout works and final links are correct.
 
 Mobile checks:
 
@@ -343,17 +343,30 @@ About page tasks:
 Projects page tasks:
 
 - [ ] Decide which projects are deploy-ready enough to show.
-- [ ] Replace placeholder links/content.
+- [x] Replace placeholder project list/content with concrete project descriptions.
 - [ ] Keep project descriptions concrete and modest.
 
 Contact page tasks:
 
-- [ ] Review tone and call-to-action.
-- [ ] Verify social/contact links.
+- [x] Remove trivial typewriter direction and replace with a more designed contact interface.
+- [ ] Verify and replace placeholder social/contact links before deployment.
 
 Progress:
 
 - 2026-06-19: About copy was started and improved in direction, but layout is currently worse after the fourth personal text block. Next session should fix the layout before adding more content.
+
+- 2026-06-25: About page color direction is accepted for the current pass: indigo/night-blue palette, warm glow, coordinated header/logo shadow, and large Tigrinya glyph treatment.
+- 2026-06-25: Projects page structure and new cyber/tech display direction were accepted and committed before this checkpoint.
+- 2026-06-25: Contact page typewriter was removed from `index.html`. The page now uses a Contact Relay/channel interface with email, GitHub, and CodePen. LinkedIn should not be used because the user does not have and likely does not want a LinkedIn profile.
+- 2026-06-25: Current Contact palette is not accepted yet; the user finds the center/rim color combination unusual. Start next session by refining Contact colors, then final links.
+- 2026-06-25: Remaining page work after Contact is primarily Mobile Page/nav visual polish and color consistency.
+
+
+Mobile Page tasks:
+
+- [ ] Make mobile page/nav colors consistent with the current page color identity or define a deliberate mobile-only palette.
+- [ ] Verify footer position and color inheritance on the mobile page.
+- [ ] Confirm hamburger X animation and elastic nav drop still feel intentional after color changes.
 
 Reduced motion checks:
 

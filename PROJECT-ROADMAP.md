@@ -149,7 +149,7 @@ This is the first impression in interviews, so it MUST be smooth.
   - Intro / Who I am
   - What I build (Full Stack + Infra + Secure Deployments)
   - Projects (cards linking to Infra Case Study, Shop demo)
-  - Contact / email / GitHub / LinkedIn
+  - Contact / email / GitHub / CodePen
 
 - Add screenshots placeholders for upcoming projects.
 - Accessibility pass (tab through page, readable contrast).

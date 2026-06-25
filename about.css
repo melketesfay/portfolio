@@ -1,9 +1,11 @@
 :root {
-  --about-page-main: #22052f;
-  --about-page-second: #7f2c57;
-  --about-page-third: #c13a5f;
-  --about-page-fourth: #ff6a4f;
-  --about-page-shadow: rgba(255, 106, 79, 0.3);
+  --about-page-main: #120a2f;
+  --about-page-second: #2f3b92;
+  --about-page-third: #9b4f86;
+  --about-page-fourth: #f2b35b;
+  --about-page-shadow: rgba(242, 179, 91, 0.24);
+  --about-page-deep-shadow: rgba(18, 10, 47, 0.42);
+  --about-page-gold-glow: rgba(242, 179, 91, 0.32);
 }
 
 .about-page,
@@ -37,7 +39,7 @@
   will-change: opacity;
   text-shadow:
     0 0 1.05ex var(--about-page-shadow),
-    0 0 1px rgba(34, 5, 47, 0.45);
+    0 0 1px rgba(18, 10, 47, 0.48);
   /* Performance hint */
 }
 
@@ -95,6 +97,30 @@
 
 .about-page a::before {
   background-color: var(--about-page-main);
+}
+
+.about-page .name {
+  text-shadow:
+    1px 1px 1px var(--about-page-second),
+    1px 2px 1px var(--about-page-second),
+    1px 3px 1px var(--about-page-second),
+    1px 4px 1px var(--about-page-second),
+    1px 5px 1px var(--about-page-second),
+    1px 6px 1px var(--about-page-second),
+    1px 7px 1px var(--about-page-second),
+    1px 8px 1px var(--about-page-second),
+    1px 9px 1px var(--about-page-second),
+    1px 10px 1px var(--about-page-second),
+    0 0 0.85rem var(--about-page-gold-glow),
+    1px 18px 6px rgba(18, 10, 47, 0.4),
+    1px 22px 10px rgba(18, 10, 47, 0.36),
+    1px 25px 35px rgba(18, 10, 47, 0.3),
+    1px 30px 60px rgba(18, 10, 47, 0.26);
+}
+
+.about-page .a-logo .t {
+  color: var(--about-page-main);
+  text-shadow: inherit;
 }
 
 .about-page header {
@@ -167,6 +193,16 @@
   line-height: 0.72;
   margin: 0;
   padding: 0;
+}
+
+.about-page .about-page-main-bottom-image h1.name-tigrigna {
+  color: var(--about-page-main);
+  text-shadow:
+    0.035em 0.035em 0 var(--about-page-second),
+    0.065em 0.065em 0 rgba(18, 10, 47, 0.18),
+    0 0 1.1rem var(--about-page-gold-glow),
+    0 0 2.7rem rgba(47, 59, 146, 0.38),
+    0.08em 0.11em 0.24em rgba(18, 10, 47, 0.34);
 }
 
 .about-portfolio-copy {
