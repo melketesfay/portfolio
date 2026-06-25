@@ -15,6 +15,7 @@
     left: 0;
 
 
+    color: var(--mobile-nav-main);
     background-image: radial-gradient(var(--mobile-nav-second), var(--mobile-nav-third));
     z-index: 1;
     mask-image: url('#maskMobile');
@@ -28,6 +29,14 @@
     will-change: opacity;
     text-shadow: 0 0 2ex var(--mobile-nav-shadow), 0 0 2px var(--mobile-nav-shadow);
 
+}
+
+.mobile-page .container {
+    min-height: inherit;
+}
+
+.mobile-page footer {
+    margin-top: clamp(4rem, 12vh, 8rem);
 }
 
 #hamburger-icon-mobile>span {
@@ -44,6 +53,12 @@
 }
 
 .mobile-page a {
+    color: var(--mobile-nav-main);
+}
+
+.mobile-page footer,
+.mobile-page footer a,
+.mobile-page footer i {
     color: var(--mobile-nav-main);
 }
 

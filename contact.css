@@ -34,7 +34,7 @@
 
 .contact-page .container {
     max-width: 1200px;
-    min-height: 100%;
+    min-height: inherit;
     margin: 0 auto;
     display: grid;
     opacity: 0.7;

@@ -255,6 +255,8 @@
   let zurichRect = null;
   let zurichX = 0;
   let zurichY = 0;
+  let zurichPointerId = null;
+  let zurichTouchActive = false;
 
   function drawZurichReveal() {
     zurichFrame = 0;
@@ -264,8 +266,9 @@
       zurichRect = zuerich.getBoundingClientRect();
     }
 
+    const touchOffsetY = zurichTouchActive ? 44 : 0;
     const x = `${zurichX - zurichRect.left}px`;
-    const y = `${zurichY - zurichRect.top}px`;
+    const y = `${zurichY - zurichRect.top - touchOffsetY}px`;
     zuerichTopImg.style.setProperty("--x", x);
     zuerichTopImg.style.setProperty("--y", y);
     zuerichBottomImg.style.setProperty("--x", x);
@@ -282,15 +285,75 @@
     }
   }
 
-  zuerich.addEventListener("pointerenter", (event) => {
+  function handleZurichPointerEnter(event) {
+    if (event.pointerType !== "mouse") return;
+
     zurichRect = zuerich.getBoundingClientRect();
     requestZurichDraw(event);
+  }
+
+  function handleZurichPointerDown(event) {
+    if (!isAboutActive() || event.pointerType === "mouse") return;
+
+    zurichPointerId = event.pointerId;
+    zurichTouchActive = true;
+    zurichRect = zuerich.getBoundingClientRect();
+    requestZurichDraw(event);
+
+    if (zuerich.setPointerCapture) {
+      zuerich.setPointerCapture(event.pointerId);
+    }
+  }
+
+  function handleZurichPointerMove(event) {
+    if (event.pointerType === "mouse") {
+      requestZurichDraw(event);
+      return;
+    }
+
+    if (event.pointerId !== zurichPointerId) return;
+    requestZurichDraw(event);
+  }
+
+  function handleZurichPointerEnd(event) {
+    if (event.pointerId !== zurichPointerId) return;
+
+    if (
+      zuerich.releasePointerCapture &&
+      zuerich.hasPointerCapture?.(event.pointerId)
+    ) {
+      zuerich.releasePointerCapture(event.pointerId);
+    }
+
+    zurichPointerId = null;
+    zurichTouchActive = false;
+  }
+
+  zuerich.addEventListener("pointerenter", handleZurichPointerEnter);
+  zuerich.addEventListener("pointerdown", handleZurichPointerDown, {
+    passive: true,
   });
-  zuerich.addEventListener("pointermove", requestZurichDraw, {
+  zuerich.addEventListener("pointermove", handleZurichPointerMove, {
+    passive: true,
+  });
+  zuerich.addEventListener("pointerup", handleZurichPointerEnd, {
+    passive: true,
+  });
+  zuerich.addEventListener("pointercancel", handleZurichPointerEnd, {
     passive: true,
   });
   zuerich.addEventListener("pointerleave", () => {
-    zurichRect = null;
+    if (zurichPointerId === null) {
+      zurichRect = null;
+    }
+  });
+
+  document.addEventListener("portfolio:pagechange", (event) => {
+    if (event.detail?.activePage !== "about") {
+      zurichPointerId = null;
+      zurichTouchActive = false;
+      zurichRect = null;
+    }
   });
 
   window.addEventListener(
