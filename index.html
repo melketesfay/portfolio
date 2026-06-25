@@ -670,12 +670,40 @@
               </ul>
             </div>
             <div class="project-system-map" aria-hidden="true">
-              <div class="system-node system-node-edge">pfSense</div>
-              <div class="system-node system-node-core">Proxmox</div>
-              <div class="system-node system-node-auth">Authelia</div>
-              <div class="system-node system-node-ci">GitLab CI</div>
-              <div class="system-node system-node-data">TrueNAS</div>
-              <div class="system-node system-node-watch">Wazuh</div>
+              <div class="system-display-topbar">
+                <span>OPS EDGE</span><span>ZERO TRUST LAB</span>
+              </div>
+              <div class="system-display-screen">
+                <span class="system-route route-edge-core"></span>
+                <span class="system-route route-core-auth"></span>
+                <span class="system-route route-core-ci"></span>
+                <span class="system-route route-core-data"></span>
+                <span class="system-route route-core-watch"></span>
+                <div class="system-node system-node-edge">
+                  <span>pfSense</span><small>edge</small>
+                </div>
+                <div class="system-node system-node-core">
+                  <span>Proxmox</span><small>core</small>
+                </div>
+                <div class="system-node system-node-auth">
+                  <span>Authelia</span><small>auth</small>
+                </div>
+                <div class="system-node system-node-ci">
+                  <span>GitLab CI</span><small>deploy</small>
+                </div>
+                <div class="system-node system-node-data">
+                  <span>TrueNAS</span><small>storage</small>
+                </div>
+                <div class="system-node system-node-watch">
+                  <span>Wazuh</span><small>monitor</small>
+                </div>
+                <div class="system-readout">
+                  <span>TLS / LOCAL CA</span>
+                  <span>REVERSE PROXY</span>
+                  <span>VAULTWARDEN</span>
+                  <span>JELLYFIN</span>
+                </div>
+              </div>
             </div>
           </section>
 
