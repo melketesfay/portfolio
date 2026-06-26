@@ -188,3 +188,59 @@ Implication:
 - `typing-animation.js` may remain in the repo for now, but `index.html` should not load it.
 - Preferred contact channels are email, GitHub, CodePen, personal website, or another authentic channel.
 - Before deployment, replace placeholder contact URLs with final real links.
+
+## 2026-06-26: Alpha Contact And Mobile Direction
+
+Decision:
+
+- Contact uses the Contact Relay/channel layout, not typewriter text.
+- For alpha, footer and contact links are consolidated to email, GitHub, CodePen, and Mastodon.
+- Mobile Page/nav may use a deliberate standalone palette and layout instead of inheriting a page color dynamically.
+
+Reason:
+
+- The alpha needs working links and a stable mobile navigation surface.
+- Dynamic color inheritance for the mobile menu is less important than a predictable, polished nav page for the first deploy.
+
+Implication:
+
+- CodePen URL is confirmed by the user for alpha.
+- Continue to keep Contact and Mobile Page colors within the shared CRT/glow system.
+
+## 2026-06-26: Alpha Social Links And Image Framing
+
+Decision:
+
+- Replace the self-linking website/globe social with Mastodon for alpha.
+- Use Mastodon as a security-community signal, using expected URL `https://infosec.exchange/@melketesfay`; the user created username `melketesfay` on `infosec.exchange`, with approval pending.
+- Reduce smooth photo radii and use sharper display-like frames/corner accents for the profile and About city images.
+
+Reason:
+
+- Linking from the portfolio to the same website does not add value.
+- Mastodon fits the user's intended security/community direction better than a generic website icon.
+- The sharper image treatment better matches the CRT/cyber display language than soft app-card radii.
+
+Implication:
+
+- If Mastodon approval changes the final account URL, update the single profile URL before public launch.
+- Keep image frames geometric and lightweight; do not turn images into soft rounded cards.
+
+## 2026-06-26: Tigrinya Font Consistency
+
+Decision:
+
+- Use `Abyssinica SIL` for the visible Tigrinya/Ethiopic glyphs in the Main and About pages.
+- Apply the font only through the Ethiopic-specific classes, not globally.
+- Keep fallback fonts in the stack: `Noto Serif Ethiopic`, `Noto Sans Ethiopic`, and `serif`.
+
+Reason:
+
+- Browser/device fallback fonts rendered the Tigrinya characters inconsistently.
+- The user prefers the more characterful serif look of `Abyssinica SIL` over `Noto Sans Ethiopic`.
+- An explicit Ethiopic-capable font makes the personal glyph treatment more stable without changing the rest of the site's typography.
+
+Implication:
+
+- Current alpha uses Google Fonts because the site already depends on Google Fonts.
+- Before final launch, decide whether to self-host the Ethiopic font files for stronger consistency and fewer external dependencies.

@@ -75,10 +75,27 @@ See `docs/ai/DECISIONS.md` for the canonical decision log.
 - About page is now visually accepted enough for the current pass: new indigo/night-blue palette, warm glow, coordinated header/logo shadow, and large Tigrinya glyph styling. Font consistency for Tigrinya remains a later polish topic.
 - Projects page structure and new cyber/tech display look were committed before this session checkpoint and are considered a good direction.
 - Contact page is in progress: the trivial typewriter interaction was removed from the runtime, and the page now uses a static Contact Relay/channel interface.
-- User does not have and likely does not want LinkedIn; do not add LinkedIn as a contact channel. Prefer email, GitHub, CodePen, website, or another authentic channel.
+- User does not have and likely does not want LinkedIn; do not add LinkedIn as a contact channel. Prefer email, GitHub, CodePen, Mastodon, or another authentic channel.
 - Current Contact palette is not accepted yet. The user finds the center/rim color contrast unusual; continue tomorrow by refining the Contact color story first.
 - Remaining page work after Contact: Mobile Page/nav visual polish and color consistency.
 - Current Live Server workflow is on port `5500` in this renamed `landing_page` folder.
+
+
+## Current Session State: 2026-06-26
+
+- Branch is clean at start and synced with `origin/perf/mobile-animation-runtime` before today's changes.
+- Goal for today: produce an alpha deploy candidate.
+- Contact page palette was refined away from the unusual blue/gold split into a more cohesive aubergine/rose/coral palette with a small gold signal accent. This still needs user visual acceptance.
+- Footer/contact links were consolidated for alpha: email `melketesfay@gmail.com`, GitHub `https://github.com/melketesfay`, CodePen `https://codepen.io/melketesfay`, Mastodon `https://infosec.exchange/@melketesfay`. CodePen URL confirmed by user for alpha.
+- Mobile Page/nav received a dedicated stable grid layout: header, centered nav, footer pinned to the bottom row. It now has its own violet/rose/gold palette and scoped nav item styles.
+- Shell-side `curl http://127.0.0.1:5500/` still cannot reach the user's VS Code Live Server, so visual QA must be done in the user's browser/device path.
+- About city image references were switched to lighter JPEG exports (`asmara.jpg`, `zuerich.jpg`) for alpha performance; original PNGs remain in the repo.
+- Alpha technical checks passed locally: `git diff --check`, HTML parser, JS syntax check, local asset reference check, local HTTP 200 checks, and Chrome DevTools overflow probe.
+- Attempted global X-overflow guard in `style.css` (`html { overflow-x: hidden; }` and replacing page-shell `100vw`) caused the user's browser view to become blank/dark except CRT overlay; it was reverted. Do not reapply this blindly.
+- Image treatment was sharpened for the current alpha direction: reduced rounded corners and added display-like frames/corner accents instead of smooth card-style photo radii.
+- The old self-linking website/globe social was replaced with Mastodon in footers and Contact Relay. Mastodon username `melketesfay` on `infosec.exchange` was created by the user; profile approval may still be pending, but the expected URL is `https://infosec.exchange/@melketesfay`.
+- Tigrinya/Ethiopic characters now use explicit `Abyssinica SIL` via Google Fonts for a more characterful serif rendering across browsers/devices. Later final-launch polish may self-host the font files if desired.
+- Still required before deploy: user visual acceptance of the Contact palette and Mobile Page/nav via user-shared screenshots or the user's live browser view, plus the concrete deploy target/workflow. No deploy script/config exists in this folder yet.
 
 ## Known Hotspots To Inspect First
 
@@ -89,25 +106,23 @@ See `docs/ai/DECISIONS.md` for the canonical decision log.
 - `cube.js`: fixed interval loop.
 - `game.js`: many animated character spans in optional mode.
 - `style.css`, `about.css`, `pages.css`: heavy shadows, masks, filters, scanlines, and continuous decorative animations.
-- `about.css`: current About layout is unstable/unsatisfactory after adding the fourth personal text block. It needs a deliberate layout pass, not more small `nth-child` patches.
+- `about.css`: About is accepted for the current alpha pass; later polish should focus on Tigrinya font consistency and large-screen QA, not another broad rewrite.
 
 ## Next Recommended Task
 
-Next session:
+Next session or next phase today:
 
 1. Read `AGENTS.md`, `docs/ai/HANDOFF.md`, `docs/ai/NEXT_ACTIONS.md`, and `docs/ai/DECISIONS.md`.
-2. Check `git status` and confirm the 2026-06-25 changes were committed and pushed.
-3. Start with the Contact page. The typewriter is intentionally removed, and the channel layout is a good structural start, but the current color palette is not accepted yet.
-4. Refine Contact color story so it contrasts with Main/About/Projects while still belonging to the CRT/glow system.
-5. Replace placeholder contact links before deployment, especially `mailto:hello@melke.ch` and generic CodePen/GitHub URLs if needed.
-6. After Contact is accepted, move to Mobile Page/nav visual polish and color consistency.
-7. Keep About and Projects stable unless the user explicitly asks to revisit them.
-8. Update `docs/ai/NEXT_ACTIONS.md` and `docs/ai/DECISIONS.md` if scope or tradeoffs change.
+2. Check `git status`.
+3. Visually verify Contact palette in the user's browser/device path; adjust if the aubergine/rose/coral direction is still not right.
+4. Verify Mobile Page/nav on a small mobile viewport: hamburger X, elastic nav drop, footer visibility, no horizontal overflow.
+5. Run final alpha smoke test across Main, About, Projects, Contact, and Mobile.
+6. Update docs, commit, push, then deploy alpha.
 
 ## Prompt For The Next Codex Session
 
 ```text
-Read AGENTS.md, docs/ai/HANDOFF.md, docs/ai/NEXT_ACTIONS.md, and docs/ai/DECISIONS.md. Continue the custom vanilla portfolio work from the current branch/status. Main, About, and Projects are good enough for the current pass. Contact page is in progress: the typewriter was removed and replaced with a Contact Relay/channel layout, but the current color palette is not accepted yet. Preserve the handmade visual identity, avoid generic self-promotional copy, avoid new dependencies, and start by refining Contact colors and real contact links before moving to Mobile Page polish.
+Read AGENTS.md, docs/ai/HANDOFF.md, docs/ai/NEXT_ACTIONS.md, and docs/ai/DECISIONS.md. Continue the custom vanilla portfolio work from the current branch/status. Main, About, and Projects are good enough for the current pass. Contact page is in progress: the typewriter was removed and replaced with a Contact Relay/channel layout; the current color palette should be visually verified before alpha deploy. Preserve the handmade visual identity, avoid generic self-promotional copy, avoid new dependencies, and start by refining Contact colors and real contact links before moving to Mobile Page polish.
 ```
 
 ## Review Checklist For Pull Requests

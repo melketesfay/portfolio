@@ -1,11 +1,11 @@
 :root {
-    --contact-page-main: #07131f;
-    --contact-page-second: #2351a3;
-    --contact-page-third: #f0b75c;
-    --contact-page-fourth: #6fffe9;
-    --contact-page-shadow: rgba(111, 255, 233, 0.26);
-    --contact-page-deep-shadow: rgba(7, 19, 31, 0.44);
-    --contact-page-line: rgba(7, 19, 31, 0.42);
+    --contact-page-main: #ffe58a;
+    --contact-page-second: #17124f;
+    --contact-page-third: #bd155f;
+    --contact-page-fourth: #00e5ff;
+    --contact-page-shadow: rgba(0, 229, 255, 0.28);
+    --contact-page-deep-shadow: rgba(14, 5, 35, 0.5);
+    --contact-page-line: rgba(255, 229, 138, 0.34);
 }
 
 .contact-page {
@@ -29,7 +29,7 @@
     will-change: opacity;
     text-shadow:
         0 0 1.05ex var(--contact-page-shadow),
-        0 0 1px rgba(7, 19, 31, 0.48);
+        0 0 1px rgba(14, 5, 35, 0.52);
 }
 
 .contact-page .container {
@@ -104,9 +104,9 @@
         1px 10px 1px var(--contact-page-second),
         0 0 0.85rem var(--contact-page-shadow),
         1px 18px 6px var(--contact-page-deep-shadow),
-        1px 22px 10px rgba(7, 19, 31, 0.38),
-        1px 25px 35px rgba(7, 19, 31, 0.32),
-        1px 30px 60px rgba(7, 19, 31, 0.28);
+        1px 22px 10px rgba(14, 5, 35, 0.42),
+        1px 25px 35px rgba(14, 5, 35, 0.34),
+        1px 30px 60px rgba(14, 5, 35, 0.3);
 }
 
 .contact-hero {
@@ -145,14 +145,14 @@
     grid-area: console;
     border: 2px solid var(--contact-page-line);
     background:
-        linear-gradient(90deg, rgba(7, 19, 31, 0.18) 1px, transparent 1px),
-        linear-gradient(0deg, rgba(7, 19, 31, 0.14) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(14, 5, 35, 0.22) 1px, transparent 1px),
+        linear-gradient(0deg, rgba(14, 5, 35, 0.18) 1px, transparent 1px),
         rgba(255, 255, 255, 0.05);
     background-size: 1.4rem 1.4rem;
     overflow: hidden;
     box-shadow:
         inset 0 0 0 1px rgba(255, 255, 255, 0.05),
-        0.55rem 0.7rem 0 rgba(7, 19, 31, 0.18);
+        0.55rem 0.7rem 0 rgba(14, 5, 35, 0.22);
 }
 
 .contact-console::before {
@@ -161,7 +161,7 @@
     inset: 0;
     pointer-events: none;
     background:
-        linear-gradient(115deg, transparent 0 42%, rgba(111, 255, 233, 0.16) 43%, transparent 47%),
+        linear-gradient(115deg, transparent 0 42%, rgba(0, 229, 255, 0.16) 43%, transparent 47%),
         repeating-linear-gradient(
             to bottom,
             rgba(255, 255, 255, 0.045) 0,
@@ -181,7 +181,7 @@
     gap: 0.35rem 1rem;
     padding: 0.6rem 0.75rem;
     border-bottom: 2px solid var(--contact-page-line);
-    background: rgba(7, 19, 31, 0.14);
+    background: rgba(14, 5, 35, 0.18);
     font-family: "Kanit", sans-serif;
     font-size: 0.76rem;
     font-weight: 900;
@@ -233,7 +233,7 @@
     aspect-ratio: 1;
     border: 1px solid var(--contact-page-line);
     background: rgba(255, 255, 255, 0.07);
-    box-shadow: 0.25rem 0.3rem 0 rgba(7, 19, 31, 0.18);
+    box-shadow: 0.25rem 0.3rem 0 rgba(14, 5, 35, 0.22);
 }
 
 .contact-channel-icon i {

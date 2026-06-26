@@ -331,42 +331,53 @@ Tone rules:
 
 About page tasks:
 
-- [ ] Rework the current About layout. The current grid attempt after adding the fourth text block is not accepted by the user.
-- [ ] Preserve the large opening sentence if possible: "Ich baue Interfaces, die man spürt."
-- [ ] Keep or rework the Zurich image reveal deliberately; remove only if the user asks.
-- [ ] Keep or rework the large Tigrinya visual deliberately; remove only if the user asks.
-- [ ] Include a personal/free-time block: philosophy and hiking in the Alps.
-- [ ] Include Cyber Security/HSLU without making the page sound like a CV.
-- [ ] Verify footer visibility after the layout change.
-- [ ] Verify mobile layout after desktop looks acceptable.
+- [x] Rework the About layout for the current alpha pass.
+- [x] Replace the large opening sentence direction with the accepted "Ich bin Melke, Full Stack Web-Entwickler aus Zürich." intro.
+- [x] Keep the Zurich/Asmara image reveal deliberately.
+- [x] Keep the large Tigrinya visual deliberately.
+- [x] Include a personal/free-time block: philosophy and hiking in the Alps.
+- [x] Include Cyber Security/HSLU without making the page sound like a CV.
+- [x] Verify footer visibility after the layout change for the current pass.
+- [x] Verify mobile layout enough for alpha; font consistency remains later polish.
 
 Projects page tasks:
 
-- [ ] Decide which projects are deploy-ready enough to show.
+- [x] Decide which projects are deploy-ready enough to show for alpha.
 - [x] Replace placeholder project list/content with concrete project descriptions.
-- [ ] Keep project descriptions concrete and modest.
+- [x] Keep project descriptions concrete and modest for alpha.
 
 Contact page tasks:
 
 - [x] Remove trivial typewriter direction and replace with a more designed contact interface.
-- [ ] Verify and replace placeholder social/contact links before deployment.
+- [x] Replace placeholder social/contact links for alpha. Verify CodePen URL before final deploy if needed.
 
 Progress:
 
-- 2026-06-19: About copy was started and improved in direction, but layout is currently worse after the fourth personal text block. Next session should fix the layout before adding more content.
+- 2026-06-19: About copy was started and improved in direction, but layout was not accepted at that checkpoint. This was superseded by the 2026-06-25/26 About pass.
 
-- 2026-06-25: About page color direction is accepted for the current pass: indigo/night-blue palette, warm glow, coordinated header/logo shadow, and large Tigrinya glyph treatment.
+- 2026-06-25/26: About page is accepted for alpha: intro copy, personal/security copy, Zurich/Asmara reveal, indigo/night-blue palette, warm glow, coordinated header/logo shadow, and large Tigrinya glyph treatment. Font consistency for Tigrinya remains later polish.
 - 2026-06-25: Projects page structure and new cyber/tech display direction were accepted and committed before this checkpoint.
 - 2026-06-25: Contact page typewriter was removed from `index.html`. The page now uses a Contact Relay/channel interface with email, GitHub, and CodePen. LinkedIn should not be used because the user does not have and likely does not want a LinkedIn profile.
-- 2026-06-25: Current Contact palette is not accepted yet; the user finds the center/rim color combination unusual. Start next session by refining Contact colors, then final links.
-- 2026-06-25: Remaining page work after Contact is primarily Mobile Page/nav visual polish and color consistency.
+- 2026-06-25: Current Contact palette was not accepted yet; the user found the center/rim color combination unusual. 2026-06-26 update: palette was refined to a more cohesive aubergine/rose/coral direction with gold signal accent; still needs user visual acceptance.
+- 2026-06-25: Remaining page work after Contact is primarily Mobile Page/nav visual polish and color consistency. 2026-06-26 update: Mobile Page now has a dedicated grid layout and violet/rose/gold palette; verify on small screens.
 
 
 Mobile Page tasks:
 
-- [ ] Make mobile page/nav colors consistent with the current page color identity or define a deliberate mobile-only palette.
-- [ ] Verify footer position and color inheritance on the mobile page.
+- [x] Define a deliberate mobile-only palette for the nav page.
+- [ ] Verify footer position and color inheritance on the mobile page in browser/device testing.
 - [ ] Confirm hamburger X animation and elastic nav drop still feel intentional after color changes.
+
+
+- 2026-06-26: Contact links were consolidated for alpha: `melketesfay@gmail.com`, GitHub `melketesfay`, CodePen `melketesfay`, and Mastodon `infosec.exchange/@melketesfay`.
+- 2026-06-26: Shell cannot reach the user's Live Server on `127.0.0.1:5500`; browser/device visual QA must happen through the user's VS Code/remote/phone path or screenshots shared in chat.
+- 2026-06-26: About city images now load lighter JPEG exports (`asmara.jpg`, `zuerich.jpg`) instead of the original PNGs, reducing that pair from about 6.1 MB to about 1.5 MB while keeping the PNG sources in the repo.
+- 2026-06-26: Alpha technical checks passed locally: no diff whitespace issues, `index.html` parses, JS files pass `node --check`, all local `index.html` references exist, and local HTTP checks return 200 for `index.html`, `asmara.jpg`, and `zuerich.jpg`.
+- 2026-06-26: A global desktop X-overflow fix was attempted by avoiding `100vw` on layered page shells and hiding X-overflow on `html`, but the user's live browser became blank/dark except for the CRT overlay. The change was reverted; do not reapply it without direct visual verification.
+- 2026-06-26: Replaced the self-linking website/globe social with Mastodon in all footers and added Mastodon as Contact Relay channel 04. User created Mastodon username `melketesfay` on `infosec.exchange`; profile approval may still be pending, expected URL `https://infosec.exchange/@melketesfay`.
+- 2026-06-26: Reduced photo radii and added display-like frames/corner accents for the profile and About city images to better match the CRT/cyber visual language.
+- 2026-06-26: Switched Tigrinya/Ethiopic glyphs to `Abyssinica SIL` for a serif look the user prefers. Verify visually on mobile/desktop; consider self-hosting before final launch if external font dependency should be removed.
+- 2026-06-26: No deployment script or hosting config exists in `landing_page`; alpha deploy still needs the target host/path/workflow from the user.
 
 Reduced motion checks:
 

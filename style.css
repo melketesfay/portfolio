@@ -5,6 +5,7 @@
   --fourth: #f05941;
   --fifth: #1a0622;
   --text-shadow: #11021a;
+  --ethiopic-font: "Abyssinica SIL", "Noto Serif Ethiopic", "Noto Sans Ethiopic", serif;
 
   /* toogle button */
 
@@ -62,6 +63,8 @@ body {
   margin: 0px;
   color: var(--fourth);
   font-family: "Kanit", sans-serif;
+  -webkit-user-select: none;
+  user-select: none;
   background-color: var(--main);
 
   background: repeating-linear-gradient(
@@ -74,6 +77,12 @@ body {
   background-image: radial-gradient(var(--second), var(--main));
   overflow-x: hidden;
   overflow-y: scroll;
+}
+
+input,
+textarea {
+  -webkit-user-select: auto;
+  user-select: auto;
 }
 
 .darkMode {
@@ -681,7 +690,46 @@ label[for="btn"] {
 }
 
 .image-bottom {
-  border-radius: 17px;
+  border: 1px solid rgba(240, 89, 65, 0.5);
+  border-radius: 0.35rem;
+  box-shadow:
+    inset 0 0 0 1px rgba(28, 2, 40, 0.35),
+    0 0 1rem rgba(240, 89, 65, 0.14),
+    0.35rem 0.45rem 0 rgba(17, 2, 26, 0.24);
+  overflow: hidden;
+  isolation: isolate;
+}
+
+.image-bottom::before,
+.image-bottom::after {
+  content: "";
+  position: absolute;
+  pointer-events: none;
+  border-radius: inherit;
+}
+
+.image-bottom::before {
+  inset: 0;
+  z-index: 7;
+  border: 1px solid rgba(240, 89, 65, 0.34);
+  box-shadow:
+    inset 0 0 0.75rem rgba(240, 89, 65, 0.16),
+    inset 0 0 2.2rem rgba(28, 2, 40, 0.24);
+}
+
+.image-bottom::after {
+  inset: 0.42rem;
+  z-index: 8;
+  background:
+    linear-gradient(var(--fourth), var(--fourth)) left top / 2.35rem 2px no-repeat,
+    linear-gradient(var(--fourth), var(--fourth)) left top / 2px 2.35rem no-repeat,
+    linear-gradient(var(--fourth), var(--fourth)) right top / 2.35rem 2px no-repeat,
+    linear-gradient(var(--fourth), var(--fourth)) right top / 2px 2.35rem no-repeat,
+    linear-gradient(var(--fourth), var(--fourth)) left bottom / 2.35rem 2px no-repeat,
+    linear-gradient(var(--fourth), var(--fourth)) left bottom / 2px 2.35rem no-repeat,
+    linear-gradient(var(--fourth), var(--fourth)) right bottom / 2.35rem 2px no-repeat,
+    linear-gradient(var(--fourth), var(--fourth)) right bottom / 2px 2.35rem no-repeat;
+  opacity: 0.74;
 }
 
 .inside-aside-bottom {
@@ -1176,8 +1224,9 @@ main {
 
 .name-tigrigna {
   position: relative;
-  font-family: "Kanit", sans-serif;
-  font-weight: 950;
+  font-family: var(--ethiopic-font);
+  font-weight: 400;
+  font-synthesis: none;
   font-size: 6rem;
 }
 
@@ -1188,8 +1237,9 @@ main {
 
 .nachname-tigrigna {
   position: relative;
-  font-family: "Kanit", sans-serif;
-  font-weight: 950;
+  font-family: var(--ethiopic-font);
+  font-weight: 400;
+  font-synthesis: none;
   font-size: 6rem;
 }
 

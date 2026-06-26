@@ -157,6 +157,33 @@
   width: min(100%, 32rem);
   max-height: min-content;
   touch-action: none;
+  border: 1px solid rgba(242, 179, 91, 0.42);
+  border-radius: 0.4rem;
+  box-shadow:
+    0.45rem 0.55rem 0 rgba(18, 10, 47, 0.22),
+    0 0 1.5rem rgba(242, 179, 91, 0.14);
+}
+
+.about-page-main-top-image::before,
+.about-page-main-top-image::after {
+  content: "";
+  position: absolute;
+  inset: -0.45rem;
+  pointer-events: none;
+  z-index: 4;
+}
+
+.about-page-main-top-image::before {
+  background:
+    linear-gradient(var(--about-page-fourth), var(--about-page-fourth)) left top / 2.4rem 2px no-repeat,
+    linear-gradient(var(--about-page-fourth), var(--about-page-fourth)) left top / 2px 2.4rem no-repeat,
+    linear-gradient(var(--about-page-fourth), var(--about-page-fourth)) right bottom / 2.4rem 2px no-repeat,
+    linear-gradient(var(--about-page-fourth), var(--about-page-fourth)) right bottom / 2px 2.4rem no-repeat;
+  opacity: 0.72;
+}
+
+.about-page-main-top-image::after {
+  border: 1px solid rgba(18, 10, 47, 0.24);
 }
 
 .about-page-main-top-image img {
@@ -225,7 +252,7 @@
   max-width: 100%;
   margin: 0;
   padding: 0;
-  border-radius: 1rem;
+  border-radius: 0.4rem;
 }
 
 .zuerich-bottom {

@@ -27,6 +27,7 @@
     clip.style.height = "250px";
     clip.style.opacity = "1";
     clip.style.transition = "none";
+    clip.style.borderRadius = "0";
   }
 
   function resetClip(clip) {
@@ -125,8 +126,6 @@
       configureClip(clip, index);
     });
 
-    clips[0].style.borderRadius = "17px 0 0 17px";
-    clips[clips.length - 1].style.borderRadius = "0 17px 17px 0";
     activeClips.clear();
     resetTimers.forEach((timer) => clearTimeout(timer));
     resetTimers.clear();
