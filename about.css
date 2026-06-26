@@ -224,12 +224,19 @@
 
 .about-page .about-page-main-bottom-image h1.name-tigrigna {
   color: var(--about-page-main);
+  transform: translateX(-0.04em);
   text-shadow:
-    0.035em 0.035em 0 var(--about-page-second),
-    0.065em 0.065em 0 rgba(18, 10, 47, 0.18),
+    0.028em 0.035em 0 var(--about-page-second),
+    0.045em 0.065em 0 rgba(18, 10, 47, 0.18),
     0 0 1.1rem var(--about-page-gold-glow),
     0 0 2.7rem rgba(47, 59, 146, 0.38),
-    0.08em 0.11em 0.24em rgba(18, 10, 47, 0.34);
+    0.035em 0.11em 0.24em rgba(18, 10, 47, 0.34);
+}
+
+@supports (-webkit-touch-callout: none) {
+  .about-page .about-page-main-bottom-image h1.name-tigrigna {
+    transform: translateX(-0.08em);
+  }
 }
 
 .about-portfolio-copy {

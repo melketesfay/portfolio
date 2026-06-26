@@ -602,6 +602,29 @@ label[for="btn"] {
   );
 }
 
+@supports (-webkit-touch-callout: none) {
+  #btn:checked + label .thumb {
+    --lg: #fff0;
+  }
+
+  #btn:checked + label .thumb:before {
+    width: calc(var(--sz) * 0.52);
+    height: calc(var(--sz) * 1.55);
+    top: 50%;
+    right: calc(var(--sz) / -12);
+    left: auto;
+    border-radius: 50%;
+    background: radial-gradient(
+      ellipse at 0% 50%,
+      rgba(3, 169, 244, 0.82) 0,
+      rgba(3, 169, 244, 0.44) 42%,
+      rgba(3, 169, 244, 0) 74%
+    );
+    filter: blur(0.55px);
+    transform: translateY(-50%);
+  }
+}
+
 /* Toggle :end */
 
 .aside-top-t {
