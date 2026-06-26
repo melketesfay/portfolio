@@ -1346,6 +1346,10 @@ main {
     1px 30px 60px var(--text-shadow);
 }
 
+.backEnd > div:first-child h2 {
+  white-space: nowrap;
+}
+
 h1 {
   line-height: 5rem;
 }

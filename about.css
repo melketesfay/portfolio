@@ -209,14 +209,14 @@
   align-items: center;
   justify-content: center;
   justify-self: center;
-  width: clamp(14rem, 25vw, 21rem);
-  min-height: clamp(10rem, 16vw, 14rem);
+  width: clamp(16rem, 29vw, 25rem);
+  min-height: clamp(12rem, 18vw, 16rem);
   pointer-events: none;
 }
 
 .about-page-main-bottom-image h1 {
   color: var(--about-page-main);
-  font-size: clamp(14rem, 25vw, 22rem);
+  font-size: clamp(17rem, 29vw, 26rem);
   line-height: 0.72;
   margin: 0;
   padding: 0;
