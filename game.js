@@ -1,171 +1,324 @@
-function playTypingGame() {
-  let t = document.body
-    .querySelector(".inside-aside-bottom")
-    .querySelectorAll("h3");
-  textsplitter(t);
+(() => {
+  const toggle = document.getElementById("btn");
+  const score = document.querySelector(".score");
+  const points = document.querySelector(".score > p");
+  const asideBottom = document.querySelector(".inside-aside-bottom");
+  const finePointer = window.matchMedia("(hover: hover) and (pointer: fine)");
+  const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
 
-  document.addEventListener("mousemove", randomColor);
+  if (!toggle || !score || !points || !asideBottom) return;
+
+  const originalText =
+    `<span class="index">Als</span> Full Stack Entwickler liebe ich es, mit ein paar Zeilen Code Ideen Wirklichkeit werden zu lassen – manchmal elegant, manchmal verrückt, aber immer mit Neugier, Leidenschaft und dem Drang, etwas Neues auszuprobieren.`;
+
+  let gameActive = false;
+  let counter = 0;
+  let gameTextLayer = null;
+
+  function getAsideTextElement() {
+    return asideBottom.querySelector(".aside-bottom-about-me");
+  }
+
+  function isNearCursor(event, pos) {
+    const distance = Math.sqrt(
+      Math.pow(pos.left + pos.width / 2 - event.clientX, 2) +
+        Math.pow(pos.top + pos.height / 2 - event.clientY, 2),
+    );
+
+    return distance <= 20;
+  }
+
+  function getTextNodes(root) {
+    const walker = document.createTreeWalker(root, NodeFilter.SHOW_TEXT);
+    const nodes = [];
+
+    while (walker.nextNode()) {
+      nodes.push(walker.currentNode);
+    }
+
+    return nodes;
+  }
+
+  function clearGameTextLayer() {
+    if (gameTextLayer) {
+      gameTextLayer.remove();
+      gameTextLayer = null;
+    }
+
+    const currentText = getAsideTextElement();
+    if (currentText) {
+      currentText.classList.remove("game-text-active");
+    }
+  }
+
+  function buildGameTextLayer(target) {
+    clearGameTextLayer();
+
+    const parent = target.parentElement;
+    if (!parent) return;
+
+    const parentRect = parent.getBoundingClientRect();
+    const layer = document.createElement("span");
+    layer.className = "game-text-layer";
+
+    getTextNodes(target).forEach((node) => {
+      for (let index = 0; index < node.nodeValue.length; index++) {
+        const letter = node.nodeValue[index];
+        if (letter.trim() === "") continue;
+
+        const range = document.createRange();
+        range.setStart(node, index);
+        range.setEnd(node, index + 1);
+        const rect = range.getBoundingClientRect();
+        range.detach();
+
+        if (!rect.width && !rect.height) continue;
+
+        const wrapper = document.createElement("span");
+        wrapper.classList.add("target");
+        if (node.parentElement?.closest(".index")) {
+          wrapper.classList.add("index");
+        }
+        wrapper.textContent = letter;
+        wrapper.style.left = `${rect.left - parentRect.left}px`;
+        wrapper.style.top = `${rect.top - parentRect.top}px`;
+        wrapper.style.width = `${rect.width}px`;
+        wrapper.style.height = `${rect.height}px`;
+        layer.appendChild(wrapper);
+      }
+    });
+
+    parent.appendChild(layer);
+    target.classList.add("game-text-active");
+    gameTextLayer = layer;
+  }
 
   function randomColor(event) {
-    var randomColor = Math.floor(Math.random() * 16777215).toString(16);
+    if (!gameActive) return;
 
-    let spans = document.querySelectorAll(".target");
-    let containerPos = document
-      .querySelector(".inside-aside-bottom")
-      .getBoundingClientRect();
-    spans.forEach((e, i) => {
-      let pos = e.getBoundingClientRect();
+    const color = Math.floor(Math.random() * 16777215).toString(16);
+    document
+      .querySelectorAll(".game-text-layer .target")
+      .forEach((target, index) => {
+        if (
+          target.classList.contains("free") ||
+          target.classList.contains("caught")
+        ) {
+          return;
+        }
 
-      if (isNearCursor(event, pos)) {
-        e.classList.add("free");
-        e.style.cssText += `
-        position:relative;
-     
-        transform: translateY(${-1000}px);
-        z-index:${i + 100};
-            font-weight:700;
-            min-height: fit-content;
-            min-width: fit-content;
-          margin:auto;
-            color:#${randomColor};
-            display:inline-block;
-            text-align: center;
-            
-         
-            
-            font-size:1.7rem;
+        const pos = target.getBoundingClientRect();
 
-            transition-property:transform,background-color,width,height,font-size,white-space;
-      transition-duration: 65s,1s,1s,1s,0.5s;
+        if (!isNearCursor(event, pos)) return;
 
-          
-
-            `;
-      }
-    });
+        target.classList.add("free");
+        target.style.zIndex = `${index + 100}`;
+        target.style.setProperty(
+          "--game-letter-color",
+          `#${color.padStart(6, "0")}`,
+        );
+        target.style.setProperty(
+          "--game-float-x",
+          `${Math.round((Math.random() - 0.5) * 80)}px`,
+        );
+        target.style.setProperty(
+          "--game-rotate",
+          `${Math.round((Math.random() - 0.5) * 28)}deg`,
+        );
+      });
   }
 
-  let counter = 0;
+  function handleKeydown(event) {
+    if (!gameActive) return;
 
-  let points = document.querySelector(".score > p");
-  let score = document.querySelector(".score");
+    document
+      .querySelectorAll(".game-text-layer .free")
+      .forEach((target, index) => {
+        if (
+          target.innerHTML.trim().toString() !== event.key ||
+          target.style.backgroundColor === "red" ||
+          target.getBoundingClientRect().top <= 0
+        ) {
+          return;
+        }
 
-  points.innerHTML = "0";
-  score.style.cssText = `
-  position:fixed;
-  top:10%;
-  width:fit-content;
-  height:fit-content;
-  background-color:#F05941;
-  left:calc(50% - 45px);
-  
-  display:flex;
-  gap:1rem;
-  flex-direction:column;
-  text-align:center;
-  justify-content:center;
-  align-items:center;
-  font-weight:bold;
-  font-size:2rem;
-  z-index:10;
-  opacity:0.8;
-  border-radius:0.7rem;
-  `;
-  console.log(points.getBoundingClientRect().width);
-  document.addEventListener("keydown", (k) => {
-    // console.log(k.key)
-    let killed = "red";
+        const layer = target.closest(".game-text-layer");
+        const layerRect = layer.getBoundingClientRect();
+        const targetRect = target.getBoundingClientRect();
+        const currentCenterX = targetRect.left + targetRect.width / 2;
+        const currentCenterY = targetRect.top + targetRect.height / 2;
 
-    let prey = document.querySelectorAll(".free");
-    prey.forEach((e, i) => {
-      // console.log(e.innerText);
-      if (
-        e.innerHTML.trim().toString() == k.key &&
-        e.style.backgroundColor != killed &&
-        e.getBoundingClientRect().top > 0
-      ) {
         counter++;
         points.innerHTML = counter;
-        let pos = e.getBoundingClientRect();
-        e.classList.remove("target", "free");
-        e.style.cssText += `
-      
-        position:absolute;
-    
-        z-index:${i + 100};
-        padding-top:5%;
-            width:50px;
-            height:50px;
-      
-            background-image:url('explosion.gif');
-           
-            background-size:cover;
-            background-repeat:no-repeat;
-            background-position:center;
-            color:black;
-        
-          
-            `;
-        setTimeout(() => {
-          e.style.opacity = 0;
+        target.classList.remove("free");
+        target.classList.add("caught");
+        target.style.zIndex = `${index + 100}`;
+        target.style.left = `${
+          currentCenterX - layerRect.left - target.offsetWidth / 2
+        }px`;
+        target.style.top = `${
+          currentCenterY - layerRect.top - target.offsetHeight / 2
+        }px`;
+
+        window.setTimeout(() => {
+          target.classList.add("caught-fade");
         }, 700);
-      }
-    });
-  });
-}
-
-let toggle = document.getElementById("btn");
-toggle.addEventListener("change", (event) => {
-  if (toggle.checked) {
-    console.log("play time");
-    document.body.classList.toggle("darkMode");
-    playTypingGame();
-    makePageSameHeight();
-  } else {
-    document.body.classList.toggle("darkMode");
-    let elements = document.querySelectorAll(".target");
-    let score = document.querySelector(".score");
-    let originPara = document.querySelector(".aside-bottom-about-me");
-    originPara.innerHTML = `<span class="index">Als</span> Full Stack Entwickler liebe ich es, mit ein paar Zeilen Code Ideen Wirklichkeit werden zu lassen – manchmal elegant, manchmal verrückt, aber immer mit Neugier, Leidenschaft und dem Drang, etwas Neues auszuprobieren.`;
-    score.style.display = "none";
-    makePageSameHeight();
+      });
   }
-});
 
-function isNearCursor(event, pos) {
-  const distance = Math.sqrt(
-    Math.pow(pos.left + pos.width / 2 - event.clientX, 2) +
-      Math.pow(pos.top + pos.height / 2 - event.clientY, 2)
-  );
+  function showScore() {
+    points.innerHTML = "0";
+    score.style.cssText = `
+      position:fixed;
+      top:10%;
+      width:fit-content;
+      height:fit-content;
+      background-color:#F05941;
+      left:calc(50% - 45px);
+      display:flex;
+      gap:1rem;
+      flex-direction:column;
+      text-align:center;
+      justify-content:center;
+      align-items:center;
+      font-weight:bold;
+      font-size:2rem;
+      z-index:10;
+      opacity:0.8;
+      border-radius:0.7rem;
+    `;
+  }
 
-  return distance <= 20; // Check if within 20px
-}
+  function clearMobileHeliumBurst() {
+    const currentText = getAsideTextElement();
+    if (!currentText || gameActive) return;
 
-// change textelements in to span elements
-function textsplitter(t) {
-  t.forEach((e) => {
-    var para = document.createElement("h3");
-    para.style.whiteSpace = "pre-line";
-    text = e.textContent.split("");
-    text.forEach((t) => {
-      var wrapper = document.createElement("span");
-      // Check if the character is a space
-      if (t.trim() == "") {
-        wrapper.innerHTML = t.replace(/\s/, "&nbsp;"); // Convert the space to a non-breaking space (&nbsp; = "/\s/";
-        // wrapper.style.whiteSpace = "pre"; // Preserve the whitespace
-      }
-      wrapper.classList.add("target");
-      wrapper.style.cssText = `
-      position:relative;
-      z-index:1;
-      `;
-      const newtext = document.createTextNode(t);
-      wrapper.appendChild(newtext);
+    currentText.classList.remove("mobile-helium-text");
+    currentText.innerHTML = originalText;
+  }
 
-      para.appendChild(wrapper);
+  function runMobileHeliumBurst() {
+    if (finePointer.matches || reducedMotion.matches || gameActive) return;
+
+    const currentText = getAsideTextElement();
+    if (!currentText) return;
+
+    clearMobileHeliumBurst();
+    const text = currentText.textContent;
+    currentText.innerHTML = "";
+    currentText.classList.add("mobile-helium-text");
+
+    const letters = Array.from(text).map((letter, index) => {
+      const wrapper = document.createElement("span");
+      const isWhitespace = letter.trim() === "";
+
+      wrapper.className = "mobile-helium-letter";
+      wrapper.style.setProperty("--helium-index", index);
+      wrapper.style.setProperty(
+        "--helium-x",
+        `${Math.round((Math.random() - 0.5) * 72)}px`,
+      );
+      wrapper.style.setProperty(
+        "--helium-y",
+        `${Math.round(120 + Math.random() * 190)}px`,
+      );
+      wrapper.style.setProperty(
+        "--helium-rotate",
+        `${Math.round((Math.random() - 0.5) * 34)}deg`,
+      );
+      wrapper.style.animationDelay = `${Math.min(index * 12, 620)}ms`;
+      wrapper.textContent = isWhitespace ? "\u00a0" : letter;
+
+      currentText.appendChild(wrapper);
+      return wrapper;
     });
 
-    e.parentNode.replaceChild(para, e);
-    para.classList.add("aside-bottom-about-me");
+    letters
+      .filter((letter) => letter.textContent.trim() && Math.random() > 0.34)
+      .forEach((letter) => {
+        letter.addEventListener(
+          "animationend",
+          () => {
+            const style = window.getComputedStyle(letter);
+
+            letter.style.opacity = style.opacity;
+            letter.style.transform = style.transform;
+            letter.classList.remove("mobile-helium-letter-active");
+            letter.classList.add("mobile-helium-letter-frozen");
+          },
+          { once: true },
+        );
+        letter.classList.add("mobile-helium-letter-active");
+      });
+  }
+
+  function startGame() {
+    if (gameActive || !finePointer.matches) return;
+
+    const currentText = getAsideTextElement();
+    if (!currentText) return;
+
+    gameActive = true;
+    counter = 0;
+    document.body.classList.add("darkMode");
+    buildGameTextLayer(currentText);
+    showScore();
+    document.addEventListener("mousemove", randomColor);
+    document.addEventListener("keydown", handleKeydown);
+  }
+
+  function stopGame() {
+    if (gameActive) {
+      document.removeEventListener("mousemove", randomColor);
+      document.removeEventListener("keydown", handleKeydown);
+    }
+
+    gameActive = false;
+    counter = 0;
+    document.body.classList.remove("darkMode");
+    clearGameTextLayer();
+    const currentText = getAsideTextElement();
+    if (currentText) {
+      currentText.innerHTML = originalText;
+    }
+    score.style.display = "none";
+  }
+
+  function handlePointerModeChange() {
+    if (!finePointer.matches) {
+      stopGame();
+    }
+  }
+
+  if (finePointer.addEventListener) {
+    finePointer.addEventListener("change", handlePointerModeChange);
+  } else {
+    finePointer.addListener(handlePointerModeChange);
+  }
+
+  toggle.addEventListener("change", () => {
+    if (toggle.checked) {
+      startGame();
+      runMobileHeliumBurst();
+    } else {
+      stopGame();
+      clearMobileHeliumBurst();
+    }
+
+    if (typeof makePageSameHeight === "function") {
+      makePageSameHeight();
+    }
   });
-}
+
+  document.addEventListener("click", (event) => {
+    if (!event.target.closest(".a-logo")) return;
+
+    toggle.checked = false;
+    stopGame();
+    clearMobileHeliumBurst();
+
+    if (typeof makePageSameHeight === "function") {
+      makePageSameHeight();
+    }
+  });
+})();

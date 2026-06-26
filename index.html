@@ -10,7 +10,7 @@
       rel="stylesheet"
     />
     <link
-      href="https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&family=Kanit:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Abyssinica+SIL&family=Inter:wght@100;200;300;400;500;600;700;800;900&family=Kanit:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
       rel="stylesheet"
     />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -44,9 +44,9 @@
   </head>
 
   <body>
-    <div class="noise"></div>
-    <div class="noise-overlay"></div>
-    <div class="main-page">
+    <div class="noise" aria-hidden="true"></div>
+    <div class="noise-overlay" aria-hidden="true"></div>
+    <div class="main-page page-active">
       <div class="container">
         <div class="score" style="display: none; border-radius: 1rem">
           <h3
@@ -135,6 +135,12 @@
                 <div class="image-title-container name">
                   <h1 class="image-title">BACKEND</h1>
                 </div>
+                <span
+                  class="interaction-hint profile-photo-hint"
+                  aria-hidden="true"
+                >
+                  <i class="fa-solid fa-hand-pointer"></i>
+                </span>
               </div>
             </div>
             <div class="inside-aside-bottom">
@@ -156,15 +162,13 @@
                 </div>
                 <div class="frontEnd">
                   <div>
-                    <h2>
-                      <i class="fa-solid fa-right-long"></i> Kreative UI/UX
-                    </h2>
+                    <h2><i class="fa-solid fa-right-long"></i> Custom UI/UX</h2>
                     <h2>
                       <i class="fa-solid fa-right-long"></i> Interaktive
-                      Animationen
+                      Interfaces
                     </h2>
                     <h2>
-                      <i class="fa-solid fa-right-long"></i> Zero-Dependency
+                      <i class="fa-solid fa-right-long"></i> Vanilla Frontend
                     </h2>
                   </div>
                   <div class="name-tigrigna">
@@ -181,12 +185,12 @@
                 </div>
                 <div class="backEnd">
                   <div>
+                    <h2><i class="fa-solid fa-right-long"></i> API Design</h2>
                     <h2>
-                      <i class="fa-solid fa-right-long"></i> Low-Dependency
+                      <i class="fa-solid fa-right-long"></i> Auth & Security
                     </h2>
-                    <h2><i class="fa-solid fa-right-long"></i> Saubere APIs</h2>
                     <h2>
-                      <i class="fa-solid fa-right-long"></i> Secure DevOps
+                      <i class="fa-solid fa-right-long"></i> Self-Hosted Infra
                     </h2>
                   </div>
                   <div class="nachname-tigrigna">
@@ -195,6 +199,9 @@
                 </div>
               </div>
             </div>
+            <span class="interaction-hint hero-reveal-hint" aria-hidden="true">
+              <i class="fa-solid fa-hand-pointer"></i>
+            </span>
           </div>
           <div class="main-bottom">
             <div id="wrapper">
@@ -244,6 +251,9 @@
                   </div>
                 </div>
               </div>
+              <span class="interaction-hint cube-drag-hint" aria-hidden="true">
+                <i class="fa-solid fa-arrows-rotate"></i>
+              </span>
             </div>
             <div class="ausgewaehlte-projekte name">
               <h2>AUSGEWÄHLTE</h2>
@@ -255,11 +265,11 @@
         <section class="tools">
           <div class="tools-left">
             <h3>
-              Dieses Portfolio ist mein persönliches Experiment: gebaut mit
-              purem HTML, CSS und Vanilla JavaScript. Mein Ziel war es
-              herauszufinden, wie weit man ohne Frameworks oder Libraries kommt
-              – und zu zeigen, dass sich mit einem minimalistischen Ansatz
-              trotzdem moderne und interaktive Webseiten umsetzen lassen.
+              Dieses Portfolio ist bewusst handgebaut: pure HTML, CSS und
+              Vanilla JavaScript, ohne Framework-Abhängigkeit. Es verbindet
+              interaktive Frontend-Details mit meinem Interesse an sauberen
+              Systemen, Security und selbst betriebener Infrastruktur – vom UI
+              bis zum Deployment.
             </h3>
           </div>
           <div class="tools-right">
@@ -280,19 +290,35 @@
               <li>C++</li>
               <li>NPM</li>
               <li>DOCKER</li>
+              <li style="text-wrap: nowrap">DOCKER COMPOSE</li>
               <li>NGINX</li>
+              <li style="text-wrap: nowrap">REVERSE PROXY</li>
               <li>SCSS</li>
               <li>TRELLO</li>
               <li>PROXMOX</li>
               <li>TAILWIND</li>
               <li>PFSENSE</li>
+              <li style="text-wrap: nowrap">TRUENAS SCALE</li>
+              <li>AUTHELIA</li>
+              <li>VAULTWARDEN</li>
+              <li>WIREGUARD</li>
+              <li>TERRAFORM</li>
+              <li>GCP</li>
               <li>OPENSSL</li>
+              <li>TLS</li>
               <li>SQL</li>
+              <li>POSTGRESQL</li>
               <li style="text-wrap: nowrap">REST APIs</li>
+              <li>POSTMAN</li>
               <li>JSON</li>
               <li>LINUX</li>
               <li>BASH</li>
+              <li>DNS</li>
+              <li>VLANs</li>
+              <li>ZFS</li>
               <li>CI/CD</li>
+              <li>MONITORING</li>
+              <li>WAZUH</li>
               <li>ANSIBLE</li>
             </ul>
           </div>
@@ -374,17 +400,33 @@
               </p>
             </div>
             <div class="info-copy-right">
-              <p class="info-copy-footnote">2024 © melke</p>
+              <p class="info-copy-footnote">2026 © melke</p>
             </div>
             <div class="info-socials">
-              <a href="https://github.com"
-                ><i class="fa-brands fa-github"></i></a
-              ><a href="https://codepen.com"><i class="fab fa-codepen"></i></a
-              ><a href="https://myWebsite.com"
-                ><i class="fa-solid fa-globe"></i></a
-              ><a href="https://mail.com"
-                ><i class="fa-solid fa-envelope"></i
-              ></a>
+              <a
+                href="https://github.com/melketesfay"
+                target="_blank"
+                rel="noreferrer"
+              >
+                <i class="fa-brands fa-github"></i>
+              </a>
+              <a
+                href="https://codepen.io/melketesfay"
+                target="_blank"
+                rel="noreferrer"
+              >
+                <i class="fab fa-codepen"></i>
+              </a>
+              <a
+                href="https://infosec.exchange/@melketesfay"
+                target="_blank"
+                rel="me noreferrer"
+              >
+                <i class="fa-brands fa-mastodon"></i>
+              </a>
+              <a href="mailto:melketesfay%40gmail.com">
+                <i class="fa-solid fa-envelope"></i>
+              </a>
             </div>
           </div>
         </footer>
@@ -432,56 +474,66 @@
         </div>
       </ul> -->
         <div class="about-page-main">
-          <div class="about-page-main-top">
-            <div class="hover-text">
-              <h3 class="intro">
-                Hi, ich bin Melke – Full Stack Web-Entwickler aus Zürich.
+          <section class="about-page-main-top">
+            <div class="hover-text about-intro-copy">
+              <h3 class="intro about-statement">
+                Ich bin Melke, Full Stack Web-Entwickler aus Zürich.
               </h3>
-              <h3>
-                Ich entwickle gern klare, leicht verständliche Webseiten mit
-                durchdachtem Code und modernem Design. Dabei setze ich auf
-                schlanke Lösungen ohne unnötige Abhängigkeiten – einfach,
-                performant und mit Liebe zum Detail. Ob Design, Frontend oder
-                Backend – ich setze Ideen in Realität um.
+              <h3 class="about-lead">
+                An Frontends liebe ich das Sichtbare und Interaktive. Genauso
+                interessiert mich, was darunter passiert: Backend, Infrastruktur
+                und Security.
               </h3>
             </div>
             <div class="about-page-main-top-image">
               <img
                 class="zuerich zuerich-top"
                 id="zuerich-top-img"
-                src="zurich.png"
-                alt="Zürich"
+                src="asmara.jpg"
+                alt="Asmara"
               />
               <img
                 class="zuerich zuerich-bottom"
                 id="zuerich-bottom-img"
-                src="zurich.png"
-                alt="Zuerich"
+                src="zuerich.jpg"
+                alt="Zürich"
               />
             </div>
-          </div>
-          <div class="about-page-main-bottom">
-            <div class="about-page-main-bottom-image">
+          </section>
+          <section class="about-page-main-bottom">
+            <div class="about-page-main-bottom-image" aria-hidden="true">
               <h1 class="name-tigrigna name">መ</h1>
             </div>
-            <div class="hover-text">
-              <h3>
-                Ich bin erst relativ spät in die Welt des Programmierens
-                eingestiegen – vielleicht gerade deshalb fasziniert sie mich so
-                sehr. Aus einem einfachen Interesse ist schnell eine
-                Leidenschaft geworden, die inzwischen auch mein Hobby ist.
+            <div class="hover-text about-portfolio-copy">
+              <h3 class="about-detail">
+                Dieses Portfolio ist mein persönliches Front-End-Experiment:
+                ein eigenständig entwickeltes Webprojekt mit HTML, CSS und
+                Vanilla JavaScript. Viele Details sind entstanden, weil ich
+                verstehen wollte, wie weit ich mit nativen Browser-APIs und
+                ohne Framework-Schicht komme.
               </h3>
             </div>
-            <div class="hover-text">
-              <h3>
-                Wenn ich nicht an Web-Projekten oder meinem HomeLab tüftele,
-                lese ich gerne Philosophie oder bin in der Natur unterwegs – am
-                liebsten auf langen Wanderungen in den Alpen. Ein perfekter
-                Kontrast zur Bildschirm- und Kopfarbeit – er hilft mir, den Kopf
-                frei zu bekommen und neue Ideen zu entwickeln.
+            <div class="hover-text about-security-copy">
+              <h3 class="about-detail">
+                Ich bin später in Softwareentwicklung und Cyber Security
+                eingestiegen, aber daraus ist eine tiefe Leidenschaft geworden.
+                Neben der Arbeit studiere ich Cyber Security an der HSLU und
+                baue privat eine kleine Zero-Trust-Laborumgebung mit
+                Self-hosted Services, Netzwerksegmentierung, Auth, Monitoring
+                und CI/CD auf.
               </h3>
             </div>
-          </div>
+            <div class="hover-text about-personal-copy">
+              <h3 class="about-personal">
+                Wenn ich nicht an Code oder Infrastruktur arbeite, lese ich
+                gerne Philosophie oder bin in den Alpen unterwegs. Dieses
+                Portfolio ist auch deshalb persönlich: In der Grundidee, im
+                visuellen System und in vielen Interaktionen stecken mehrere
+                Wochen Kopfzerbrechen, lange bevor KI ein selbstverständliches
+                Werkzeug wurde.
+              </h3>
+            </div>
+          </section>
         </div>
         <footer>
           <div class="info">
@@ -560,17 +612,33 @@
               </p>
             </div>
             <div class="info-copy-right">
-              <p class="info-copy-footnote">2024 © melke</p>
+              <p class="info-copy-footnote">2026 © melke</p>
             </div>
             <div class="info-socials">
-              <a href="https://github.com"
-                ><i class="fa-brands fa-github"></i></a
-              ><a href="https://codepen.com"><i class="fab fa-codepen"></i></a
-              ><a href="https://myWebsite.com"
-                ><i class="fa-solid fa-globe"></i></a
-              ><a href="https://mail.com"
-                ><i class="fa-solid fa-envelope"></i
-              ></a>
+              <a
+                href="https://github.com/melketesfay"
+                target="_blank"
+                rel="noreferrer"
+              >
+                <i class="fa-brands fa-github"></i>
+              </a>
+              <a
+                href="https://codepen.io/melketesfay"
+                target="_blank"
+                rel="noreferrer"
+              >
+                <i class="fab fa-codepen"></i>
+              </a>
+              <a
+                href="https://infosec.exchange/@melketesfay"
+                target="_blank"
+                rel="me noreferrer"
+              >
+                <i class="fa-brands fa-mastodon"></i>
+              </a>
+              <a href="mailto:melketesfay%40gmail.com">
+                <i class="fa-solid fa-envelope"></i>
+              </a>
             </div>
           </div>
         </footer>
@@ -617,82 +685,187 @@
         </div>
       </ul> -->
         <div class="projects-page-main">
-          <div class="projects-grid">
-            <article class="retro-card">
-              <div class="retro-head">
-                <span class="dot"></span><span class="dot"></span
-                ><span class="dot"></span>
-                <span class="label">APP 1</span>
+          <section class="projects-intro" aria-labelledby="projects-title">
+            <p class="projects-kicker">Project Systems</p>
+            <h2 id="projects-title" class="projects-title">
+              Projekte, die zeigen, wie ich Systeme baue.
+            </h2>
+            <p class="projects-lead">
+              Der Schwerpunkt liegt nicht auf einzelnen Screenshots, sondern auf
+              echten Abläufen: entwickeln, absichern, deployen, betreiben und
+              verbessern.
+            </p>
+          </section>
+
+          <section class="project-feature" aria-labelledby="featured-project-title">
+            <div class="project-feature-copy">
+              <div class="project-eyebrow">
+                <span>Featured System</span><span>In Betrieb / Ausbau</span>
               </div>
-              <div class="retro-media"></div>
-              <h4 class="retro-title">TextRepellant</h4>
-              <p class="retro-desc">
-                Interaktive Typo-Experimente, komplett Vanilla JS.
+              <h3 id="featured-project-title">
+                Self-hosted Services auf Zero-Trust-Basis
+              </h3>
+              <p>
+                Meine eigene kleine Infrastruktur mit Proxmox und pfSense:
+                segmentierte Netze, Reverse Proxy, lokale CA für interne Apps,
+                TrueNAS SCALE, GitLab CI/CD, Authelia, Vaultwarden, Jellyfin,
+                eigene Websites und zentrales Monitoring mit Wazuh.
               </p>
-              <div class="retro-tags">
-                <span>HTML</span><span>CSS</span><span>JS</span>
+              <ul class="project-feature-points">
+                <li>Netzwerksegmentierung statt flachem Heimnetz</li>
+                <li>Self-hosted Services mit Auth, TLS und Reverse Proxy</li>
+                <li>Monitoring, CI/CD und Betriebsdenken von Anfang an</li>
+              </ul>
+            </div>
+            <div class="project-system-map" aria-hidden="true">
+              <div class="system-display-topbar">
+                <span>OPS EDGE</span><span>ZERO TRUST LAB</span>
+              </div>
+              <div class="system-display-screen">
+                <span class="system-route route-edge-core"></span>
+                <span class="system-route route-core-auth"></span>
+                <span class="system-route route-core-ci"></span>
+                <span class="system-route route-core-data"></span>
+                <span class="system-route route-core-watch"></span>
+                <div class="system-node system-node-edge">
+                  <span>pfSense</span><small>edge</small>
+                </div>
+                <div class="system-node system-node-core">
+                  <span>Proxmox</span><small>core</small>
+                </div>
+                <div class="system-node system-node-auth">
+                  <span>Authelia</span><small>auth</small>
+                </div>
+                <div class="system-node system-node-ci">
+                  <span>GitLab CI</span><small>deploy</small>
+                </div>
+                <div class="system-node system-node-data">
+                  <span>TrueNAS</span><small>storage</small>
+                </div>
+                <div class="system-node system-node-watch">
+                  <span>Wazuh</span><small>monitor</small>
+                </div>
+                <div class="system-readout">
+                  <span>TLS / LOCAL CA</span>
+                  <span>REVERSE PROXY</span>
+                  <span>VAULTWARDEN</span>
+                  <span>JELLYFIN</span>
+                </div>
+              </div>
+            </div>
+          </section>
+
+          <section class="project-register" aria-label="Weitere Projekte">
+            <article class="project-record">
+              <span class="record-index">01</span>
+              <div>
+                <p class="record-status">KI / Produktivität</p>
+                <h4>ARKI</h4>
+              </div>
+              <p>
+                KI-Assistent für Brocki Arche Zürich: recherchiert automatisch
+                Artikel, schreibt ausführliche Inserate und bereitet sie direkt
+                fürs Einstellen vor.
+              </p>
+              <div class="record-tags">
+                <span>AI</span><span>Recherche</span><span>Automation</span>
               </div>
             </article>
 
-            <article class="retro-card">
-              <div class="retro-head">
-                <span class="dot"></span><span class="dot"></span
-                ><span class="dot"></span><span class="label">APP 2</span>
+            <article class="project-record">
+              <span class="record-index">02</span>
+              <div>
+                <p class="record-status">Infrastructure as Code</p>
+                <h4>Terraform & GCP</h4>
               </div>
-              <div class="retro-media"></div>
-              <h4 class="retro-title">Cube Shader</h4>
-              <p class="retro-desc">Retro 3D-Cube – Mathe statt Frameworks.</p>
-              <div class="retro-tags">
-                <span>Canvas</span><span>Math</span><span>No deps</span>
-              </div>
-            </article>
-
-            <article class="retro-card">
-              <div class="retro-head">
-                <span class="dot"></span><span class="dot"></span
-                ><span class="dot"></span><span class="label">APP 3</span>
-              </div>
-              <div class="retro-media"></div>
-              <h4 class="retro-title">Wave Nav</h4>
-              <p class="retro-desc">SVG-Masken, saubere State-Logik.</p>
-              <div class="retro-tags">
-                <span>SVG</span><span>CSS</span><span>JS</span>
+              <p>
+                IaC-Projekt mit Terraform und Google Cloud Platform, um Cloud-
+                Ressourcen nachvollziehbar, versioniert und reproduzierbar zu
+                provisionieren.
+              </p>
+              <div class="record-tags">
+                <span>Terraform</span><span>GCP</span><span>IaC</span>
               </div>
             </article>
 
-            <article class="retro-card">
-              <div class="retro-head">
-                <span class="dot"></span><span class="dot"></span
-                ><span class="dot"></span><span class="label">APP 4</span>
+            <article class="project-record">
+              <span class="record-index">03</span>
+              <div>
+                <p class="record-status">Kundenarbeit</p>
+                <h4>Websites für private Kunden</h4>
               </div>
-              <div class="retro-media"></div>
-              <h4 class="retro-title">Hide & Seek</h4>
-              <p class="retro-desc">Cursor-Spielereien ohne Libs.</p>
-              <div class="retro-tags"><span>DOM</span><span>Events</span></div>
-            </article>
-            <article class="retro-card">
-              <div class="retro-head">
-                <span class="dot"></span><span class="dot"></span
-                ><span class="dot"></span><span class="label">APP 5</span>
-              </div>
-              <div class="retro-media"></div>
-              <h4 class="retro-title">Image FX</h4>
-              <p class="retro-desc">CSS-Filter & Blends, performant.</p>
-              <div class="retro-tags">
-                <span>Filters</span><span>Blend</span>
+              <p>
+                Mehrere kleinere Websites von Design und Textwirkung über
+                Marketing-Überlegungen bis Deployment und technische Betreuung.
+              </p>
+              <div class="record-tags">
+                <span>Design</span><span>Marketing</span><span>Deploy</span>
               </div>
             </article>
-            <article class="retro-card">
-              <div class="retro-head">
-                <span class="dot"></span><span class="dot"></span
-                ><span class="dot"></span><span class="label">APP 6</span>
+
+            <article class="project-record">
+              <span class="record-index">04</span>
+              <div>
+                <p class="record-status">Media Service</p>
+                <h4>Internet Radio</h4>
               </div>
-              <div class="retro-media"></div>
-              <h4 class="retro-title">Typing FX</h4>
-              <p class="retro-desc">Tastatur-Effekt in Vanilla.</p>
-              <div class="retro-tags"><span>JS</span><span>UX</span></div>
+              <p>
+                24/7-Radio mit Musikplänen nach Wochentag. Als nächste Idee:
+                Musikwünsche sammeln und daraus automatisch Playlists bauen.
+              </p>
+              <div class="record-tags">
+                <span>Streaming</span><span>Scheduling</span><span>Self-hosted</span>
+              </div>
             </article>
-          </div>
+
+            <article class="project-record">
+              <span class="record-index">05</span>
+              <div>
+                <p class="record-status">Full Stack</p>
+                <h4>Mini Webshop</h4>
+              </div>
+              <p>
+                Kleiner Shop mit Produktseiten, Warenkorb, Checkout-Idee,
+                persistierten Bestellungen und Admin-Bereich als realistischer
+                Business-Flow.
+              </p>
+              <div class="record-tags">
+                <span>Backend</span><span>Orders</span><span>Admin</span>
+              </div>
+            </article>
+
+            <article class="project-record">
+              <span class="record-index">06</span>
+              <div>
+                <p class="record-status">Frontend Craft</p>
+                <h4>Portfolio Website</h4>
+              </div>
+              <p>
+                Diese Seite selbst: Vanilla HTML, CSS und JavaScript mit
+                Wave-Navigation, Touch-Reveals, 3D-Cube, CRT-Details und
+                mobilem Performance-Polish.
+              </p>
+              <div class="record-tags">
+                <span>Vanilla JS</span><span>Interaction</span><span>Performance</span>
+              </div>
+            </article>
+
+            <article class="project-record">
+              <span class="record-index">07</span>
+              <div>
+                <p class="record-status">Security Learning</p>
+                <h4>Eigener Auth mit MFA</h4>
+              </div>
+              <p>
+                Eigenes Auth-Projekt mit Multi-Faktor-Flow und Authenticator-App
+                auf dem Handy, um Login-Security nicht nur zu nutzen, sondern
+                technisch zu verstehen.
+              </p>
+              <div class="record-tags">
+                <span>Auth</span><span>MFA</span><span>Security</span>
+              </div>
+            </article>
+          </section>
         </div>
         <footer>
           <div class="info">
@@ -771,17 +944,33 @@
               </p>
             </div>
             <div class="info-copy-right">
-              <p class="info-copy-footnote">2024 © melke</p>
+              <p class="info-copy-footnote">2026 © melke</p>
             </div>
             <div class="info-socials">
-              <a href="https://github.com"
-                ><i class="fa-brands fa-github"></i></a
-              ><a href="https://codepen.com"><i class="fab fa-codepen"></i></a
-              ><a href="https://myWebsite.com"
-                ><i class="fa-solid fa-globe"></i></a
-              ><a href="https://mail.com"
-                ><i class="fa-solid fa-envelope"></i
-              ></a>
+              <a
+                href="https://github.com/melketesfay"
+                target="_blank"
+                rel="noreferrer"
+              >
+                <i class="fa-brands fa-github"></i>
+              </a>
+              <a
+                href="https://codepen.io/melketesfay"
+                target="_blank"
+                rel="noreferrer"
+              >
+                <i class="fab fa-codepen"></i>
+              </a>
+              <a
+                href="https://infosec.exchange/@melketesfay"
+                target="_blank"
+                rel="me noreferrer"
+              >
+                <i class="fa-brands fa-mastodon"></i>
+              </a>
+              <a href="mailto:melketesfay%40gmail.com">
+                <i class="fa-solid fa-envelope"></i>
+              </a>
             </div>
           </div>
         </footer>
@@ -828,17 +1017,84 @@
           <li class="item item_contact"><a id="contact-page-mobile-from-contact">CONTACT</a></li>
         </div>
       </ul> -->
-        <div class="contact-page-main name">
-          <h1>LET'S START BUILDING</h1>
-          <h1>YOUR FULL-STACK IS HERE</h1>
-          <h1>GET IN TOUCH</h1>
-          <h1>TODAY</h1>
-          <h1>
-            <a href=""><i class="fa-solid fa-down-long"></i></a>
-          </h1>
-          <h1>
-            <a href=""><i class="fa-solid fa-envelope"></i></a>
-          </h1>
+        <div class="contact-page-main">
+          <section class="contact-hero" aria-labelledby="contact-title">
+            <p class="contact-kicker">Open Channel</p>
+            <h1 id="contact-title">Lass uns etwas Konkretes bauen.</h1>
+            <p class="contact-lead">
+              Ich freue mich über Webprojekte, Junior-Rollen und Gespräche, bei
+              denen Frontend, Backend, Infrastruktur oder Security zusammenkommen.
+            </p>
+          </section>
+
+          <section class="contact-console" aria-label="Kontaktkanäle">
+            <div class="contact-console-topbar">
+              <span>Contact Relay</span><span>Zürich / Remote</span>
+            </div>
+            <div class="contact-console-body">
+              <a class="contact-channel contact-channel-mail" href="mailto:melketesfay%40gmail.com">
+                <span class="contact-channel-index">01</span>
+                <span class="contact-channel-icon"><i class="fa-solid fa-envelope"></i></span>
+                <span class="contact-channel-copy">
+                  <strong>E-Mail</strong>
+                  <small>Direkt schreiben</small>
+                </span>
+                <span class="contact-channel-arrow"><i class="fa-solid fa-arrow-right-long"></i></span>
+              </a>
+
+              <a
+                class="contact-channel"
+                href="https://github.com/melketesfay"
+                target="_blank"
+                rel="noreferrer"
+              >
+                <span class="contact-channel-index">02</span>
+                <span class="contact-channel-icon"><i class="fa-brands fa-github"></i></span>
+                <span class="contact-channel-copy">
+                  <strong>GitHub</strong>
+                  <small>Code & Projekte</small>
+                </span>
+                <span class="contact-channel-arrow"><i class="fa-solid fa-arrow-right-long"></i></span>
+              </a>
+
+              <a
+                class="contact-channel"
+                href="https://codepen.io/melketesfay"
+                target="_blank"
+                rel="noreferrer"
+              >
+                <span class="contact-channel-index">03</span>
+                <span class="contact-channel-icon"><i class="fa-brands fa-codepen"></i></span>
+                <span class="contact-channel-copy">
+                  <strong>CodePen</strong>
+                  <small>Frontend Experimente</small>
+                </span>
+                <span class="contact-channel-arrow"><i class="fa-solid fa-arrow-right-long"></i></span>
+              </a>
+
+              <a
+                class="contact-channel"
+                href="https://infosec.exchange/@melketesfay"
+                target="_blank"
+                rel="me noreferrer"
+              >
+                <span class="contact-channel-index">04</span>
+                <span class="contact-channel-icon"><i class="fa-brands fa-mastodon"></i></span>
+                <span class="contact-channel-copy">
+                  <strong>Mastodon</strong>
+                  <small>Security Community</small>
+                </span>
+                <span class="contact-channel-arrow"><i class="fa-solid fa-arrow-right-long"></i></span>
+              </a>
+            </div>
+          </section>
+
+          <section class="contact-signal" aria-label="Arbeitsmodus">
+            <span>Frontend</span>
+            <span>APIs</span>
+            <span>Security</span>
+            <span>Infra</span>
+          </section>
         </div>
         <footer>
           <div class="info">
@@ -917,17 +1173,33 @@
               </p>
             </div>
             <div class="info-copy-right">
-              <p class="info-copy-footnote">2024 © melke</p>
+              <p class="info-copy-footnote">2026 © melke</p>
             </div>
             <div class="info-socials">
-              <a href="https://github.com"
-                ><i class="fa-brands fa-github"></i></a
-              ><a href="https://codepen.com"><i class="fab fa-codepen"></i></a
-              ><a href="https://myWebsite.com"
-                ><i class="fa-solid fa-globe"></i></a
-              ><a href="https://mail.com"
-                ><i class="fa-solid fa-envelope"></i
-              ></a>
+              <a
+                href="https://github.com/melketesfay"
+                target="_blank"
+                rel="noreferrer"
+              >
+                <i class="fa-brands fa-github"></i>
+              </a>
+              <a
+                href="https://codepen.io/melketesfay"
+                target="_blank"
+                rel="noreferrer"
+              >
+                <i class="fab fa-codepen"></i>
+              </a>
+              <a
+                href="https://infosec.exchange/@melketesfay"
+                target="_blank"
+                rel="me noreferrer"
+              >
+                <i class="fa-brands fa-mastodon"></i>
+              </a>
+              <a href="mailto:melketesfay%40gmail.com">
+                <i class="fa-solid fa-envelope"></i>
+              </a>
             </div>
           </div>
         </footer>
@@ -975,7 +1247,113 @@
             </div>
           </ul>
         </main>
-        <footer></footer>
+        <footer>
+          <div class="info">
+            <div class="info-copy">
+              <p class="info-copy-footnote">
+                Made with &nbsp; &nbsp;<i class="fa-solid fa-heart"></i>&nbsp;
+                &nbsp; and &nbsp; &nbsp;
+                <span
+                  class="coffee-icon"
+                  aria-label="coffee with steam"
+                  role="img"
+                >
+                  <svg
+                    class="coffee-svg"
+                    width="29"
+                    height="29"
+                    viewBox="0 0 15 15"
+                    aria-hidden="true"
+                  >
+                    <!-- cup body -->
+                    <path
+                      d="M2 7h9v3.5a2.5 2.5 0 0 1-2.5 2.5H4.5A2.5 2.5 0 0 1 2 10.5V7z"
+                      fill="currentColor"
+                      stroke="currentColor"
+                      stroke-width="1.2"
+                      stroke-linejoin="round"
+                    />
+                    <!-- handle -->
+                    <path
+                      d="M11 8.2h1.1a1.7 1.7 0 1 1 0 3.4H11"
+                      fill="none"
+                      stroke="currentColor"
+                      stroke-width="1.2"
+                      stroke-linecap="round"
+                    />
+                    <!-- saucer -->
+                    <path
+                      d="M1.5 14.2H13.5"
+                      fill="none"
+                      stroke="currentColor"
+                      stroke-width="1.2"
+                      stroke-linecap="round"
+                    />
+
+                    <!-- steam (3 puffs) -->
+                    <g class="steam s1">
+                      <path
+                        d="M6 6.2c0-1 .9-1.3 .9-2.3S6 2.6 6 1.6"
+                        fill="none"
+                        stroke="currentColor"
+                        stroke-width="1"
+                        stroke-linecap="round"
+                      />
+                    </g>
+                    <g class="steam s2">
+                      <path
+                        d="M8 6.0c0-1 .9-1.3 .9-2.3S8 2.4 8 1.4"
+                        fill="none"
+                        stroke="currentColor"
+                        stroke-width="1"
+                        stroke-linecap="round"
+                      />
+                    </g>
+                    <g class="steam s3">
+                      <path
+                        d="M4 6.4c0-1 .9-1.3 .9-2.3S4 3.0 4 2.0"
+                        fill="none"
+                        stroke="currentColor"
+                        stroke-width="1"
+                        stroke-linecap="round"
+                      />
+                    </g>
+                  </svg>
+                </span>
+                &nbsp; &nbsp;in Zürich
+              </p>
+            </div>
+            <div class="info-copy-right">
+              <p class="info-copy-footnote">2026 © melke</p>
+            </div>
+            <div class="info-socials">
+              <a
+                href="https://github.com/melketesfay"
+                target="_blank"
+                rel="noreferrer"
+              >
+                <i class="fa-brands fa-github"></i>
+              </a>
+              <a
+                href="https://codepen.io/melketesfay"
+                target="_blank"
+                rel="noreferrer"
+              >
+                <i class="fab fa-codepen"></i>
+              </a>
+              <a
+                href="https://infosec.exchange/@melketesfay"
+                target="_blank"
+                rel="me noreferrer"
+              >
+                <i class="fa-brands fa-mastodon"></i>
+              </a>
+              <a href="mailto:melketesfay%40gmail.com">
+                <i class="fa-solid fa-envelope"></i>
+              </a>
+            </div>
+          </div>
+        </footer>
       </div>
     </div>
 
@@ -1006,39 +1384,71 @@
           maskUnits="objectBoundingBox"
           maskContentUnits="objectBoundingBox"
         ></mask>
-        s
       </defs>
     </svg>
 
-    <!-- make all pages the same height -->
+    <!-- keep every layered page at its own natural height -->
     <script>
-      function makePageSameHeight() {
-        const pageHeight = document.querySelector(".main-page").offsetHeight;
+      function syncPageHeights() {
+        const pages = Array.from(document.querySelectorAll("body > div"));
+        const viewportHeight =
+          window.innerHeight || document.documentElement.clientHeight;
 
-        document.querySelectorAll("body > div").forEach((page) => {
-          if (page.classList.contains("main-page")) return;
-          page.style.height = `${pageHeight}px`;
+        pages.forEach((page) => {
+          page.style.height = "auto";
+          page.style.minHeight = "";
+
+          const shouldMeasureHidden =
+            !page.classList.contains("page-active") &&
+            !page.classList.contains("page-transition-page");
+
+          if (shouldMeasureHidden) {
+            page.classList.add("page-measure");
+          }
+
+          const pageHeight = Math.max(
+            viewportHeight,
+            page.scrollHeight,
+            page.offsetHeight,
+          );
+
+          if (shouldMeasureHidden) {
+            page.classList.remove("page-measure");
+          }
+
+          page.style.minHeight = `${pageHeight}px`;
+          page.style.height = "auto";
         });
       }
 
-      document.addEventListener("DOMContentLoaded", makePageSameHeight);
-      document.addEventListener("resize", makePageSameHeight);
-      // When the active page's hamburger is clicked, open the mobile-page
+      document.addEventListener("DOMContentLoaded", syncPageHeights);
+      document.addEventListener("portfolio:pagerevealed", syncPageHeights);
+      window.addEventListener("load", syncPageHeights);
+      window.addEventListener("resize", syncPageHeights);
+
+      function syncHamburgerIcons(
+        activePage = window.portfolioPageState?.activePage,
+      ) {
+        document.querySelectorAll(".hamburger-icon").forEach((icon) => {
+          icon.classList.toggle("is-open", activePage === "mobile");
+        });
+      }
+
       document.addEventListener("click", (e) => {
         const icon = e.target.closest(".page-active .hamburger-icon");
         if (!icon) return;
-        changePageWithWave("mobile");
-        setActivePage("mobile");
+
+        e.preventDefault();
+        const isMobileMenuPage = Boolean(icon.closest(".mobile-page"));
+        changePageWithWave(isMobileMenuPage ? "main" : "mobile");
       });
 
-      // If you click the hamburger again while on the mobile-page, go back to main
-      document.addEventListener("click", (e) => {
-        const icon = e.target.closest(
-          ".mobile-page.page-active .hamburger-icon",
-        );
-        if (!icon) return;
-        changePageWithWave("main");
-        setActivePage("main");
+      document.addEventListener("portfolio:pagechange", (event) => {
+        syncHamburgerIcons(event.detail?.activePage);
+      });
+
+      document.addEventListener("DOMContentLoaded", () => {
+        syncHamburgerIcons("main");
       });
     </script>
     <!-- end make all pages the same height -->
@@ -1054,17 +1464,213 @@
         contact: document.querySelector(".contact-page"),
         mobile: document.querySelector(".mobile-page"),
       };
-      const N_ROWS = 12; // Adjusted for potentially better performance
-      const N_COLS = 12;
-      const STAGGER_DELAY_MS = 50;
-      const ANIMATION_DURATION_MS = 500;
+      const WAVE_IS_MOBILE = window.matchMedia(
+        "(hover: none), (pointer: coarse)",
+      ).matches;
+      const WAVE_DEBUG_SLOW = false;
+      const WAVE_PRODUCTION_SPEED_MULTIPLIER = 3;
+      const N_ROWS = WAVE_IS_MOBILE ? 7 : 12;
+      const N_COLS = WAVE_IS_MOBILE ? 7 : 12;
+      const STAGGER_DELAY_MS =
+        (WAVE_DEBUG_SLOW
+          ? WAVE_IS_MOBILE
+            ? 180
+            : 240
+          : WAVE_IS_MOBILE
+            ? 28
+            : 50) * WAVE_PRODUCTION_SPEED_MULTIPLIER;
+      const ANIMATION_DURATION_MS =
+        (WAVE_DEBUG_SLOW
+          ? WAVE_IS_MOBILE
+            ? 1800
+            : 2200
+          : WAVE_IS_MOBILE
+            ? 360
+            : 500) * WAVE_PRODUCTION_SPEED_MULTIPLIER;
       const DEFAULT_WAVE_ORIGIN = "top-left";
+      const WAVE_PAGE_ORDER = [
+        "main",
+        "about",
+        "projects",
+        "contact",
+        "mobile",
+      ];
+      const WAVE_UA = navigator.userAgent;
+      const WAVE_USE_OVERLAY_FALLBACK =
+        /safari/i.test(WAVE_UA) &&
+        !/chrome|chromium|crios|fxios|edgios|android/i.test(WAVE_UA);
+      const WAVE_SAFARI_REAL_MASK_EXPERIMENT = true;
+      const WAVE_SUPPORTS_CSS_TILE_MASK =
+        typeof CSS !== "undefined" &&
+        typeof CSS.supports === "function" &&
+        CSS.supports("-webkit-mask-image", "linear-gradient(#000, #000)");
+      const WAVE_USE_REAL_WEBKIT_MASK =
+        WAVE_USE_OVERLAY_FALLBACK &&
+        WAVE_SAFARI_REAL_MASK_EXPERIMENT &&
+        WAVE_SUPPORTS_CSS_TILE_MASK;
+      const WAVE_FALLBACK_BACKGROUNDS = {
+        main: {
+          image: "radial-gradient(var(--second), var(--main))",
+          color: "var(--main)",
+        },
+        about: {
+          image:
+            "radial-gradient(var(--about-page-second), var(--about-page-third))",
+          color: "var(--about-page-third)",
+        },
+        projects: {
+          image:
+            "radial-gradient(var(--project-page-second), var(--project-page-third))",
+          color: "var(--project-page-third)",
+        },
+        contact: {
+          image:
+            "radial-gradient(var(--contact-page-third), var(--contact-page-second))",
+          color: "var(--contact-page-second)",
+        },
+        mobile: {
+          image:
+            "radial-gradient(var(--mobile-nav-third), var(--mobile-nav-second))",
+          color: "var(--mobile-nav-second)",
+        },
+      };
 
       let activeAnimations = [];
       let animationFrameId = null;
+      let waveOverlayFrameId = null;
+      let waveCssMaskFrameId = null;
+      let activeWaveOverlay = null;
+      let activeCssMaskPage = null;
+      let onAnimationsComplete = null;
+      let isWaveTransitioning = false;
+      let waveTargetPageSuffix = null;
+
+      function getMaskForSuffix(suffix) {
+        const normalized = suffix.charAt(0).toUpperCase() + suffix.slice(1);
+        return document.getElementById(`mask${normalized}`);
+      }
+
+      function setTileOpacity(tile, opacity) {
+        const value = String(opacity);
+        tile.style.opacity = value;
+        tile.setAttribute("opacity", value);
+        tile.setAttribute("fill-opacity", value);
+      }
+
+      function setMaskImmediate(suffix, opacity) {
+        const mask = getMaskForSuffix(suffix);
+        if (!mask) return;
+
+        mask.querySelectorAll("rect").forEach((tile) => {
+          setTileOpacity(tile, opacity);
+        });
+      }
+
+      function resetAllMasks() {
+        Object.keys(PAGE_MAP).forEach((suffix) => {
+          setMaskImmediate(suffix, 1);
+        });
+      }
+
+      function getTileDelayFactor(row, col, origin = DEFAULT_WAVE_ORIGIN) {
+        switch (origin) {
+          case "top-right":
+            return row + (N_COLS - 1 - col);
+          case "bottom-left":
+            return N_ROWS - 1 - row + col;
+          case "bottom-right":
+            return N_ROWS - 1 - row + (N_COLS - 1 - col);
+          default:
+            return row + col;
+        }
+      }
+
+      function getWaveOrigin(fromSuffix, targetSuffix) {
+        const fromIndex = WAVE_PAGE_ORDER.indexOf(fromSuffix);
+        const targetIndex = WAVE_PAGE_ORDER.indexOf(targetSuffix);
+
+        if (fromIndex === -1 || targetIndex === -1) {
+          return DEFAULT_WAVE_ORIGIN;
+        }
+
+        if (targetSuffix === "mobile") return "top-right";
+        if (fromSuffix === "mobile") return "bottom-left";
+
+        const distance = Math.abs(targetIndex - fromIndex);
+        const movingForward = targetIndex > fromIndex;
+
+        if (distance > 1) {
+          return movingForward ? "bottom-right" : "top-left";
+        }
+
+        return movingForward ? "top-right" : "bottom-left";
+      }
+
+      function clearCssTileMask(page) {
+        if (!page) return;
+
+        [
+          "mask-image",
+          "-webkit-mask-image",
+          "mask-size",
+          "-webkit-mask-size",
+          "mask-position",
+          "-webkit-mask-position",
+          "mask-repeat",
+          "-webkit-mask-repeat",
+          "mask-mode",
+          "-webkit-mask-mode",
+          "will-change",
+        ].forEach((property) => page.style.removeProperty(property));
+
+        if (activeCssMaskPage === page) activeCssMaskPage = null;
+      }
+
+      function resetTransitionClasses() {
+        Object.values(PAGE_MAP).forEach((page) => {
+          if (!page) return;
+          page.classList.remove(
+            "page-transition-page",
+            "page-transition-in",
+            "page-transition-out",
+            "page-mask-active",
+          );
+          clearCssTileMask(page);
+        });
+      }
+
+      function clearActiveAnimations() {
+        activeAnimations = [];
+        onAnimationsComplete = null;
+        isWaveTransitioning = false;
+        waveTargetPageSuffix = null;
+        if (animationFrameId) {
+          cancelAnimationFrame(animationFrameId);
+          animationFrameId = null;
+        }
+        if (waveOverlayFrameId) {
+          cancelAnimationFrame(waveOverlayFrameId);
+          waveOverlayFrameId = null;
+        }
+        if (waveCssMaskFrameId) {
+          cancelAnimationFrame(waveCssMaskFrameId);
+          waveCssMaskFrameId = null;
+        }
+        if (activeWaveOverlay) {
+          activeWaveOverlay.remove();
+          activeWaveOverlay = null;
+        }
+        if (activeCssMaskPage) {
+          clearCssTileMask(activeCssMaskPage);
+        }
+      }
 
       function generateMaskTiles(maskEl) {
         // console.log(`Generating mask tiles for: ${maskEl.id}`);
+        maskEl.setAttribute("mask-type", "alpha");
+        maskEl.style.maskType = "alpha";
+        maskEl.style.setProperty("mask-type", "alpha");
+
         const w = 1 / N_COLS,
           h = 1 / N_ROWS;
         for (let r = 0; r < N_ROWS; r++) {
@@ -1080,36 +1686,36 @@
             rect.setAttribute("fill", "white"); // For alpha masks, white is opaque
             rect.dataset.row = r;
             rect.dataset.col = c;
-            rect.style.opacity = "1"; // Set initial JS style opacity
+            setTileOpacity(rect, 1);
             maskEl.appendChild(rect);
           }
         }
       }
 
-      function animateTilesJS(rects, open, origin = DEFAULT_WAVE_ORIGIN) {
+      function animateTilesJS(
+        rects,
+        open,
+        origin = DEFAULT_WAVE_ORIGIN,
+        onComplete,
+      ) {
+        if (!rects.length) {
+          if (onComplete) onComplete();
+          return;
+        }
+
         const startTime = performance.now();
         // console.log(`Animate ${rects.length} tiles to ${open ? 'open' : 'close'}`);
+        onAnimationsComplete = onComplete || null;
 
         rects.forEach((r) => {
           const row = +r.dataset.row,
             col = +r.dataset.col;
-          let delayFactor;
-          switch (origin) {
-            case "top-right":
-              delayFactor = row + (N_COLS - 1 - col);
-              break;
-            case "bottom-left":
-              delayFactor = N_ROWS - 1 - row + col;
-              break;
-            case "bottom-right":
-              delayFactor = N_ROWS - 1 - row + (N_COLS - 1 - col);
-              break;
-            default:
-              delayFactor = row + col;
-          }
+          const delayFactor = getTileDelayFactor(row, col, origin);
 
           const rectStartTime = startTime + delayFactor * STAGGER_DELAY_MS;
-          const initialOpacity = parseFloat(r.style.opacity || "1");
+          const initialOpacity = parseFloat(
+            r.getAttribute("opacity") || r.style.opacity || "1",
+          );
           const targetOpacity = open ? 1 : 0;
 
           activeAnimations = activeAnimations.filter((anim) => anim.rect !== r);
@@ -1142,12 +1748,12 @@
 
           if (progress >= 1) {
             progress = 1;
-            anim.rect.style.opacity = String(anim.targetOpacity);
+            setTileOpacity(anim.rect, anim.targetOpacity);
           } else {
             const currentOpacity =
               anim.startOpacity +
               (anim.targetOpacity - anim.startOpacity) * progress;
-            anim.rect.style.opacity = String(currentOpacity);
+            setTileOpacity(anim.rect, currentOpacity);
             stillAnimating = true;
           }
         });
@@ -1161,26 +1767,396 @@
           animationFrameId = requestAnimationFrame(animationLoop);
         } else {
           animationFrameId = null;
+          const complete = onAnimationsComplete;
+          onAnimationsComplete = null;
+          if (complete) complete();
           // console.log("Animation loop stopped");
         }
       }
 
+      function getFallbackBackground(suffix) {
+        const fallback = WAVE_FALLBACK_BACKGROUNDS[suffix];
+        if (fallback) return fallback;
+
+        const page = PAGE_MAP[suffix];
+        if (!page) return { image: "none", color: "#000" };
+
+        const pageStyles = window.getComputedStyle(page);
+        return {
+          image: pageStyles.backgroundImage || "none",
+          color: pageStyles.backgroundColor || "#000",
+        };
+      }
+
+      function getVisibleWaveBox(page) {
+        const pageRect = page.getBoundingClientRect();
+        const viewportWidth = Math.max(
+          1,
+          window.innerWidth || document.documentElement.clientWidth,
+        );
+        const viewportHeight = Math.max(
+          1,
+          window.innerHeight || document.documentElement.clientHeight,
+        );
+
+        return {
+          width: Math.max(1, pageRect.width || viewportWidth),
+          height: viewportHeight,
+          top: Math.max(0, -pageRect.top),
+        };
+      }
+
+      function formatMaskOpacity(opacity) {
+        const clamped = Math.min(1, Math.max(0, opacity));
+        return clamped.toFixed(3).replace(/0+$/, "").replace(/\.$/, "");
+      }
+
+      function applyCssTileMask(page, tiles, waveBox) {
+        const maskImages = [];
+        const maskPositions = [];
+        const maskSizes = [];
+        const maskRepeats = [];
+        const maskModes = [];
+
+        tiles.forEach((tile) => {
+          const opacity = formatMaskOpacity(tile.opacity);
+          const left = Math.floor((tile.col * waveBox.width) / N_COLS);
+          const right = Math.ceil(((tile.col + 1) * waveBox.width) / N_COLS);
+          const top = Math.floor(
+            waveBox.top + (tile.row * waveBox.height) / N_ROWS,
+          );
+          const bottom = Math.ceil(
+            waveBox.top + ((tile.row + 1) * waveBox.height) / N_ROWS,
+          );
+
+          maskImages.push(
+            `linear-gradient(rgba(0, 0, 0, ${opacity}), rgba(0, 0, 0, ${opacity}))`,
+          );
+          maskPositions.push(`${left}px ${top}px`);
+          maskSizes.push(`${right - left}px ${bottom - top}px`);
+          maskRepeats.push("no-repeat");
+          maskModes.push("alpha");
+        });
+
+        page.style.setProperty(
+          "-webkit-mask-image",
+          maskImages.join(", "),
+          "important",
+        );
+        page.style.setProperty("mask-image", maskImages.join(", "), "important");
+        page.style.setProperty(
+          "-webkit-mask-position",
+          maskPositions.join(", "),
+          "important",
+        );
+        page.style.setProperty(
+          "mask-position",
+          maskPositions.join(", "),
+          "important",
+        );
+        page.style.setProperty(
+          "-webkit-mask-size",
+          maskSizes.join(", "),
+          "important",
+        );
+        page.style.setProperty("mask-size", maskSizes.join(", "), "important");
+        page.style.setProperty(
+          "-webkit-mask-repeat",
+          maskRepeats.join(", "),
+          "important",
+        );
+        page.style.setProperty(
+          "mask-repeat",
+          maskRepeats.join(", "),
+          "important",
+        );
+        page.style.setProperty(
+          "-webkit-mask-mode",
+          maskModes.join(", "),
+          "important",
+        );
+        page.style.setProperty("mask-mode", maskModes.join(", "), "important");
+        page.style.setProperty(
+          "will-change",
+          "-webkit-mask-image, mask-image",
+          "important",
+        );
+        activeCssMaskPage = page;
+      }
+
+      function animateCssTileMaskWave(page, origin, onComplete) {
+        const waveBox = getVisibleWaveBox(page);
+        const startTime = performance.now();
+        const tiles = [];
+
+        for (let row = 0; row < N_ROWS; row++) {
+          for (let col = 0; col < N_COLS; col++) {
+            tiles.push({
+              row,
+              col,
+              opacity: 1,
+              startTime:
+                startTime +
+                getTileDelayFactor(row, col, origin) * STAGGER_DELAY_MS,
+              duration: ANIMATION_DURATION_MS,
+            });
+          }
+        }
+
+        applyCssTileMask(page, tiles, waveBox);
+
+        function cssMaskLoop(currentTime) {
+          let stillAnimating = false;
+
+          tiles.forEach((tile) => {
+            if (currentTime < tile.startTime) {
+              stillAnimating = true;
+              return;
+            }
+
+            const progress = Math.min(
+              1,
+              (currentTime - tile.startTime) / tile.duration,
+            );
+            tile.opacity = 1 - progress;
+            if (progress < 1) stillAnimating = true;
+          });
+
+          applyCssTileMask(page, tiles, waveBox);
+
+          if (stillAnimating) {
+            waveCssMaskFrameId = requestAnimationFrame(cssMaskLoop);
+            return;
+          }
+
+          waveCssMaskFrameId = null;
+          if (onComplete) onComplete();
+        }
+
+        waveCssMaskFrameId = requestAnimationFrame(cssMaskLoop);
+      }
+
+      function animateFallbackWave(suffix, origin, onComplete) {
+        const overlay = document.createElement("div");
+        const viewportWidth = Math.max(
+          1,
+          window.innerWidth || document.documentElement.clientWidth,
+        );
+        const viewportHeight = Math.max(
+          1,
+          window.innerHeight || document.documentElement.clientHeight,
+        );
+        const tileWidth = viewportWidth / N_COLS;
+        const tileHeight = viewportHeight / N_ROWS;
+        const fallbackBackground = getFallbackBackground(suffix);
+        const startTime = performance.now();
+        const overlayTiles = [];
+
+        if (activeWaveOverlay) activeWaveOverlay.remove();
+
+        overlay.className = "wave-fallback-overlay";
+        overlay.setAttribute("aria-hidden", "true");
+        Object.assign(overlay.style, {
+          position: "fixed",
+          inset: "0",
+          display: "grid",
+          gridTemplateColumns: `repeat(${N_COLS}, minmax(0, 1fr))`,
+          gridTemplateRows: `repeat(${N_ROWS}, minmax(0, 1fr))`,
+          zIndex: "9999",
+          pointerEvents: "none",
+          overflow: "hidden",
+          contain: "strict",
+        });
+
+        for (let r = 0; r < N_ROWS; r++) {
+          for (let c = 0; c < N_COLS; c++) {
+            const tile = document.createElement("span");
+            const delayFactor = getTileDelayFactor(r, c, origin);
+
+            Object.assign(tile.style, {
+              display: "block",
+              opacity: "1",
+              backgroundColor: fallbackBackground.color,
+              backgroundImage: fallbackBackground.image,
+              backgroundRepeat: "no-repeat",
+              backgroundSize: `${viewportWidth}px ${viewportHeight}px`,
+              backgroundPosition: `${-c * tileWidth}px ${-r * tileHeight}px`,
+              willChange: "opacity",
+              transform: "translateZ(0)",
+            });
+
+            overlayTiles.push({
+              tile,
+              startTime: startTime + delayFactor * STAGGER_DELAY_MS,
+              duration: ANIMATION_DURATION_MS,
+            });
+            overlay.appendChild(tile);
+          }
+        }
+
+        document.body.appendChild(overlay);
+        activeWaveOverlay = overlay;
+
+        function overlayLoop(currentTime) {
+          let stillAnimating = false;
+
+          overlayTiles.forEach((anim) => {
+            if (currentTime < anim.startTime) {
+              stillAnimating = true;
+              return;
+            }
+
+            const progress = Math.min(
+              1,
+              (currentTime - anim.startTime) / anim.duration,
+            );
+            anim.tile.style.opacity = String(1 - progress);
+            if (progress < 1) stillAnimating = true;
+          });
+
+          if (stillAnimating) {
+            waveOverlayFrameId = requestAnimationFrame(overlayLoop);
+            return;
+          }
+
+          waveOverlayFrameId = null;
+          overlay.remove();
+          if (activeWaveOverlay === overlay) activeWaveOverlay = null;
+          if (onComplete) onComplete();
+        }
+
+        waveOverlayFrameId = requestAnimationFrame(overlayLoop);
+      }
+
+      window.portfolioPageState = window.portfolioPageState || {
+        activePage: "main",
+      };
+
       function setActivePage(suffix) {
+        const previousPage = window.portfolioPageState.activePage;
         Object.entries(PAGE_MAP).forEach(([key, el]) => {
           if (!el) return;
           el.classList.toggle("page-active", key === suffix);
         });
+
+        if (previousPage !== suffix) {
+          window.portfolioPageState.activePage = suffix;
+          document.dispatchEvent(
+            new CustomEvent("portfolio:pagechange", {
+              detail: { previousPage, activePage: suffix },
+            }),
+          );
+        }
       }
+
+      function dispatchPageRevealed(activePage, previousPage) {
+        document.dispatchEvent(
+          new CustomEvent("portfolio:pagerevealed", {
+            detail: { previousPage, activePage },
+          }),
+        );
+      }
+
       function changePageWithWave(targetPageSuffix) {
         console.log(`Changing page to target suffix: ${targetPageSuffix}`);
-        document.querySelectorAll("svg defs mask").forEach((mask) => {
-          const maskIdSuffix = mask.id.replace("mask", "").toLowerCase();
-          const tiles = mask.querySelectorAll("rect");
-          const isOpen = maskIdSuffix === targetPageSuffix.toLowerCase();
-          // console.log(`Mask: ${mask.id}, Open: ${isOpen}`);
-          animateTilesJS(tiles, isOpen, DEFAULT_WAVE_ORIGIN);
-        });
+        if (isWaveTransitioning && targetPageSuffix === waveTargetPageSuffix) {
+          return;
+        }
+
+        const currentPageSuffix = window.portfolioPageState.activePage;
+        const currentPage = PAGE_MAP[currentPageSuffix];
+        const targetPage = PAGE_MAP[targetPageSuffix];
+        const waveOrigin = getWaveOrigin(currentPageSuffix, targetPageSuffix);
+
+        if (!targetPage) return;
+        if (!currentPage || currentPageSuffix === targetPageSuffix) {
+          clearActiveAnimations();
+          resetTransitionClasses();
+          setActivePage(targetPageSuffix);
+          dispatchPageRevealed(targetPageSuffix, currentPageSuffix);
+          return;
+        }
+
+        clearActiveAnimations();
+        resetTransitionClasses();
+        resetAllMasks();
+
+        isWaveTransitioning = true;
+        waveTargetPageSuffix = targetPageSuffix;
+
+        if (WAVE_USE_REAL_WEBKIT_MASK) {
+          currentPage.classList.add(
+            "page-transition-page",
+            "page-transition-out",
+          );
+          targetPage.classList.add(
+            "page-transition-page",
+            "page-transition-in",
+          );
+          setActivePage(targetPageSuffix);
+
+          animateCssTileMaskWave(currentPage, waveOrigin, () => {
+            currentPage.classList.remove(
+              "page-transition-page",
+              "page-transition-out",
+            );
+            targetPage.classList.remove(
+              "page-transition-page",
+              "page-transition-in",
+            );
+            clearCssTileMask(currentPage);
+            isWaveTransitioning = false;
+            waveTargetPageSuffix = null;
+            dispatchPageRevealed(targetPageSuffix, currentPageSuffix);
+          });
+          return;
+        }
+
+        if (WAVE_USE_OVERLAY_FALLBACK) {
+          targetPage.classList.add(
+            "page-transition-page",
+            "page-transition-in",
+          );
+          setActivePage(targetPageSuffix);
+
+          animateFallbackWave(currentPageSuffix, waveOrigin, () => {
+            targetPage.classList.remove(
+              "page-transition-page",
+              "page-transition-in",
+            );
+            isWaveTransitioning = false;
+            waveTargetPageSuffix = null;
+            dispatchPageRevealed(targetPageSuffix, currentPageSuffix);
+          });
+          return;
+        }
+
+        currentPage.classList.add(
+          "page-transition-page",
+          "page-transition-out",
+          "page-mask-active",
+        );
+        targetPage.classList.add("page-transition-page", "page-transition-in");
         setActivePage(targetPageSuffix);
+
+        const outgoingTiles =
+          getMaskForSuffix(currentPageSuffix)?.querySelectorAll("rect");
+
+        animateTilesJS(outgoingTiles || [], false, waveOrigin, () => {
+          currentPage.classList.remove(
+            "page-transition-page",
+            "page-transition-out",
+            "page-mask-active",
+          );
+          targetPage.classList.remove(
+            "page-transition-page",
+            "page-transition-in",
+          );
+          setMaskImmediate(currentPageSuffix, 1);
+          isWaveTransitioning = false;
+          waveTargetPageSuffix = null;
+          dispatchPageRevealed(targetPageSuffix, currentPageSuffix);
+        });
       }
 
       // Helper: extract section from any link id
@@ -1197,23 +2173,13 @@
         const maskElements = document.querySelectorAll("svg defs mask");
         maskElements.forEach((maskEl) => {
           generateMaskTiles(maskEl);
-          setActivePage("main");
         });
+        resetTransitionClasses();
+        setActivePage("main");
         console.log("DOMContentLoaded: Mask tiles generated.");
 
-        // Set initial state: only the main page's mask is fully opaque, others are transparent
-        maskElements.forEach((maskEl) => {
-          const maskIdSuffix = maskEl.id.replace("mask", "").toLowerCase();
-          const tiles = maskEl.querySelectorAll("rect");
-          if (maskIdSuffix === "main") {
-            // Assuming 'main' is the ID suffix for the main landing page mask
-            // console.log(`Ensuring initial state for ${maskEl.id} is opaque.`);
-            tiles.forEach((tile) => (tile.style.opacity = "1"));
-          } else {
-            // console.log(`Ensuring initial state for ${maskEl.id} is transparent.`);
-            tiles.forEach((tile) => (tile.style.opacity = "0"));
-          }
-        });
+        // Keep masks fully open until a page becomes the outgoing wave layer.
+        resetAllMasks();
         console.log("DOMContentLoaded: Initial mask states set.");
 
         // Consolidate all relevant navigation links
@@ -1242,11 +2208,9 @@
             if (targetSuffix !== "mobile") {
               // Normal navigation
               changePageWithWave(targetSuffix);
-              setActivePage(targetSuffix);
             } else {
               // If a link points to "mobile" (close or back), go to main
               changePageWithWave("main");
-              setActivePage("main");
             }
 
             // event.preventDefault();
@@ -1296,20 +2260,273 @@
       about_me_text();
 
       // Ensure .spiralText li elements exist before processing
+      const spiralText = document.querySelector(".spiralText");
       const spiralTextLis = document.querySelectorAll(".spiralText li");
       if (spiralTextLis.length > 0) {
+        const spiralBaseItemCount = 30;
+        const spiralStartY = 300;
+        const spiralBaseRange = 1300;
+        const spiralScale = Math.max(
+          1,
+          spiralTextLis.length / spiralBaseItemCount,
+        );
+        const spiralEndY = spiralStartY - spiralBaseRange * spiralScale;
+        const spiralStartRotate = 10;
+        const spiralBaseRotationRange = 290;
+        const spiralEndRotate =
+          spiralStartRotate - spiralBaseRotationRange * spiralScale;
+
+        if (spiralText) {
+          spiralText.style.setProperty("--spiral-start-y", `${spiralStartY}%`);
+          spiralText.style.setProperty("--spiral-end-y", `${spiralEndY}%`);
+          spiralText.style.setProperty(
+            "--spiral-start-rotate",
+            `${spiralStartRotate}deg`,
+          );
+          spiralText.style.setProperty(
+            "--spiral-end-rotate",
+            `${spiralEndRotate}deg`,
+          );
+        }
+
         spiralTextLis.forEach((li, index) => {
           li.style.setProperty("--delay", `${spiralTextLis.length}s`);
-          li.style.animationDelay = `${index}s`;
+          li.style.animationDelay = `-${index}s`;
         });
       }
 
-      // Ensure .info-copy-right > p exists
-      const infoCopyRightEl = document.querySelector(".info-copy-right > p");
-      if (infoCopyRightEl) {
-        let info_copy_right_year = new Date().getFullYear();
-        infoCopyRightEl.innerHTML = `${info_copy_right_year} © melke`;
+      if (spiralText) {
+        let spiralInViewport = false;
+        const SPIRAL_PREWARM_DISTANCE = 720;
+
+        function isMainPageActive() {
+          return window.portfolioPageState?.activePage === "main";
+        }
+
+        function isSpiralNearViewport() {
+          const rect = spiralText.getBoundingClientRect();
+          const viewportHeight =
+            window.innerHeight || document.documentElement.clientHeight;
+
+          return (
+            rect.top < viewportHeight + SPIRAL_PREWARM_DISTANCE &&
+            rect.bottom > -SPIRAL_PREWARM_DISTANCE
+          );
+        }
+
+        function updateSpiralAnimation() {
+          spiralText.classList.toggle(
+            "spiral-active",
+            (spiralInViewport || isSpiralNearViewport()) && isMainPageActive(),
+          );
+        }
+
+        if ("IntersectionObserver" in window) {
+          const spiralObserver = new IntersectionObserver(
+            (entries) => {
+              spiralInViewport = entries.some((entry) => entry.isIntersecting);
+              updateSpiralAnimation();
+            },
+            {
+              threshold: 0,
+              rootMargin: `${SPIRAL_PREWARM_DISTANCE}px 0px ${SPIRAL_PREWARM_DISTANCE}px 0px`,
+            },
+          );
+
+          spiralObserver.observe(spiralText);
+        } else {
+          spiralInViewport = true;
+          updateSpiralAnimation();
+        }
+
+        requestAnimationFrame(updateSpiralAnimation);
+
+        document.addEventListener("portfolio:pagechange", (event) => {
+          if (event.detail?.previousPage === "main") {
+            spiralText.classList.remove("spiral-active");
+          }
+        });
+
+        document.addEventListener("portfolio:pagerevealed", (event) => {
+          if (event.detail?.activePage === "main") {
+            spiralInViewport = isSpiralNearViewport();
+            updateSpiralAnimation();
+          }
+        });
       }
+
+      const infoCopyRightEls = document.querySelectorAll(".info-copy-right > p");
+      const infoCopyRightYear = new Date().getFullYear();
+      infoCopyRightEls.forEach((element) => {
+        element.textContent = `${infoCopyRightYear} © melke`;
+      });
+
+      (() => {
+        const finePointer = window.matchMedia(
+          "(hover: hover) and (pointer: fine)",
+        );
+        const MAX_DISTANCE = 130;
+        const MAX_OFFSET = 16;
+        const MAX_SCALE_GAIN = 0.65;
+
+        let magnetEnabled = false;
+        let magnetFrame = null;
+        let pointerX = 0;
+        let pointerY = 0;
+
+        function getActiveFooterLinks() {
+          return Array.from(
+            document.querySelectorAll(".page-active footer .info-socials a"),
+          );
+        }
+
+        function resetFooterLink(link) {
+          link.style.setProperty("--footer-magnet-x", "0px");
+          link.style.setProperty("--footer-magnet-y", "0px");
+          link.style.setProperty("--footer-icon-scale", "1");
+        }
+
+        function resetFooterMagnet() {
+          document
+            .querySelectorAll("footer .info-socials a")
+            .forEach(resetFooterLink);
+        }
+
+        function drawFooterMagnet() {
+          magnetFrame = null;
+
+          if (!finePointer.matches) {
+            resetFooterMagnet();
+            return;
+          }
+
+          const links = getActiveFooterLinks();
+          links.forEach((link) => {
+            const rect = link.getBoundingClientRect();
+            if (!rect.width || !rect.height) {
+              resetFooterLink(link);
+              return;
+            }
+
+            const centerX = rect.left + rect.width / 2;
+            const centerY = rect.top + rect.height / 2;
+            const distanceX = pointerX - centerX;
+            const distanceY = pointerY - centerY;
+            const distance = Math.hypot(distanceX, distanceY);
+
+            if (distance >= MAX_DISTANCE) {
+              resetFooterLink(link);
+              return;
+            }
+
+            const force = 1 - distance / MAX_DISTANCE;
+            const normalizedX = distance > 0.001 ? distanceX / distance : 0;
+            const normalizedY = distance > 0.001 ? distanceY / distance : 0;
+            const moveX = normalizedX * MAX_OFFSET * force;
+            const moveY = normalizedY * MAX_OFFSET * force;
+            const scale = 1 + MAX_SCALE_GAIN * force;
+
+            link.style.setProperty("--footer-magnet-x", `${moveX.toFixed(2)}px`);
+            link.style.setProperty("--footer-magnet-y", `${moveY.toFixed(2)}px`);
+            link.style.setProperty("--footer-icon-scale", scale.toFixed(3));
+          });
+        }
+
+        function requestFooterMagnetDraw() {
+          if (!magnetFrame) {
+            magnetFrame = requestAnimationFrame(drawFooterMagnet);
+          }
+        }
+
+        function handleFooterMagnetMove(event) {
+          pointerX = event.clientX;
+          pointerY = event.clientY;
+          requestFooterMagnetDraw();
+        }
+
+        function enableFooterMagnet() {
+          if (magnetEnabled || !finePointer.matches) return;
+          magnetEnabled = true;
+          document.addEventListener("pointermove", handleFooterMagnetMove, {
+            passive: true,
+          });
+          document.addEventListener("pointerleave", resetFooterMagnet);
+          window.addEventListener("blur", resetFooterMagnet);
+          document.addEventListener("portfolio:pagechange", resetFooterMagnet);
+        }
+
+        function disableFooterMagnet() {
+          if (!magnetEnabled) {
+            resetFooterMagnet();
+            return;
+          }
+
+          magnetEnabled = false;
+          document.removeEventListener("pointermove", handleFooterMagnetMove);
+          document.removeEventListener("pointerleave", resetFooterMagnet);
+          window.removeEventListener("blur", resetFooterMagnet);
+          document.removeEventListener("portfolio:pagechange", resetFooterMagnet);
+
+          if (magnetFrame) {
+            cancelAnimationFrame(magnetFrame);
+            magnetFrame = null;
+          }
+
+          resetFooterMagnet();
+        }
+
+        function syncFooterMagnetMode() {
+          if (finePointer.matches) {
+            enableFooterMagnet();
+          } else {
+            disableFooterMagnet();
+          }
+        }
+
+        syncFooterMagnetMode();
+        if (finePointer.addEventListener) {
+          finePointer.addEventListener("change", syncFooterMagnetMode);
+        } else {
+          finePointer.addListener(syncFooterMagnetMode);
+        }
+      })();
+    </script>
+
+    <script>
+      (() => {
+        function hideHintAfterInteraction(
+          hintSelector,
+          targetSelector,
+          events,
+        ) {
+          const hint = document.querySelector(hintSelector);
+          const target = document.querySelector(targetSelector);
+          if (!hint || !target) return;
+
+          const hideHint = () => {
+            hint.classList.add("interaction-hint-hidden");
+            events.forEach((eventName) => {
+              target.removeEventListener(eventName, hideHint);
+            });
+          };
+
+          events.forEach((eventName) => {
+            target.addEventListener(eventName, hideHint, {
+              passive: true,
+            });
+          });
+        }
+
+        hideHintAfterInteraction(".hero-reveal-hint", "#top-layer", [
+          "pointerenter",
+          "pointerdown",
+        ]);
+        hideHintAfterInteraction(".cube-drag-hint", ".cube", ["pointerdown"]);
+        hideHintAfterInteraction(".profile-photo-hint", ".image-bottom", [
+          "pointerenter",
+          "pointerdown",
+        ]);
+      })();
     </script>
 
     <script src="textrepellant.js"></script>
@@ -1319,7 +2536,6 @@
     <script src="image-animation.js"></script>
     <script src="game.js"></script>
     <script src="corners-animation.js"></script>
-    <script src="typing-animation.js"></script>
     <script src="hide-and-seek.js"></script>
     <script src="cube.js"></script>
   </body>

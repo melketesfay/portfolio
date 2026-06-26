@@ -1,81 +1,109 @@
-// aside aside_top_b
-let aside_top = document.querySelector(".inside-aside-top");
-let aside_top_t = document.querySelector(".aside-top-t");
-let aside_top_l = document.querySelector(".aside-top-l");
-let aside_top_r = document.querySelector(".aside-top-r");
-let aside_top_b = document.querySelector(".aside-top-b");
-// aside bottom
-let aside_bottom = document.querySelector(".inside-aside-bottom");
-let aside_bottom_t = document.querySelector(".aside-bottom-t");
-let aside_bottom_l = document.querySelector(".aside-bottom-l");
-let aside_bottom_r = document.querySelector(".aside-bottom-r");
-let aside_bottom_b = document.querySelector(".aside-bottom-b");
+(() => {
+  const asideTop = document.querySelector(".inside-aside-top");
+  const asideBottom = document.querySelector(".inside-aside-bottom");
+  const gameBtn = document.getElementById("btn");
+  const finePointer = window.matchMedia("(hover: hover) and (pointer: fine)");
 
-// game button
+  const topCorners = {
+    container: asideTop,
+    vertical: [
+      document.querySelector(".aside-top-l"),
+      document.querySelector(".aside-top-r"),
+    ],
+    horizontal: [
+      document.querySelector(".aside-top-t"),
+      document.querySelector(".aside-top-b"),
+    ],
+  };
+  const bottomCorners = {
+    container: asideBottom,
+    vertical: [
+      document.querySelector(".aside-bottom-l"),
+      document.querySelector(".aside-bottom-r"),
+    ],
+    horizontal: [
+      document.querySelector(".aside-bottom-t"),
+      document.querySelector(".aside-bottom-b"),
+    ],
+  };
 
-let gameBtn = document.getElementById("btn");
-
-aside_top.addEventListener("mouseenter", (event) => {
-  aside_top_r.style.cssText = aside_top_l.style.cssText = `
-
-height: 70px;
-
-`;
-  aside_top_b.style.cssText = aside_top_t.style.cssText = `
-
-width: 70px;
-
-`;
-});
-
-aside_bottom.addEventListener("mouseenter", (event) => {
-  aside_bottom_r.style.cssText = aside_bottom_l.style.cssText = `
-
-height: 70px;
-
-`;
-  aside_bottom_b.style.cssText = aside_bottom_t.style.cssText = `
-
-width: 70px;
-
-`;
-});
-
-aside_top.addEventListener("mouseleave", (event) => {
-  aside_top_r.style.height = aside_top_l.style.height = "0px";
-  aside_top_b.style.width = aside_top_t.style.width = "0px";
-});
-
-aside_bottom.addEventListener("mouseleave", (event) => {
-  aside_bottom_r.style.height = aside_bottom_l.style.height = "0px";
-  aside_bottom_b.style.width = aside_bottom_t.style.width = "0px";
-});
-
-gameBtn.addEventListener("change", (event) => {
-  if (toggle.checked) {
-    console.log("gameBtn checked");
-
-    aside_bottom_r.style.cssText = aside_bottom_l.style.cssText = `
-
-height: 70px;
-
-`;
-    aside_bottom_b.style.cssText = aside_bottom_t.style.cssText = `
-
-width: 70px;
-
-`;
-  } else {
-    console.log("gameBtn unchecked");
-    aside_bottom_r.style.cssText = aside_bottom_l.style.cssText = `
-
-height: 0px;
-
-`;
-    aside_bottom_b.style.cssText = aside_bottom_t.style.cssText = `
-
-width: 0px;
-
-`;
+  if (
+    !asideTop ||
+    !asideBottom ||
+    !gameBtn ||
+    topCorners.vertical.some((corner) => !corner) ||
+    topCorners.horizontal.some((corner) => !corner) ||
+    bottomCorners.vertical.some((corner) => !corner) ||
+    bottomCorners.horizontal.some((corner) => !corner)
+  ) {
+    return;
   }
-});
+
+  let flashTimer = 0;
+
+  function setCornerSize(corners, open) {
+    const verticalHeight = open ? "70px" : "0px";
+    const horizontalWidth = open ? "70px" : "0px";
+
+    corners.vertical.forEach((corner) => {
+      corner.style.height = verticalHeight;
+    });
+    corners.horizontal.forEach((corner) => {
+      corner.style.width = horizontalWidth;
+    });
+  }
+
+  function isHovered(element) {
+    return finePointer.matches && element.matches(":hover");
+  }
+
+  function settleCorners() {
+    setCornerSize(topCorners, isHovered(asideTop));
+    setCornerSize(bottomCorners, gameBtn.checked || isHovered(asideBottom));
+    asideTop.classList.remove("corner-game-flash");
+    asideBottom.classList.remove("corner-game-flash");
+  }
+
+  function flashGameCorners() {
+    if (!finePointer.matches) return;
+
+    clearTimeout(flashTimer);
+    setCornerSize(topCorners, true);
+    setCornerSize(bottomCorners, true);
+
+    asideTop.classList.remove("corner-game-flash");
+    asideBottom.classList.remove("corner-game-flash");
+    void asideTop.offsetWidth;
+    asideTop.classList.add("corner-game-flash");
+    asideBottom.classList.add("corner-game-flash");
+
+    flashTimer = window.setTimeout(settleCorners, 760);
+  }
+
+  asideTop.addEventListener("mouseenter", () => {
+    setCornerSize(topCorners, true);
+  });
+
+  asideTop.addEventListener("mouseleave", () => {
+    if (!asideTop.classList.contains("corner-game-flash")) {
+      setCornerSize(topCorners, false);
+    }
+  });
+
+  asideBottom.addEventListener("mouseenter", () => {
+    setCornerSize(bottomCorners, true);
+  });
+
+  asideBottom.addEventListener("mouseleave", () => {
+    if (
+      !gameBtn.checked &&
+      !asideBottom.classList.contains("corner-game-flash")
+    ) {
+      setCornerSize(bottomCorners, false);
+    }
+  });
+
+  gameBtn.addEventListener("change", () => {
+    flashGameCorners();
+  });
+})();
