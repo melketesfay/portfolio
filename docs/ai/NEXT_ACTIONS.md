@@ -15,6 +15,46 @@ Recommended implementation branches after this documentation branch:
 - `perf/cube-idle-loop`
 - `perf/final-performance-qa`
 
+
+## Large Display Layout Plan
+
+Status: postponed until after the alpha fallback is committed.
+
+Current decision:
+
+- Large displays use the stable laptop-width layout for alpha.
+- Do not reintroduce global `body` scaling.
+
+Observed large-display problems to solve later:
+
+- The site feels too narrow on very large monitors when capped at the laptop layout width.
+- Global scaling fixed the perceived size but broke fixed CRT overlays, pointer math, and game text measurement.
+- A first variable-based wide layout made the Main page closer, but still shifted key hero elements and is not ready to ship.
+
+Recommended branch:
+
+- `feat/wide-display-layout` or `fix/large-screen-layout`
+
+Planned approach:
+
+1. Capture visual baselines at laptop, 1920px, 2560px, and one ultra-wide/4K size.
+2. Keep laptop/mobile CSS as the source of truth; add wide rules only above a clear breakpoint.
+3. Replace the single `1200px` stage cap with page-specific wide layouts, not global transforms.
+4. Redesign the Main page grid deliberately: aside, hero, cube/projects, tools, and footer need explicit large-screen placement.
+5. Convert fragile magic offsets in the hero/title/backend layer to named CSS variables so top and bottom layers stay aligned.
+6. Verify the hide-and-seek spotlight after every wide-layout change, because pointer math depends on real element geometry.
+7. Verify game mode text overlay after every typography/layout change, because it measures rendered character positions.
+8. Widen About/Projects/Contact more conservatively: increase composition width while keeping text line lengths readable.
+9. Run final checks: CRT/noise/scan full viewport, page wave, spotlight, game toggle, footer, and no horizontal overflow.
+
+Acceptance criteria:
+
+- Large screens feel intentionally composed, not like a narrow laptop view floating in empty space.
+- No `body transform` or transformed page shell is used for layout scaling.
+- Main spotlight circle remains centered under the cursor.
+- CRT/noise/scan cover the full viewport.
+- Game mode does not shift or distort the real paragraph layout.
+
 ## Visual Model To Preserve
 
 - Retro CRT atmosphere: noise GIF, scanlines, dark purple/red/orange palette, glowing shadows, custom cursor.

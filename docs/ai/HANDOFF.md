@@ -135,3 +135,12 @@ Read AGENTS.md, docs/ai/HANDOFF.md, docs/ai/NEXT_ACTIONS.md, and docs/ai/DECISIO
 - [ ] Hidden/offscreen effects do not keep doing unnecessary work.
 - [ ] `docs/ai/NEXT_ACTIONS.md` status updated when relevant.
 - [ ] `docs/ai/DECISIONS.md` updated when scope or tradeoffs changed.
+
+## Current Session State: 2026-06-26 Large Display QA
+
+- Branch: `chore/predeploy-desktop-qa`.
+- Large-display testing exposed three regressions from the old global `body` scale hack: CRT/noise/scan covered only part of the page, the main hide-and-seek circle was offset from the mouse, and game-mode text layout became distorted.
+- The body transform was removed and CRT/noise/scan layers were pinned to the viewport with `100vw`, `100vh`, and `100dvh`. This restored correct behavior.
+- A quick controlled wide-screen expansion using CSS variables was tested, but the Main page still shifted enough that it should not be shipped.
+- Current alpha fallback: keep the stable laptop-width stage on large displays and handle true wide-display design in a later branch.
+- Untracked `logo.png` may exist locally; it was not part of this QA work and should not be added unless the user explicitly wants it.

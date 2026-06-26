@@ -244,3 +244,20 @@ Implication:
 
 - Current alpha uses Google Fonts because the site already depends on Google Fonts.
 - Before final launch, decide whether to self-host the Ethiopic font files for stronger consistency and fewer external dependencies.
+
+## 2026-06-26: No Global Body Scaling For Large Displays
+
+Decision:
+
+- Do not use `body { transform: scale(...) }` to enlarge the site on large displays.
+- Until a dedicated wide-display layout is implemented, large displays should use the stable laptop-width stage.
+
+Reason:
+
+- Global body transforms broke fixed CRT/noise/scan overlays, shifted pointer coordinates for the main hide-and-seek spotlight, and caused the game-mode text overlay to be measured/rendered inconsistently.
+- A quick wide-screen variable pass made the main page closer but still visibly shifted, so it should not ship as alpha.
+
+Implication:
+
+- Wide-screen support needs its own deliberate pass/branch with per-page layout rules, not a page-wide transform.
+- Keep the alpha fallback stable, even if it leaves empty space on very large monitors.
