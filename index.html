@@ -1499,6 +1499,15 @@
       const WAVE_USE_OVERLAY_FALLBACK =
         /safari/i.test(WAVE_UA) &&
         !/chrome|chromium|crios|fxios|edgios|android/i.test(WAVE_UA);
+      const WAVE_SAFARI_REAL_MASK_EXPERIMENT = true;
+      const WAVE_SUPPORTS_CSS_TILE_MASK =
+        typeof CSS !== "undefined" &&
+        typeof CSS.supports === "function" &&
+        CSS.supports("-webkit-mask-image", "linear-gradient(#000, #000)");
+      const WAVE_USE_REAL_WEBKIT_MASK =
+        WAVE_USE_OVERLAY_FALLBACK &&
+        WAVE_SAFARI_REAL_MASK_EXPERIMENT &&
+        WAVE_SUPPORTS_CSS_TILE_MASK;
       const WAVE_FALLBACK_BACKGROUNDS = {
         main: {
           image: "radial-gradient(var(--second), var(--main))",
@@ -1529,7 +1538,9 @@
       let activeAnimations = [];
       let animationFrameId = null;
       let waveOverlayFrameId = null;
+      let waveCssMaskFrameId = null;
       let activeWaveOverlay = null;
+      let activeCssMaskPage = null;
       let onAnimationsComplete = null;
       let isWaveTransitioning = false;
       let waveTargetPageSuffix = null;
@@ -1595,6 +1606,26 @@
         return movingForward ? "top-right" : "bottom-left";
       }
 
+      function clearCssTileMask(page) {
+        if (!page) return;
+
+        [
+          "mask-image",
+          "-webkit-mask-image",
+          "mask-size",
+          "-webkit-mask-size",
+          "mask-position",
+          "-webkit-mask-position",
+          "mask-repeat",
+          "-webkit-mask-repeat",
+          "mask-mode",
+          "-webkit-mask-mode",
+          "will-change",
+        ].forEach((property) => page.style.removeProperty(property));
+
+        if (activeCssMaskPage === page) activeCssMaskPage = null;
+      }
+
       function resetTransitionClasses() {
         Object.values(PAGE_MAP).forEach((page) => {
           if (!page) return;
@@ -1604,6 +1635,7 @@
             "page-transition-out",
             "page-mask-active",
           );
+          clearCssTileMask(page);
         });
       }
 
@@ -1620,9 +1652,16 @@
           cancelAnimationFrame(waveOverlayFrameId);
           waveOverlayFrameId = null;
         }
+        if (waveCssMaskFrameId) {
+          cancelAnimationFrame(waveCssMaskFrameId);
+          waveCssMaskFrameId = null;
+        }
         if (activeWaveOverlay) {
           activeWaveOverlay.remove();
           activeWaveOverlay = null;
+        }
+        if (activeCssMaskPage) {
+          clearCssTileMask(activeCssMaskPage);
         }
       }
 
@@ -1747,6 +1786,154 @@
           image: pageStyles.backgroundImage || "none",
           color: pageStyles.backgroundColor || "#000",
         };
+      }
+
+      function getVisibleWaveBox(page) {
+        const pageRect = page.getBoundingClientRect();
+        const viewportWidth = Math.max(
+          1,
+          window.innerWidth || document.documentElement.clientWidth,
+        );
+        const viewportHeight = Math.max(
+          1,
+          window.innerHeight || document.documentElement.clientHeight,
+        );
+
+        return {
+          width: Math.max(1, pageRect.width || viewportWidth),
+          height: viewportHeight,
+          top: Math.max(0, -pageRect.top),
+        };
+      }
+
+      function formatMaskOpacity(opacity) {
+        const clamped = Math.min(1, Math.max(0, opacity));
+        return clamped.toFixed(3).replace(/0+$/, "").replace(/\.$/, "");
+      }
+
+      function applyCssTileMask(page, tiles, waveBox) {
+        const maskImages = [];
+        const maskPositions = [];
+        const maskSizes = [];
+        const maskRepeats = [];
+        const maskModes = [];
+
+        tiles.forEach((tile) => {
+          const opacity = formatMaskOpacity(tile.opacity);
+          const left = Math.floor((tile.col * waveBox.width) / N_COLS);
+          const right = Math.ceil(((tile.col + 1) * waveBox.width) / N_COLS);
+          const top = Math.floor(
+            waveBox.top + (tile.row * waveBox.height) / N_ROWS,
+          );
+          const bottom = Math.ceil(
+            waveBox.top + ((tile.row + 1) * waveBox.height) / N_ROWS,
+          );
+
+          maskImages.push(
+            `linear-gradient(rgba(0, 0, 0, ${opacity}), rgba(0, 0, 0, ${opacity}))`,
+          );
+          maskPositions.push(`${left}px ${top}px`);
+          maskSizes.push(`${right - left}px ${bottom - top}px`);
+          maskRepeats.push("no-repeat");
+          maskModes.push("alpha");
+        });
+
+        page.style.setProperty(
+          "-webkit-mask-image",
+          maskImages.join(", "),
+          "important",
+        );
+        page.style.setProperty("mask-image", maskImages.join(", "), "important");
+        page.style.setProperty(
+          "-webkit-mask-position",
+          maskPositions.join(", "),
+          "important",
+        );
+        page.style.setProperty(
+          "mask-position",
+          maskPositions.join(", "),
+          "important",
+        );
+        page.style.setProperty(
+          "-webkit-mask-size",
+          maskSizes.join(", "),
+          "important",
+        );
+        page.style.setProperty("mask-size", maskSizes.join(", "), "important");
+        page.style.setProperty(
+          "-webkit-mask-repeat",
+          maskRepeats.join(", "),
+          "important",
+        );
+        page.style.setProperty(
+          "mask-repeat",
+          maskRepeats.join(", "),
+          "important",
+        );
+        page.style.setProperty(
+          "-webkit-mask-mode",
+          maskModes.join(", "),
+          "important",
+        );
+        page.style.setProperty("mask-mode", maskModes.join(", "), "important");
+        page.style.setProperty(
+          "will-change",
+          "-webkit-mask-image, mask-image",
+          "important",
+        );
+        activeCssMaskPage = page;
+      }
+
+      function animateCssTileMaskWave(page, origin, onComplete) {
+        const waveBox = getVisibleWaveBox(page);
+        const startTime = performance.now();
+        const tiles = [];
+
+        for (let row = 0; row < N_ROWS; row++) {
+          for (let col = 0; col < N_COLS; col++) {
+            tiles.push({
+              row,
+              col,
+              opacity: 1,
+              startTime:
+                startTime +
+                getTileDelayFactor(row, col, origin) * STAGGER_DELAY_MS,
+              duration: ANIMATION_DURATION_MS,
+            });
+          }
+        }
+
+        applyCssTileMask(page, tiles, waveBox);
+
+        function cssMaskLoop(currentTime) {
+          let stillAnimating = false;
+
+          tiles.forEach((tile) => {
+            if (currentTime < tile.startTime) {
+              stillAnimating = true;
+              return;
+            }
+
+            const progress = Math.min(
+              1,
+              (currentTime - tile.startTime) / tile.duration,
+            );
+            tile.opacity = 1 - progress;
+            if (progress < 1) stillAnimating = true;
+          });
+
+          applyCssTileMask(page, tiles, waveBox);
+
+          if (stillAnimating) {
+            waveCssMaskFrameId = requestAnimationFrame(cssMaskLoop);
+            return;
+          }
+
+          waveCssMaskFrameId = null;
+          if (onComplete) onComplete();
+        }
+
+        waveCssMaskFrameId = requestAnimationFrame(cssMaskLoop);
       }
 
       function animateFallbackWave(suffix, origin, onComplete) {
@@ -1896,6 +2083,34 @@
 
         isWaveTransitioning = true;
         waveTargetPageSuffix = targetPageSuffix;
+
+        if (WAVE_USE_REAL_WEBKIT_MASK) {
+          currentPage.classList.add(
+            "page-transition-page",
+            "page-transition-out",
+          );
+          targetPage.classList.add(
+            "page-transition-page",
+            "page-transition-in",
+          );
+          setActivePage(targetPageSuffix);
+
+          animateCssTileMaskWave(currentPage, waveOrigin, () => {
+            currentPage.classList.remove(
+              "page-transition-page",
+              "page-transition-out",
+            );
+            targetPage.classList.remove(
+              "page-transition-page",
+              "page-transition-in",
+            );
+            clearCssTileMask(currentPage);
+            isWaveTransitioning = false;
+            waveTargetPageSuffix = null;
+            dispatchPageRevealed(targetPageSuffix, currentPageSuffix);
+          });
+          return;
+        }
 
         if (WAVE_USE_OVERLAY_FALLBACK) {
           targetPage.classList.add(
