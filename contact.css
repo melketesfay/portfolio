@@ -33,7 +33,7 @@
 }
 
 .contact-page .container {
-    max-width: 1200px;
+    max-width: var(--page-max-width);
     min-height: inherit;
     margin: 0 auto;
     display: grid;

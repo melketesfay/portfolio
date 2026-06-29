@@ -15,6 +15,50 @@ Recommended implementation branches after this documentation branch:
 - `perf/cube-idle-loop`
 - `perf/final-performance-qa`
 
+
+## Large Display Layout Plan
+
+Status: alpha pass accepted, with two documented future polish items.
+
+Current decision:
+
+- Do not use global `body` scaling for large displays.
+- Alpha now uses scoped wide-display CSS variables/rules instead of a transformed page shell.
+- Main and About pages are visually accepted by the user for the alpha pass on laptop, mobile, and current large-display testing.
+
+Accepted alpha state:
+
+- Main page uses a variable-based wide layout for larger screens.
+- About page has a wide-display composition pass: larger city image, larger Tigrinya glyph, more balanced columns, and consistent text widths.
+- CRT/noise/scan overlays remain viewport-pinned; the earlier global scale regression must not return.
+
+Known future polish items:
+
+1. iPhone Safari still shows a slight frontend/backend skill overlay alignment difference in the Main hide-and-seek area. Android and iPhone Chrome are acceptable. For alpha, ignore the Safari-only imperfection. Future fix should be structural: put top and bottom skill lists on shared mobile layout anchors/grid cells instead of adding browser-specific margin/transform patches.
+2. On laptop/desktop Main page, the middle of the page still feels too empty. Future design pass should intentionally fill or recompose that area, possibly by moving the cube more centrally, letting the spiral text occupy more vertical space, or adding another purposeful middle element.
+
+Recommended future branches:
+
+- `fix/safari-skill-overlay` for the structural iPhone Safari skill alignment issue.
+- `feat/main-middle-composition` for the Main page middle-space redesign.
+
+Large-display rules for future work:
+
+1. Keep laptop/mobile CSS as the source of truth; add wide rules only above clear breakpoints.
+2. Do not reintroduce `body transform` or transformed page-shell scaling.
+3. Keep pointer math and the spotlight geometry tied to real element coordinates.
+4. Keep top and bottom hide-and-seek layers aligned through shared geometry where possible, not per-browser guesses.
+5. Verify game mode after typography/layout changes because it measures rendered character positions.
+6. Run final checks: CRT/noise/scan full viewport, page wave, spotlight, game toggle, footer, and no horizontal overflow.
+
+Acceptance criteria for a later full wide-display pass:
+
+- Large screens feel intentionally composed, not merely enlarged.
+- Main spotlight circle remains centered under the cursor.
+- CRT/noise/scan cover the full viewport.
+- Game mode does not shift or distort the real paragraph layout.
+- The Main middle area has a clear visual purpose instead of empty space.
+
 ## Visual Model To Preserve
 
 - Retro CRT atmosphere: noise GIF, scanlines, dark purple/red/orange palette, glowing shadows, custom cursor.

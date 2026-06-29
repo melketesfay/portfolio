@@ -14,17 +14,25 @@
     return toggle.checked;
   }
 
+  function getImageHeight() {
+    return `${Math.round(imageBottom.getBoundingClientRect().height)}px`;
+  }
+
+  function getImageWidth() {
+    return `${Math.round(imageBottom.getBoundingClientRect().width)}px`;
+  }
+
   function configureClip(clip, index) {
     clip.style.width = `${100 / clips.length}%`;
     clip.style.display = "block";
     clip.style.background = "var(--fg)";
     clip.style.backgroundPosition = `${index * (100 / (clips.length - 1))}% 0`;
-    clip.style.backgroundSize = "300px";
+    clip.style.backgroundSize = getImageWidth();
     clip.style.backgroundRepeat = "no-repeat";
     clip.style.position = "relative";
     clip.style.zIndex = "4";
     clip.style.flex = "0 0 auto";
-    clip.style.height = "250px";
+    clip.style.height = getImageHeight();
     clip.style.opacity = "1";
     clip.style.transition = "none";
     clip.style.borderRadius = "0";
@@ -33,7 +41,7 @@
   function resetClip(clip) {
     if (!clip) return;
 
-    clip.style.height = "250px";
+    clip.style.height = getImageHeight();
     clip.style.opacity = "1";
     clip.style.transition = "height 1.3s ease-in-out, opacity 1.3s ease-in-out";
     activeClips.delete(clip);
@@ -70,7 +78,7 @@
       clip.style.height = "0px";
       clip.style.opacity = "1";
     } else {
-      clip.style.height = "250px";
+      clip.style.height = getImageHeight();
       clip.style.opacity = "0";
     }
   }
@@ -175,6 +183,14 @@
     pointerActive = false;
     resetActiveClips();
   });
+
+  window.addEventListener(
+    "resize",
+    () => {
+      clips.forEach(configureClip);
+    },
+    { passive: true },
+  );
 
   toggle.addEventListener("change", applyMode);
   applyMode();

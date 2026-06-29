@@ -136,15 +136,13 @@
 
 .tools-left {
     flex: 2;
-    /* max-width: 300px; */
     font-family: Inter;
-    font-size: 1.3rem;
+    font-size: var(--main-copy-size);
 }
 
 .tools-left>h3 {
-    /* font-family: Inter;
-    font-size: 1.3rem; */
-    max-width: 300px;
+    max-width: var(--main-copy-width);
+    font-size: inherit;
     margin: auto;
 }
 

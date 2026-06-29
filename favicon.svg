@@ -1,0 +1,29 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" role="img" aria-label="MT">
+  <defs>
+    <radialGradient id="bg" cx="48%" cy="38%" r="74%">
+      <stop offset="0%" stop-color="#872341"/>
+      <stop offset="62%" stop-color="#1c0228"/>
+      <stop offset="100%" stop-color="#11021a"/>
+    </radialGradient>
+    <pattern id="scan" width="8" height="8" patternUnits="userSpaceOnUse">
+      <rect width="8" height="4" fill="rgba(255,255,255,0.055)"/>
+      <rect y="4" width="8" height="4" fill="rgba(0,0,0,0.12)"/>
+    </pattern>
+    <filter id="softGlow" x="-30%" y="-35%" width="160%" height="175%">
+      <feGaussianBlur stdDeviation="6" result="blur"/>
+      <feColorMatrix in="blur" type="matrix" values="1 0 0 0 0.94  0 0.45 0 0 0.22  0 0 0.35 0 0.10  0 0 0 0.62 0" result="glow"/>
+      <feMerge>
+        <feMergeNode in="glow"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+  </defs>
+  <rect width="512" height="512" rx="82" fill="url(#bg)"/>
+  <rect width="512" height="512" rx="82" fill="url(#scan)" opacity="0.58"/>
+  <g font-family="Arial Black, Kanit, Impact, sans-serif" font-size="292" font-weight="900" letter-spacing="-30" text-anchor="middle" filter="url(#softGlow)">
+    <text x="258" y="367" fill="#11021a" opacity="0.62" transform="translate(14 24)">MT</text>
+    <text x="258" y="367" fill="#872341" transform="translate(8 12)">MT</text>
+    <text x="258" y="367" fill="#f05941">MT</text>
+    <text x="258" y="367" fill="none" stroke="#be3144" stroke-width="3" opacity="0.52">MT</text>
+  </g>
+</svg>

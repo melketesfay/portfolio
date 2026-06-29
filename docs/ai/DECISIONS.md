@@ -244,3 +244,41 @@ Implication:
 
 - Current alpha uses Google Fonts because the site already depends on Google Fonts.
 - Before final launch, decide whether to self-host the Ethiopic font files for stronger consistency and fewer external dependencies.
+
+## 2026-06-26: No Global Body Scaling For Large Displays
+
+Decision:
+
+- Do not use `body { transform: scale(...) }` to enlarge the site on large displays.
+- Until a dedicated wide-display layout is implemented, large displays should use the stable laptop-width stage.
+
+Reason:
+
+- Global body transforms broke fixed CRT/noise/scan overlays, shifted pointer coordinates for the main hide-and-seek spotlight, and caused the game-mode text overlay to be measured/rendered inconsistently.
+- A quick wide-screen variable pass made the main page closer but still visibly shifted, so it should not ship as alpha.
+
+Implication:
+
+- Wide-screen support needs its own deliberate pass/branch with per-page layout rules, not a page-wide transform.
+- Keep the alpha fallback stable, even if it leaves empty space on very large monitors.
+
+## 2026-06-29: Alpha Ships With Known Visual Residuals
+
+Decision:
+
+- Ship the alpha with the current Main/About/Projects/Contact/Mobile visuals accepted by the user.
+- Accept the small iPhone Safari-specific frontend/backend skill overlay shift in the Main hide-and-seek area for alpha.
+- Accept that the Main page middle area still needs a stronger future desktop composition.
+
+Reason:
+
+- The user smoke-tested the site across the relevant current devices and considers all major sections satisfactory for alpha.
+- Safari-only margin/transform patches did not reliably fix the skill overlay and risk adding fragile browser-specific CSS.
+- The middle-space issue is a design composition task, not an alpha blocker.
+
+Implication:
+
+- Do not delay alpha deploy for the minor iPhone Safari skill overlay mismatch.
+- Future skill alignment work should be structural, using shared top/bottom layer anchors or grid cells rather than browser-specific offsets.
+- Future Main desktop polish should focus on the central composition, such as cube placement, spiral text reach, or another intentional middle element.
+- Keep the no-global-body-scaling rule.
