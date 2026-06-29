@@ -97,6 +97,18 @@ See `docs/ai/DECISIONS.md` for the canonical decision log.
 - Tigrinya/Ethiopic characters now use explicit `Abyssinica SIL` via Google Fonts for a more characterful serif rendering across browsers/devices. Later final-launch polish may self-host the font files if desired.
 - Still required before deploy: user visual acceptance of the Contact palette and Mobile Page/nav via user-shared screenshots or the user's live browser view, plus the concrete deploy target/workflow. No deploy script/config exists in this folder yet.
 
+## Current Session State: 2026-06-29 Alpha Candidate
+
+- Branch: `chore/predeploy-desktop-qa`.
+- User has been smoke-testing continuously on mobile, laptop, and a larger desktop display. All major parts are considered satisfactory for the alpha deploy.
+- Main page large-display variables are accepted for alpha, including the final `TESFAY` offset and laptop/mobile-specific hide-and-seek alignment tweaks.
+- About page large-display composition is accepted for alpha after increasing the city image, Tigrinya glyph, column balance, and text widths.
+- Profile strip reveal now reads dimensions from the rendered image so the strip effect works with responsive/wide image sizes.
+- The Main page body text blocks now share the same `--main-copy-size` and width variables.
+- Known alpha residual: iPhone Safari still shows a slight frontend/backend skill overlay misalignment in the Main hide-and-seek area. Android and iPhone Chrome are acceptable. Do not keep trying Safari-only margin/UA patches for alpha; solve it later structurally with shared mobile anchors/grid cells.
+- Known future design task: the Main page middle area on laptop/desktop feels too empty. Future pass may move the cube more centrally, extend the spiral text upward, or add another purposeful element.
+- Next step: commit the alpha QA/layout changes, merge to `main`, deploy alpha, then start a new short-lived branch for any post-alpha polish.
+
 ## Known Hotspots To Inspect First
 
 - `hide-and-seek.js`: always-running RAF and moving `clip-path`.

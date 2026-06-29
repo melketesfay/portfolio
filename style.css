@@ -5,11 +5,12 @@
   --fourth: #f05941;
   --fifth: #1a0622;
   --text-shadow: #11021a;
-  --ethiopic-font: "Abyssinica SIL", "Noto Serif Ethiopic", "Noto Sans Ethiopic", serif;
+  --ethiopic-font:
+    "Abyssinica SIL", "Noto Serif Ethiopic", "Noto Sans Ethiopic", serif;
 
   /* toogle button */
 
-  --sz: 1.1vmax;
+  --sz: clamp(0.5rem, 1.1vmax, 0.7rem);
   --on: #03a9f4;
   --of: #fff0;
   --gr: #666666;
@@ -31,6 +32,74 @@
   --main-hidden-line-height: 4rem;
   --main-copy-width: 300px;
   --main-copy-size: 1.6rem;
+  --main-name-first-offset: 10rem;
+  --main-name-last-offset: 12.15rem;
+  --main-ethiopic-top-offset: 2rem;
+  --main-nachname-tigrigna-left-offset: -3rem;
+  --main-aside-top-margin: 4rem;
+  --main-main-top-margin: 4rem;
+  --main-aside-copy-margin: 2rem;
+  --main-skill-size: 1.5rem;
+  --main-image-title-size: 2rem;
+}
+
+@media screen and (min-width: 1500px) and (min-height: 760px) {
+  :root {
+    --page-max-width: min(92vw, 1900px);
+    --main-profile-width: clamp(300px, 18vw, 430px);
+    --main-profile-height: clamp(250px, 15vw, 358px);
+    --main-name-size: clamp(6rem, 6.45vw, 8.6rem);
+    --main-name-line-height: calc(var(--main-name-size) * 0.83);
+    --main-hidden-size: clamp(4rem, 4.15vw, 5.75rem);
+    --main-hidden-line-height: calc(var(--main-hidden-size) * 0.96);
+    --main-copy-width: clamp(300px, 20vw, 430px);
+    --main-copy-size: clamp(1.6rem, 1.28vw, 1.95rem);
+    --main-name-first-offset: clamp(10rem, 10.2vw, 13.8rem);
+    --main-name-last-offset: 17.5rem;
+    --main-ethiopic-top-offset: clamp(2rem, 2.05vw, 2.85rem);
+    --main-aside-top-margin: clamp(4rem, 4.2vw, 6rem);
+    --main-main-top-margin: clamp(4rem, 3.8vw, 5.5rem);
+    --main-aside-copy-margin: clamp(2rem, 2.25vw, 3.25rem);
+    --main-skill-size: clamp(1.5rem, 1.55vw, 2.05rem);
+    --main-image-title-size: clamp(2rem, 1.8vw, 2.8rem);
+  }
+
+  .container {
+    grid-template-columns: repeat(5, minmax(0, 1fr));
+    padding: clamp(10px, 1vw, 18px);
+  }
+
+  .main-page .inside-aside {
+    margin-top: var(--main-aside-top-margin);
+  }
+
+  .main-page main {
+    margin-top: var(--main-main-top-margin);
+  }
+
+  .main-page .frontEnd,
+  .main-page .backEnd {
+    gap: clamp(1rem, 1.2vw, 2rem);
+  }
+
+  .main-page .frontEnd h2,
+  .main-page .backEnd h2 {
+    font-size: var(--main-skill-size);
+    line-height: 1.16;
+    white-space: nowrap;
+  }
+
+  .main-page .jobTitle {
+    margin-left: -10rem;
+  }
+
+  .main-page .backEnd > div:first-child {
+    margin-top: 1.2rem;
+  }
+
+  .main-page .image-title {
+    font-size: var(--main-image-title-size);
+  }
 }
 
 * {
@@ -404,7 +473,7 @@ aside {
   flex-direction: column;
   align-items: center;
 
-  margin-top: 4rem;
+  margin-top: var(--main-aside-top-margin);
 }
 
 .inside-aside-top > span {
@@ -698,7 +767,7 @@ label[for="btn"] {
 
 .image-title {
   width: 100%;
-  font-size: 2rem;
+  font-size: var(--main-image-title-size);
   margin: 0;
   align-self: center;
   justify-self: center;
@@ -737,19 +806,27 @@ label[for="btn"] {
   inset: 0.42rem;
   z-index: 8;
   background:
-    linear-gradient(var(--fourth), var(--fourth)) left top / 2.35rem 2px no-repeat,
-    linear-gradient(var(--fourth), var(--fourth)) left top / 2px 2.35rem no-repeat,
-    linear-gradient(var(--fourth), var(--fourth)) right top / 2.35rem 2px no-repeat,
-    linear-gradient(var(--fourth), var(--fourth)) right top / 2px 2.35rem no-repeat,
-    linear-gradient(var(--fourth), var(--fourth)) left bottom / 2.35rem 2px no-repeat,
-    linear-gradient(var(--fourth), var(--fourth)) left bottom / 2px 2.35rem no-repeat,
-    linear-gradient(var(--fourth), var(--fourth)) right bottom / 2.35rem 2px no-repeat,
-    linear-gradient(var(--fourth), var(--fourth)) right bottom / 2px 2.35rem no-repeat;
+    linear-gradient(var(--fourth), var(--fourth)) left top / 2.35rem 2px
+      no-repeat,
+    linear-gradient(var(--fourth), var(--fourth)) left top / 2px 2.35rem
+      no-repeat,
+    linear-gradient(var(--fourth), var(--fourth)) right top / 2.35rem 2px
+      no-repeat,
+    linear-gradient(var(--fourth), var(--fourth)) right top / 2px 2.35rem
+      no-repeat,
+    linear-gradient(var(--fourth), var(--fourth)) left bottom / 2.35rem 2px
+      no-repeat,
+    linear-gradient(var(--fourth), var(--fourth)) left bottom / 2px 2.35rem
+      no-repeat,
+    linear-gradient(var(--fourth), var(--fourth)) right bottom / 2.35rem 2px
+      no-repeat,
+    linear-gradient(var(--fourth), var(--fourth)) right bottom / 2px 2.35rem
+      no-repeat;
   opacity: 0.74;
 }
 
 .inside-aside-bottom {
-  margin-top: 2rem;
+  margin-top: var(--main-aside-copy-margin);
   max-width: var(--main-copy-width);
   max-height: min-content;
   position: relative;
@@ -956,7 +1033,7 @@ label[for="btn"] {
 
 main {
   grid-area: main;
-  margin-top: 4rem;
+  margin-top: var(--main-main-top-margin);
 
   display: flex;
   flex-direction: column;
@@ -1052,7 +1129,7 @@ main {
 }
 
 #down-layer.is-mobile-lens .backEnd > div:first-child {
-  transform: translate3d(-39.85px, 4px, 0);
+  margin: 3rem auto 0;
 }
 
 #down-layer.is-mobile-lens #down-layer-content,
@@ -1197,7 +1274,7 @@ main {
   margin: 0px;
   text-align: center;
 
-  padding-right: 10rem;
+  padding-right: var(--main-name-first-offset);
   max-width: fit-content;
 
   font-family: "Kanit", sans-serif;
@@ -1212,7 +1289,7 @@ main {
   margin: 0px;
   text-align: center;
 
-  padding-left: 12.15rem;
+  padding-left: var(--main-name-last-offset);
   max-width: fit-content;
   font-family: "Kanit", sans-serif;
   font-weight: 950;
@@ -1250,7 +1327,7 @@ main {
 
 .name-tigrigna h1 {
   padding: 0;
-  margin: 2rem 0 0 0;
+  margin: var(--main-ethiopic-top-offset) 0 0 0;
 }
 
 .nachname-tigrigna {
@@ -1263,7 +1340,8 @@ main {
 
 .nachname-tigrigna h1 {
   padding: 0;
-  margin: 2rem 0 0 0;
+  margin: var(--main-ethiopic-top-offset) 0 0
+    var(--main-nachname-tigrigna-left-offset);
 }
 
 .name-tigrigna svg {
@@ -1893,6 +1971,12 @@ footer a:hover {
     flex-direction: column;
     align-items: center;
     gap: 1rem;
+  }
+
+  .frontEnd > div:first-child,
+  .backEnd > div:first-child {
+    width: min(20rem, calc(100vw - 3rem));
+    text-align: left;
   }
 
   .backEnd {

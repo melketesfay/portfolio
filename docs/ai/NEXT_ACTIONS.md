@@ -18,42 +18,46 @@ Recommended implementation branches after this documentation branch:
 
 ## Large Display Layout Plan
 
-Status: postponed until after the alpha fallback is committed.
+Status: alpha pass accepted, with two documented future polish items.
 
 Current decision:
 
-- Large displays use the stable laptop-width layout for alpha.
-- Do not reintroduce global `body` scaling.
+- Do not use global `body` scaling for large displays.
+- Alpha now uses scoped wide-display CSS variables/rules instead of a transformed page shell.
+- Main and About pages are visually accepted by the user for the alpha pass on laptop, mobile, and current large-display testing.
 
-Observed large-display problems to solve later:
+Accepted alpha state:
 
-- The site feels too narrow on very large monitors when capped at the laptop layout width.
-- Global scaling fixed the perceived size but broke fixed CRT overlays, pointer math, and game text measurement.
-- A first variable-based wide layout made the Main page closer, but still shifted key hero elements and is not ready to ship.
+- Main page uses a variable-based wide layout for larger screens.
+- About page has a wide-display composition pass: larger city image, larger Tigrinya glyph, more balanced columns, and consistent text widths.
+- CRT/noise/scan overlays remain viewport-pinned; the earlier global scale regression must not return.
 
-Recommended branch:
+Known future polish items:
 
-- `feat/wide-display-layout` or `fix/large-screen-layout`
+1. iPhone Safari still shows a slight frontend/backend skill overlay alignment difference in the Main hide-and-seek area. Android and iPhone Chrome are acceptable. For alpha, ignore the Safari-only imperfection. Future fix should be structural: put top and bottom skill lists on shared mobile layout anchors/grid cells instead of adding browser-specific margin/transform patches.
+2. On laptop/desktop Main page, the middle of the page still feels too empty. Future design pass should intentionally fill or recompose that area, possibly by moving the cube more centrally, letting the spiral text occupy more vertical space, or adding another purposeful middle element.
 
-Planned approach:
+Recommended future branches:
 
-1. Capture visual baselines at laptop, 1920px, 2560px, and one ultra-wide/4K size.
-2. Keep laptop/mobile CSS as the source of truth; add wide rules only above a clear breakpoint.
-3. Replace the single `1200px` stage cap with page-specific wide layouts, not global transforms.
-4. Redesign the Main page grid deliberately: aside, hero, cube/projects, tools, and footer need explicit large-screen placement.
-5. Convert fragile magic offsets in the hero/title/backend layer to named CSS variables so top and bottom layers stay aligned.
-6. Verify the hide-and-seek spotlight after every wide-layout change, because pointer math depends on real element geometry.
-7. Verify game mode text overlay after every typography/layout change, because it measures rendered character positions.
-8. Widen About/Projects/Contact more conservatively: increase composition width while keeping text line lengths readable.
-9. Run final checks: CRT/noise/scan full viewport, page wave, spotlight, game toggle, footer, and no horizontal overflow.
+- `fix/safari-skill-overlay` for the structural iPhone Safari skill alignment issue.
+- `feat/main-middle-composition` for the Main page middle-space redesign.
 
-Acceptance criteria:
+Large-display rules for future work:
 
-- Large screens feel intentionally composed, not like a narrow laptop view floating in empty space.
-- No `body transform` or transformed page shell is used for layout scaling.
+1. Keep laptop/mobile CSS as the source of truth; add wide rules only above clear breakpoints.
+2. Do not reintroduce `body transform` or transformed page-shell scaling.
+3. Keep pointer math and the spotlight geometry tied to real element coordinates.
+4. Keep top and bottom hide-and-seek layers aligned through shared geometry where possible, not per-browser guesses.
+5. Verify game mode after typography/layout changes because it measures rendered character positions.
+6. Run final checks: CRT/noise/scan full viewport, page wave, spotlight, game toggle, footer, and no horizontal overflow.
+
+Acceptance criteria for a later full wide-display pass:
+
+- Large screens feel intentionally composed, not merely enlarged.
 - Main spotlight circle remains centered under the cursor.
 - CRT/noise/scan cover the full viewport.
 - Game mode does not shift or distort the real paragraph layout.
+- The Main middle area has a clear visual purpose instead of empty space.
 
 ## Visual Model To Preserve
 

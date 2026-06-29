@@ -382,6 +382,49 @@
   /* Add space between words */
 }
 
+@media screen and (min-width: 1500px) and (min-height: 760px) {
+  .about-page-main {
+    gap: clamp(3rem, 4.2vw, 5rem);
+    margin-top: clamp(2rem, 2.8vw, 3.5rem);
+    padding-inline: clamp(4rem, 5.5vw, 7rem);
+  }
+
+  .about-page-main-top {
+    grid-template-columns: minmax(30rem, 0.95fr) minmax(38rem, 1.05fr);
+    gap: clamp(4rem, 7vw, 8rem);
+  }
+
+  .about-page-main-top-image {
+    width: min(100%, 43rem);
+  }
+
+  .about-page-main-bottom {
+    grid-template-columns: minmax(30rem, 0.95fr) minmax(38rem, 1.05fr);
+    gap: clamp(2.75rem, 4vw, 4.75rem) clamp(4rem, 7vw, 8rem);
+  }
+
+  .about-page-main-bottom-image {
+    width: clamp(24rem, 29vw, 35rem);
+    min-height: clamp(16rem, 20vw, 24rem);
+  }
+
+  .about-page-main-bottom-image h1 {
+    font-size: clamp(26rem, 31vw, 36rem);
+  }
+
+  .about-page-main .about-statement {
+    font-size: clamp(4.25rem, 4.2vw, 5.45rem);
+  }
+
+  .about-page-main .about-lead,
+  .about-page-main .about-detail,
+  .about-page-main .about-personal {
+    max-width: 42ch;
+    font-size: clamp(1.5rem, 1.16vw, 1.78rem);
+    line-height: 1.22;
+  }
+}
+
 @media screen and (max-width: 900px) {
   .about-page .container {
     width: 100%;
