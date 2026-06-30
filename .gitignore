@@ -16,3 +16,8 @@ Thumbs.db
 lighthouse-reports/
 performance-traces/
 screenshots/performance/
+
+# Local AI/project planning notes
+AGENTS.md
+PROJECT-ROADMAP.md
+docs/ai/
