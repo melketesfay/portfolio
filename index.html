@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en">
+<html lang="en" class="is-preloading">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -36,6 +36,138 @@
 
     <title>MELKE TESFAY - Portfolio</title>
     <style>
+      .is-preloading body {
+        overflow: hidden;
+      }
+
+      .site-loader {
+        position: fixed;
+        inset: 0;
+        z-index: 10000;
+        display: grid;
+        place-items: center;
+        background:
+          repeating-linear-gradient(
+            0deg,
+            rgba(255, 255, 255, 0.035) 0 1px,
+            rgba(0, 0, 0, 0.08) 1px 4px
+          ),
+          radial-gradient(circle at 48% 38%, #872341 0%, #1c0228 58%, #11021a 100%);
+        color: #f05941;
+        opacity: 1;
+        visibility: visible;
+        transition:
+          opacity 420ms ease,
+          visibility 420ms ease;
+      }
+
+      html:not(.is-preloading) .site-loader {
+        opacity: 0;
+        visibility: hidden;
+        pointer-events: none;
+      }
+
+      .site-loader__mark {
+        position: relative;
+        display: grid;
+        place-items: center;
+        width: clamp(7rem, 18vw, 12rem);
+        aspect-ratio: 1;
+        border: 1px solid rgba(240, 89, 65, 0.4);
+        border-radius: 0.65rem;
+        box-shadow:
+          0.45rem 0.55rem 0 rgba(17, 2, 26, 0.42),
+          0 0 2rem rgba(240, 89, 65, 0.22);
+        font-family: "Kanit", "Arial Black", sans-serif;
+        font-size: clamp(4rem, 10vw, 7rem);
+        font-weight: 900;
+        letter-spacing: -0.13em;
+        text-shadow:
+          0.08em 0.1em 0 #872341,
+          0 0 0.55rem rgba(240, 89, 65, 0.62);
+      }
+
+      .site-loader__mark::before,
+      .site-loader__mark::after {
+        content: "";
+        position: absolute;
+        pointer-events: none;
+      }
+
+      .site-loader__mark::before {
+        inset: -0.45rem;
+        background:
+          linear-gradient(#f05941, #f05941) left top / 2.2rem 2px no-repeat,
+          linear-gradient(#f05941, #f05941) left top / 2px 2.2rem no-repeat,
+          linear-gradient(#f05941, #f05941) right bottom / 2.2rem 2px no-repeat,
+          linear-gradient(#f05941, #f05941) right bottom / 2px 2.2rem no-repeat;
+        opacity: 0.72;
+      }
+
+      .site-loader__mark::after {
+        left: 12%;
+        right: 12%;
+        bottom: 14%;
+        height: 2px;
+        background: currentColor;
+        box-shadow: 0 0 0.85rem currentColor;
+        animation: site-loader-scan 1.05s ease-in-out infinite alternate;
+      }
+
+      @keyframes site-loader-scan {
+        from {
+          transform: translateY(-2.9rem);
+          opacity: 0.3;
+        }
+
+        to {
+          transform: translateY(0.65rem);
+          opacity: 0.9;
+        }
+      }
+
+      @media (prefers-reduced-motion: reduce) {
+        .site-loader,
+        .site-loader__mark::after {
+          transition: none;
+          animation: none;
+        }
+      }
+    </style>
+    <noscript>
+      <style>
+        .site-loader {
+          display: none !important;
+        }
+      </style>
+    </noscript>
+    <script>
+      (() => {
+        const startedAt = performance.now();
+        let finished = false;
+
+        function finishPreload() {
+          if (finished) return;
+          finished = true;
+
+          const elapsed = performance.now() - startedAt;
+          const delay = Math.max(0, 650 - elapsed);
+
+          window.setTimeout(() => {
+            document.documentElement.classList.remove("is-preloading");
+          }, delay);
+        }
+
+        if (document.readyState === "complete") {
+          finishPreload();
+        } else {
+          window.addEventListener("load", finishPreload, { once: true });
+        }
+
+        window.setTimeout(finishPreload, 5000);
+      })();
+    </script>
+    <style>
       /* Add new CSS for mask rects here or in style.css/pages.css */
       svg defs mask rect {
         /* Opacity is controlled by JS */
@@ -47,6 +179,9 @@
   </head>
 
   <body>
+    <div class="site-loader" role="status" aria-label="Loading portfolio">
+      <div class="site-loader__mark" aria-hidden="true">MT</div>
+    </div>
     <div class="noise" aria-hidden="true"></div>
     <div class="noise-overlay" aria-hidden="true"></div>
     <div class="main-page page-active">
