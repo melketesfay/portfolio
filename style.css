@@ -875,7 +875,7 @@ label[for="btn"] {
   color: inherit;
   font: inherit;
   line-height: inherit;
-  vertical-align: baseline;
+  /* vertical-align: baseline; */
   transform: translate3d(0, 0, 0);
   transform-origin: center;
   transition:

@@ -1,36 +1,53 @@
-# PORTFOLIO
+# Melke Tesfay Portfolio
 
-**APP IDEAS**
+A custom personal portfolio built with plain HTML, CSS, and JavaScript.
 
-- Upload pdf and type the text to memorize your text better
-- Conway rule of life
-- Schweiz svg map and Data with d3js
-- Good website layout (carousel, card hover reansform 3d effect, border light animation)
-- Schach
-- see live attcks on the server on a globe with Threejs
-- CV
-- CV-Generator
-- Wissenschaftliche animationen (z.b chaotischer pendel,fraktal (tree, mandelbrot))
-- Mathematik library (differential gleichung solver)
-- Processor nachbau (8-bit oder weniger transistoren->logic gates ->zusammenbau)
-- 2D and 3D plotter
-- QR code generator
-- Sudoku Solver
-- make pixel graphics out of normal photos
-- personal haushalt(ausgaben/eingaben) manegement mit graph darstellungen
-- radio
-- designer style web-layout black and white (grain background and text,parallax, scrolling effect, moving text)
-- quiz app (with ability to create quizs and share them with qr code)
-- rezepte aus rabbatt anzeigen app
-- 3D portfolio with sentinel, each arm shows/moves a page to viewport
+This project is intentionally browser-native. It does not use a frontend framework, animation library, or build step. The site is designed to show interactive frontend craft directly in the source: layered page transitions, a hide-and-seek hero reveal, image strip interactions, a draggable 3D project cube, animated technology text, and custom page themes.
 
-![alt text](profile_b&w.jpg)
+## Status
 
-i run and administer my own servers
-am for minimalism and low dependency
-in terests for cyber security and computer networking
-i love technology and playing with computers
-plex,vpn,ftp and cloud
-irgendwann will ich meinen eigenen homeserver worauf alle meine services laufen
+Alpha release candidate.
 
-i am interested in minimalistic design and no-framework approach.
+The current version is focused on visual identity, responsive behavior, and a complete first deploy. Performance and SEO are planned as a dedicated follow-up sprint.
+
+## Features
+
+- Retro CRT-inspired visual system with custom colors, glow, scanline/noise atmosphere, and custom cursor.
+- Single-page section navigation with rectangular wave transitions.
+- Main hero with a circular reveal that exposes a hidden backend/full-stack layer.
+- Responsive profile image strip reveal.
+- Draggable 3D cube for project discovery.
+- Animated technology spiral.
+- About page with Zurich/Asmara image reveal and personal story content.
+- Projects page with concrete project directions and infrastructure/security focus.
+- Contact page with email, GitHub, CodePen, and Mastodon links.
+- Mobile navigation page with animated hamburger state and elastic nav item entry.
+
+## Tech Stack
+
+- HTML
+- CSS
+- Vanilla JavaScript
+- Font Awesome
+- Google Fonts
+
+No framework, bundler, or runtime dependency is required.
+
+## Local Development
+
+Open `index.html` directly or serve the folder with a static server.
+
+During development I usually use VS Code Live Server:
+
+```sh
+# Example local port used during development
+5500
+```
+
+## Project Notes
+
+This repository contains the public website source. Internal planning, Codex handoff files, and private working notes are intentionally kept out of the public repo.
+
+## License
+
+See `LICENSE.txt`.
